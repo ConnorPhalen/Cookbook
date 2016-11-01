@@ -1,6 +1,6 @@
 ﻿body {
     padding-top: 50px;
-    padding-bottom: 20px;
+    background-color: #EEEEEE;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -16,3 +16,23 @@ textarea {
     max-width: 280px;
 }
 
+#logo {
+    width: 60px;
+    height: 60px;
+    margin-top:-10px;
+}
+
+/* Reset header color*/
+.navbar-inverse { background-color: #1A2930; }
+
+footer{
+    background: #1A2930;
+    color: #eee;
+    font-size: 11px;
+    padding: 20px;
+}
+
+ul.unstyled{
+    list-style: none;
+    padding: 0;
+}
