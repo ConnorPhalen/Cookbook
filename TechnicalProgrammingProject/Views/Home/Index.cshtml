@@ -15,7 +15,7 @@
             @Html.DisplayFor(modelItem => recipe.Name)
         </h3>
 
-        <a href=@Url.Action("Details/" + recipe.RecipeID.ToString(), "Recipes", recipe.RecipeID) > 
+        <a href=@Url.Action("Details/" + recipe.RecipeID.ToString(), "Recipes") > 
             <img src=@Html.DisplayFor(modelItemm => recipe.ImageURL)>
         </a>
         <p>

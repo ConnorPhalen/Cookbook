@@ -60,5 +60,24 @@
             @Html.DisplayFor(model => model.Rating)
         </dd>
 
-    </dl>
+        <dt>
+            Ingredients
+        </dt>
+
+        <dd>
+
+            @foreach (var ingredient in Model.Ingredients)
+            {
+                <p>
+                    @Html.DisplayFor(modelItemm => ingredient.Name)
+                    <br />
+                    @Html.DisplayFor(modelItemm => ingredient.Quantity) : 
+                    @Html.DisplayFor(modelItemm => ingredient.Unit)
+                    <br />
+                    <br />
+                </p>
+            }
+
+        </dd>
+</dl>
 </div>
