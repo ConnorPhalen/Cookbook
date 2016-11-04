@@ -20,6 +20,20 @@ namespace TechnicalProgrammingProject.Controllers
             return View(db.Recipes.ToList());
         }
 
+        /// <summary>
+        /// Display the values for the specific recipe
+        /// </summary>
+        /// <param name="recipeID"> The ID of a single recipe to be displayed </param>
+        /// <returns> The view info for a single recipe </returns>
+        public ActionResult DisplayRecipe(int id)
+        {
+            // Display the values for the specific recipe
+
+
+            Recipe recipe = db.Recipes.Find(id);
+            return View(recipe);
+        }
+
         // GET: Recipes/Details/5
         public ActionResult Details(int? id)
         {
