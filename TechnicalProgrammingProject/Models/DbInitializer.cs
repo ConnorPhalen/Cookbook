@@ -34,7 +34,7 @@ namespace TechnicalProgrammingProject.Models
             var ingredient = new List<Ingredient>
                 {
                     new Ingredient { RecipeID = context.Recipes.Find(1).RecipeID, Name = "Chicken", Quantity=6, Unit = "Oz" },
-                    new Ingredient { RecipeID = context.Recipes.Find(1).RecipeID, Name = "Beef", Quantity=4, Unit = "Lbs" }
+                    new Ingredient { RecipeID = context.Recipes.Find(2).RecipeID, Name = "Beef", Quantity=4, Unit = "Lbs" }
                 };
 
             ingredient.ForEach(i => context.Ingredients.Add(i));
