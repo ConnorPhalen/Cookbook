@@ -12,7 +12,7 @@ namespace TechnicalProgrammingProject.Controllers
 {
     public class CookbooksController : Controller
     {
-        private RepositoryDbContext db = new RepositoryDbContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Cookbooks
         public ActionResult Index()

@@ -28,8 +28,7 @@
                     <li>@Html.ActionLink("Cookbook", "Index", "Cookbooks")</li>
                 </ul>
                 <ul class="nav navbar-nav pull-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span>@Html.Partial("_LoginPartial")</a></li>
                 </ul>
             </div>
         </div>
