@@ -1,75 +1,19 @@
-﻿@model IEnumerable<TechnicalProgrammingProject.Models.Recipe>
+﻿@model TechnicalProgrammingProject.Models.Recipe
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2 id="recipe-name">@Html.DisplayFor(model => model.Name)</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CookTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Servings)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImageURL)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Directions)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Rating)
-        </th>
-        <th></th>
-    </tr>
+<div class="recipe-div-body">
+    <img id="recipe-img" src=@Html.DisplayFor(model => model.ImageURL)>
+    <p id="recipe-rating">
+        @Html.DisplayFor(model => model.Rating)
+    </p>
+    <p id="recipe-description">
+        @Html.DisplayFor(model => model.Description)
+    </p>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CookTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Servings)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ImageURL)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Directions)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Rating)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.RecipeID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.RecipeID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.RecipeID })
-        </td>
-    </tr>
-}
+</div>
 
-</table>

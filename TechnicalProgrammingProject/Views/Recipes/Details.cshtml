@@ -1,23 +1,9 @@
 ﻿@model TechnicalProgrammingProject.Models.Recipe
 
-@{
-    ViewBag.Title = "Details";
-}
-
-<h2>Details</h2>
-
 <div>
-    <h4>Recipe</h4>
+    <h3>Recipe Details</h3>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.UserID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserID)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
@@ -55,7 +41,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ImageURL)
+            <img src=@Html.DisplayFor(model => model.ImageURL)>
         </dd>
 
         <dt>
@@ -74,9 +60,24 @@
             @Html.DisplayFor(model => model.Rating)
         </dd>
 
-    </dl>
+        <dt>
+            Ingredients
+        </dt>
+
+        <dd>
+
+            @foreach (var ingredient in Model.Ingredients)
+            {
+                <p>
+                    @Html.DisplayFor(modelItemm => ingredient.Name)
+                    <br />
+                    @Html.DisplayFor(modelItemm => ingredient.Quantity) : 
+                    @Html.DisplayFor(modelItemm => ingredient.Unit)
+                    <br />
+                    <br />
+                </p>
+            }
+
+        </dd>
+</dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.RecipeID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
