@@ -201,7 +201,6 @@
     <Content Include="Views\Cookbooks\Edit.cshtml" />
     <Content Include="Views\Cookbooks\Index.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
@@ -236,13 +235,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201611032002297_InitialCreate.cs" />
-    <Compile Include="Migrations\201611032002297_InitialCreate.Designer.cs">
-      <DependentUpon>201611032002297_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611040200218_AddIdentity.cs" />
-    <Compile Include="Migrations\201611040200218_AddIdentity.Designer.cs">
-      <DependentUpon>201611040200218_AddIdentity.cs</DependentUpon>
+    <Compile Include="Migrations\201611060920234_Initial.cs" />
+    <Compile Include="Migrations\201611060920234_Initial.Designer.cs">
+      <DependentUpon>201611060920234_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -270,11 +265,8 @@
     <Folder Include="Views\Manage\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201611032002297_InitialCreate.resx">
-      <DependentUpon>201611032002297_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611040200218_AddIdentity.resx">
-      <DependentUpon>201611040200218_AddIdentity.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201611060920234_Initial.resx">
+      <DependentUpon>201611060920234_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

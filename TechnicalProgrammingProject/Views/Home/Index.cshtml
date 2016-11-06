@@ -1,18 +1,28 @@
-﻿
+﻿@model IEnumerable<TechnicalProgrammingProject.Models.Recipe>
+
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2> Welcome to Judge Rabberschnottle's Cookbook of Akwardness</h2>
 
+<!-- For each recipe in the model, display the recipes simple values with the image
+     as a link to the detailed recipe page. -->
+@foreach (var recipe in Model)
+{
+    <div class="homepage-recipe">
+        <h3 id="homepage-recipe-name">
+            @Html.DisplayFor(modelItem => recipe.Name)
+        </h3>
 
-<h1>Image</h1>
-<h1>Image</h1>
-<h1>Image</h1>
-<h1>Image</h1>
-<h1>Image</h1>
-<h1>Image</h1>
-<h1>Image</h1>
-<h1>Image</h1>
-<h1>Image</h1>
-
+        <a href=@Url.Action("Details/" + recipe.ID.ToString(), "Recipes")>
+            <img src=@Html.DisplayFor(modelItemm => recipe.ImageURL)>
+        </a>
+        <p>
+            @Html.DisplayFor(modelItem => recipe.Description)
+        </p>
+        <p>
+            Rating: @Html.DisplayFor(modelItem => recipe.Rating) / 10!
+        </p>
+    </div>
+}

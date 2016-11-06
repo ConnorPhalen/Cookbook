@@ -8,7 +8,7 @@ namespace TechnicalProgrammingProject.Models
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Cookbook> Cookbooks { get; set; }
-        public ApplicationDbContext() : base("name=RepositoryDbContext", throwIfV1Schema: false) {}
+        public ApplicationDbContext() : base("name=ApplicationDbContext", throwIfV1Schema: false) {}
        
         public static ApplicationDbContext Create()
         {

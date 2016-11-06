@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -7,6 +8,10 @@ namespace TechnicalProgrammingProject.Models
 {
     public class ApplicationUser : IdentityUser
     {
+        //return recipes
+        public virtual ICollection<Recipe> Recipes { get; set; }
+        //return cookbook
+        public virtual Cookbook Cookbook { get; set; }
         public ApplicationUser()
         {
 
