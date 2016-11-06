@@ -1,0 +1,16 @@
+﻿@model TechnicalProgrammingProject.Models.Recipe
+
+<div class="recipesummary">
+    <h3 id="recipesummaryname">
+        @Html.DisplayFor(modelItem => Model.Name)
+    </h3>
+    <a href=@Url.Action("Details/" + Model.RecipeID.ToString(), "Recipes")>
+    <img id="recipesummary-image" src=@Html.DisplayFor(modelItemm => Model.ImageURL)>
+    </a>
+    <p>
+        @Html.DisplayFor(modelItem => Model.Description)
+    </p>
+    <p>
+        Rating: @Html.DisplayFor(modelItem => Model.Rating) / 10!
+    </p>
+</div>

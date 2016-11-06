@@ -17,7 +17,24 @@ namespace TechnicalProgrammingProject.Controllers
         // GET: Cookbooks
         public ActionResult Index()
         {
-            return View(db.Cookbooks.ToList());
+            /* Curretly, this would just get all the users uplaoded recipes, not their favourited ones. 
+               We need a new column or two in the database for user favourites, but it shouldn't be hard.
+             */
+
+            int userID = 1; // !!!! Make it the logged in User later !!!!
+
+            var recipes = db.Recipes.ToList();
+            var recipeList = new List<Recipe>();
+
+            foreach (Recipe r in recipes)
+            {
+                if(r.UserID == userID)
+                {
+                    recipeList.Add(r);
+                }
+            }
+
+            return View(recipeList);
         }
 
         // GET: Cookbooks/Details/5

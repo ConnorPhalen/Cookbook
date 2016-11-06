@@ -177,6 +177,7 @@
     <Content Include="Views\Cookbooks\Details.cshtml" />
     <Content Include="Views\Cookbooks\Edit.cshtml" />
     <Content Include="Views\Cookbooks\Index.cshtml" />
+    <Content Include="Views\Shared\_RecipeSummary.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -4,29 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2> Welcome to Judge Rabberschnottle's Cookbook of Akwardness</h2>
+<h2 id="homepage-page-title"> Welcome to Judge Rabberschnottle's Cookbook of Akwardness</h2>
 
-<!-- For each recipe in the model, display the recipes simple values with the image
-     as a link to the detailed recipe page. -->
+<!-- For each recipe in the model, display the recipes summary with a partial view -->
 @foreach (var recipe in Model)
 {
-    <div class="homepage-recipe">
-        <h3 id="homepage-recipe-name">
-            @Html.DisplayFor(modelItem => recipe.Name)
-        </h3>
-
-        <a href=@Url.Action("Details/" + recipe.RecipeID.ToString(), "Recipes") > 
-            <img src=@Html.DisplayFor(modelItemm => recipe.ImageURL)>
-        </a>
-        <p>
-            @Html.DisplayFor(modelItem => recipe.Description)
-        </p>
-        <p>
-            Rating: @Html.DisplayFor(modelItem => recipe.Rating) / 10!
-        </p>
-    </div>
+    @Html.Partial("_RecipeSummary", recipe)
 }
-
-
-
-
