@@ -1,83 +1,60 @@
 ﻿@model TechnicalProgrammingProject.Models.Recipe
 
-<div>
-    <h3>Recipe Details</h3>
+<div class="recipe-page-body">
+    <h3 id="recipe-page-title"> Recipe Details</h3>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+    <h4 id="recipe-name">
+        @Html.DisplayFor(model => model.Name)
+    </h4>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
+    <div class="recipe-details">
+        <p>
             @Html.DisplayFor(model => model.Description)
-        </dd>
+        </p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CookTime)
-        </dt>
+        <img id="recipe-image" src=@Html.DisplayFor(model => model.ImageURL)>
 
-        <dd>
-            @Html.DisplayFor(model => model.CookTime)
-        </dd>
+        <p>
+            Cook Time : @Html.DisplayFor(model => model.CookTime)
+        </p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Servings)
-        </dt>
+        <p>
+            Number of Servings : @Html.DisplayFor(model => model.Servings)
+        </p>
 
-        <dd>
-            @Html.DisplayFor(model => model.Servings)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ImageURL)
-        </dt>
-
-        <dd>
-            <img src=@Html.DisplayFor(model => model.ImageURL)>
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Directions)
-        </dt>
-
-        <dd>
+        <p>
             @Html.DisplayFor(model => model.Directions)
-        </dd>
+        </p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Rating)
-        </dt>
+        <p>
+            Rating : @Html.DisplayFor(model => model.Rating)/10!
+        </p>
 
-        <dd>
-            @Html.DisplayFor(model => model.Rating)
-        </dd>
-
-        <dt>
-            Ingredients
-        </dt>
-
-        <dd>
-
-            @foreach (var ingredient in Model.Ingredients)
+        @if (Model.Ingredients == null)
+        {
+            Console.WriteLine("This Recipe Ain't Got No God Damned Ingredients, Sir!");
+            <p id="recipe-noingredients">
+                No Ingredients are available for this recipe.
+            </p>
+        }
+        else
+        {
+            foreach (var ingredient in Model.Ingredients)
             {
-                <p>
-                    @Html.DisplayFor(modelItemm => ingredient.Name)
-                    <br />
-                    @Html.DisplayFor(modelItemm => ingredient.Quantity) :
-                    @Html.DisplayFor(modelItemm => ingredient.Unit)
-                    <br />
-                    <br />
-                </p>
+                <div class="recipe-ingredient">
+                    <p>
+                        @Html.DisplayFor(modelItemm => ingredient.Name)
+                        <br />
+                        <div id="recipe-ingredient-details">
+                            @Html.DisplayFor(modelItemm => ingredient.Quantity) :
+                            @Html.DisplayFor(modelItemm => ingredient.Unit)
+                        </div>
+                        <br />
+                        <br />
+                    </p>
+                </div>
             }
-
-        </dd>
-    </dl>
+        }
+    </div>
 </div>

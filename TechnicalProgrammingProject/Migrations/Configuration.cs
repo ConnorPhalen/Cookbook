@@ -23,7 +23,7 @@ namespace TechnicalProgrammingProject.Migrations
                 new ApplicationUser
                 {
                     UserName = "BobRoss",
-                    Email = "bob@ross.com",
+                    Email    = "bob@ross.com",
                     PasswordHash = password
                 });
 
