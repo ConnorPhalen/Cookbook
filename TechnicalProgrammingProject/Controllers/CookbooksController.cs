@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -12,12 +13,38 @@ namespace TechnicalProgrammingProject.Controllers
 {
     public class CookbooksController : Controller
     {
-        private RepositoryDbContext db = new RepositoryDbContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Cookbooks
         public ActionResult Index()
         {
-            return View(db.Cookbooks.ToList());
+            /* Curretly, this would just get all the users uplaoded recipes, not their favourited ones. 
+               We need a new column or two in the database for user favourites, but it shouldn't be hard.
+             */
+            string userID = User.Identity.GetUserId();
+
+            if(userID == null)
+            {
+                userID = "bc3bcd26-67a6-4e25-8d73-f8a437faf335"; // !!!!! CHANGE LATER FOR DEMO !!!!!
+            }
+
+            var recipes = db.Recipes.ToList();
+            var recipeList = new List<Recipe>();
+
+            foreach (Recipe r in recipes)
+            {
+                if (r.ApplicationUser.Id.Equals(userID))
+                {
+                    recipeList.Add(r);
+                }
+            }
+            
+            if(recipeList.Count == 0)
+            {
+                Console.WriteLine("This User has no recipies");
+                // return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            return View(recipeList);
         }
 
         // GET: Cookbooks/Details/5
