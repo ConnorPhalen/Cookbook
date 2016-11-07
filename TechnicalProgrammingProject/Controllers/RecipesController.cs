@@ -12,7 +12,7 @@ namespace TechnicalProgrammingProject.Controllers
 {
     public class RecipesController : Controller
     {
-        private RepositoryDbContext db = new RepositoryDbContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Recipes
         public ActionResult Index()
@@ -20,54 +20,45 @@ namespace TechnicalProgrammingProject.Controllers
             return View(db.Recipes.ToList());
         }
 
-        /// <summary>
-        /// Display the values for the specific recipe
-        /// </summary>
-        /// <param name="recipeID"> The ID of a single recipe to be displayed </param>
-        /// <returns> The view info for a single recipe </returns>
-        public ActionResult DisplayRecipe(int id)
-        {
-            //// Display the values for the specific recipe
-
-            //var recipes = db.Recipes.Include(r => r.Ingredients);
-            //Recipe recipe;
-            //foreach (Recipe r in recipes)
-            //{
-            //    if (r.RecipeID == id)
-            //    {
-            //        recipe = r;
-            //    }
-            //    else
-            //    {
-            //        Console.WriteLine("bad");
-            //    }
-            //}
-
-            //return View(recipe);
-            return View();
-        }
-
         // GET: Recipes/Details/5
         public ActionResult Details(int? id)
         {
             // Display the values for the specific recipe
+            /*
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //Display the values for the specific recipe
+            Recipe recipe = db.Recipes.Find(id);
 
+            if (recipe == null)
+            {
+                return HttpNotFound();
+            }
+            var recipes = db.Recipes.Include(r => r.Ingredients);
+
+            return View(recipe);
+            */
+            
             var recipes = db.Recipes.Include(r => r.Ingredients);
             Recipe recipe;
+
             foreach (Recipe r in recipes)
             {
-                if (r.RecipeID == id)
+                if (r.ID == id)
                 {
                     recipe = r;
                     return View(recipe);
-
                 }
                 else
                 {
-                    Console.WriteLine("bad");
+                    Console.WriteLine("BAD");
                 }
             }
-            return View();
+            Console.WriteLine("There are no Recipes");
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
         }
 
         // GET: Recipes/Create

@@ -1,14 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TechnicalProgrammingProject.Models
 {
     public class Cookbook
     {
-        public int CookbookID { get; set; }
-        public int UserID { get; set; }
-        public ICollection<Recipe> Recipes { get; set; }
+        [Key, ForeignKey("ApplicationUser")]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public string ApplicationUserID { get; set; }
+        //return recipes
+        public virtual ICollection<Recipe> Recipes { get; set; }
+        //return user
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

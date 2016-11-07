@@ -9,7 +9,7 @@ namespace TechnicalProgrammingProject.Controllers
 {
     public class HomeController : Controller
     {
-        private RepositoryDbContext db = new RepositoryDbContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Home
         public ActionResult Index()
