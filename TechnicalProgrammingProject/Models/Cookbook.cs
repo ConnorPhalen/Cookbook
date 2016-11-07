@@ -6,6 +6,11 @@ namespace TechnicalProgrammingProject.Models
 {
     public class Cookbook
     {
+        public Cookbook()
+        {
+            Recipes = new HashSet<Recipe>();
+        }
+
         [Key, ForeignKey("ApplicationUser")]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string ApplicationUserID { get; set; }

@@ -14,7 +14,7 @@ namespace TechnicalProgrammingProject.Models
         public virtual Cookbook Cookbook { get; set; }
         public ApplicationUser()
         {
-
+            Recipes = new HashSet<Recipe>();
         }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
