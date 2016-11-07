@@ -21,12 +21,11 @@ namespace TechnicalProgrammingProject.Controllers
             /* Curretly, this would just get all the users uplaoded recipes, not their favourited ones. 
                We need a new column or two in the database for user favourites, but it shouldn't be hard.
              */
-
             string userID = User.Identity.GetUserId();
 
             if(userID == null)
             {
-                userID = "1b720021-c6df-4a77-b541-608ee812da83";
+                userID = "bc3bcd26-67a6-4e25-8d73-f8a437faf335"; // !!!!! CHANGE LATER FOR DEMO !!!!!
             }
 
             var recipes = db.Recipes.ToList();
@@ -39,13 +38,12 @@ namespace TechnicalProgrammingProject.Controllers
                     recipeList.Add(r);
                 }
             }
-
+            
             if(recipeList.Count == 0)
             {
                 Console.WriteLine("This User has no recipies");
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                // return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
             return View(recipeList);
         }
 
