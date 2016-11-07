@@ -15,7 +15,10 @@ namespace TechnicalProgrammingProject.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        
+
         // GET: Cookbooks
+        [Authorize]
         public ActionResult Index()
         {
             /* Curretly, this would just get all the users uplaoded recipes, not their favourited ones. 
@@ -23,10 +26,10 @@ namespace TechnicalProgrammingProject.Controllers
              */
             string userID = User.Identity.GetUserId();
 
-            if(userID == null)
-            {
-                userID = "bc3bcd26-67a6-4e25-8d73-f8a437faf335"; // !!!!! CHANGE LATER FOR DEMO !!!!!
-            }
+            //if(userID == null)
+            //{
+            //    userID = "bc3bcd26-67a6-4e25-8d73-f8a437faf335"; // !!!!! CHANGE LATER FOR DEMO !!!!!
+            //}
 
             var recipes = db.Recipes.ToList();
             var recipeList = new List<Recipe>();
@@ -41,7 +44,7 @@ namespace TechnicalProgrammingProject.Controllers
             
             if(recipeList.Count == 0)
             {
-                Console.WriteLine("This User has no recipies");
+                return View("Empty");
                 // return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             return View(recipeList);
