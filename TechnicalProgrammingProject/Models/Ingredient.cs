@@ -4,6 +4,10 @@ namespace TechnicalProgrammingProject.Models
 {
     public class Ingredient
     {
+        public Ingredient()
+        {
+            Recipes = new HashSet<Recipe>();
+        }
         //PK
         public int ID { get; set; }
         public string Name { get; set; }
