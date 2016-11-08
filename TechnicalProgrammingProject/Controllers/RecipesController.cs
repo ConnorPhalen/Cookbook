@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -62,6 +62,7 @@ namespace TechnicalProgrammingProject.Controllers
         }
 
         // GET: Recipes/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -70,18 +71,33 @@ namespace TechnicalProgrammingProject.Controllers
         // POST: Recipes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RecipeID,UserID,Name,Description,CookTime,Servings,ImageURL,Directions,Rating")] Recipe recipe)
+        public ActionResult Create(CreateRecipeViewModel recipeViewModel)
         {
             if (ModelState.IsValid)
             {
-                db.Recipes.Add(recipe);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                var user = db.Users.Find(User.Identity.GetUserId());
 
-            return View(recipe);
+                Recipe recipe = new Recipe();
+                recipe.Name = recipeViewModel.Name;
+                recipe.Description = recipeViewModel.Description;
+                recipe.CookTime = recipeViewModel.CookTime;
+                recipe.DateUploaded = DateTime.Now;
+                recipe.Servings = recipeViewModel.Servings;
+                recipe.Status = "Pending";
+                recipe.ImageURL = recipeViewModel.ImageURL;
+                recipe.Ingredients = recipeViewModel.Ingredients;
+                recipe.ApplicationUser = user;
+                recipe.Directions = recipeViewModel.Directions;
+                db.Recipes.Add(recipe);
+
+                db.SaveChanges();
+
+                return View("Success");
+            }
+            return View(recipeViewModel);
         }
 
         // GET: Recipes/Edit/5

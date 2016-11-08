@@ -100,27 +100,50 @@ namespace TechnicalProgrammingProject.Migrations
 
             List<Ingredient> ingredients = new List<Ingredient>()
             {
-                new Ingredient { ID = 1, Name = "Chicken", Quantity = 6, Unit = "Oz" },
-                new Ingredient { ID = 2, Name = "Beef", Quantity = 4, Unit = "Lbs" }
+                new Ingredient { ID = 1, Name = "Bacon", Quantity = 20, Unit = "Grams" },
+                new Ingredient { ID = 2, Name = "Soft Taco Shell", Quantity = 2, Unit = "" },
+                new Ingredient { ID = 3, Name = "Chicken", Quantity = 6, Unit = "KiloGrams" },
+                new Ingredient { ID = 4, Name = "Beef", Quantity = 4, Unit = "KiloGrams" },
+                new Ingredient { ID = 5, Name = "Belgian Waffle", Quantity = 1, Unit = "Grams" },
+                new Ingredient { ID = 6, Name = "Strawberries", Quantity = 6, Unit = "Grams" },
+                new Ingredient { ID = 7, Name = "Salad", Quantity = 1, Unit = "KiloGrams" }
             };
 
             ingredients.ForEach(i => context.Ingredients.AddOrUpdate(ig => ig.ID, i));
-
+            
             context.SaveChanges();
 
             context.Users.ToList().ForEach(u => context.Recipes.ToList().ForEach(r => r.ApplicationUser = u));
 
             var recipe1 = context.Recipes.Find(1);
             var recipe2 = context.Recipes.Find(2);
+            var recipe3 = context.Recipes.Find(3);
+            var recipe4 = context.Recipes.Find(4);
+            var recipe5 = context.Recipes.Find(5);
 
             var ingredient1 = context.Ingredients.Find(1);
             var ingredient2 = context.Ingredients.Find(2);
+            var ingredient3 = context.Ingredients.Find(3);
+            var ingredient4 = context.Ingredients.Find(4);
+            var ingredient5 = context.Ingredients.Find(5);
+            var ingredient6 = context.Ingredients.Find(6);
+            var ingredient7 = context.Ingredients.Find(7);
 
             recipe1.Ingredients.Add(ingredient1);
             recipe2.Ingredients.Add(ingredient2);
+            recipe2.Ingredients.Add(ingredient3);
+            recipe2.Ingredients.Add(ingredient4);
+            recipe3.Ingredients.Add(ingredient5);
+            recipe3.Ingredients.Add(ingredient6);
+            recipe4.Ingredients.Add(ingredient3);
+            recipe4.Ingredients.Add(ingredient7);
+            recipe5.Ingredients.Add(ingredient4);
 
             context.Cookbooks.ToList().ForEach(c => c.Recipes.Add(recipe1));
             context.Cookbooks.ToList().ForEach(c => c.Recipes.Add(recipe2));
+            context.Cookbooks.ToList().ForEach(c => c.Recipes.Add(recipe3));
+            context.Cookbooks.ToList().ForEach(c => c.Recipes.Add(recipe4));
+            context.Cookbooks.ToList().ForEach(c => c.Recipes.Add(recipe5));
 
             context.SaveChanges();
         }
