@@ -3,6 +3,7 @@ using TechnicalProgrammingProject.Models;
 namespace TechnicalProgrammingProject.Migrations
 {
     using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Collections.Generic;
     using System.Data.Entity.Migrations;
@@ -14,10 +15,32 @@ namespace TechnicalProgrammingProject.Migrations
         {
             AutomaticMigrationsEnabled = true;
             ContextKey = "TechnicalProgrammingProject.Models.ApplicationDbContext";
+
         }
 
         protected override void Seed(ApplicationDbContext context)
         {
+            // ---- New Code to Create Roles ----
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+
+            // first we create SuperAdmin role   
+            var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+            role.Name = "SuperAdmin";
+            roleManager.Create(role);
+
+            // first we create SuperAdmin role   
+            var role1 = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+            role1.Name = "Moderator";
+            roleManager.Create(role1);
+
+            // first we create SuperAdmin role   
+            var role2 = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+            role2.Name = "User";
+            roleManager.Create(role2);
+
+            // ---- End New Code to Create Roles ----
+
+            /*
             var passwordHasher = new PasswordHasher();
             string password = passwordHasher.HashPassword("Cooking1!");
             context.Users.AddOrUpdate(u => u.UserName,
@@ -28,6 +51,57 @@ namespace TechnicalProgrammingProject.Migrations
                     PasswordHash = password,
                     SecurityStamp = Guid.NewGuid().ToString()
                 });
+            */
+            
+            // ---- New Code to Create Users ----
+
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+            var user = new ApplicationUser();
+            user.UserName = "HulkHogan";
+            user.Email = "HulkHogan@WWF.com";
+
+            string userPWD = "HulkHogan@42";
+
+            var chkUser = UserManager.Create(user, userPWD);
+
+            //Add default User to Role SuperAdmin   
+            if (chkUser.Succeeded)
+            {
+                var result = UserManager.AddToRole(user.Id, "SuperAdmin");
+            }
+
+            //Here we create a Moderator user who will moderate the website 
+            var user1 = new ApplicationUser();
+            user1.UserName = "BobRoss";
+            user1.Email = "bob@ross.com";
+
+            string userPWD1 = "Cooking1!";
+
+            var chkUser1 = UserManager.Create(user1, userPWD1);
+
+            //Add default User to Role Moderator   
+            if (chkUser1.Succeeded)
+            {
+                var result1 = UserManager.AddToRole(user1.Id, "Moderator");
+            }
+
+            //Here we create a User who will uplaod some recipes
+            var user2 = new ApplicationUser();
+            user2.UserName = "Weeb";
+            user2.Email = "Weeb@anime.com";
+
+            string userPWD2 = "ilovebodypillows@42";
+
+            var chkUser2 = UserManager.Create(user2, userPWD2);
+
+            //Add default User to Role User   
+            if (chkUser2.Succeeded)
+            {
+                var result2 = UserManager.AddToRole(user2.Id, "User");
+            }
+
+            // ---- End New Code to Create Users ---- //
 
             context.SaveChanges();
 
@@ -41,7 +115,7 @@ namespace TechnicalProgrammingProject.Migrations
                 {
                     ID = 1,
                     Name = "Bacon",
-                    Description = "Savoury Grease and Meat make the perfecxt combo.",
+                    Description = "Savoury Grease and Meat make the perfect combo.",
                     CookTime = 4,
                     Servings = 1,
                     Directions = "Step 1.) Get Bacon \n Step 2.) Cook Bacon \n Step 3.) Eat Bacon",

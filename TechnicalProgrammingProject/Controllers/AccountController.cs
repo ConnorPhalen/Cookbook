@@ -102,10 +102,17 @@ namespace TechnicalProgrammingProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                ApplicationUser user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+                ApplicationUser user  = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    var roleResult = UserManager.AddToRole(user.Id, "User");
+
+                    if(!roleResult.Succeeded)
+                    {
+                        // This user has no role...
+                    }
+
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

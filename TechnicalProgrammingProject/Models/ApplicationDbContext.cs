@@ -14,5 +14,15 @@ namespace TechnicalProgrammingProject.Models
         {
             return new ApplicationDbContext();
         }
+
+        /* Database first fix... I think.
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            Database.SetInitializer<ApplicationDbContext>(null);
+            base.OnModelCreating(modelBuilder);
+        }
+        */
+        // Caused errors for creating two User things... god damned auto-generated code
+        // public System.Data.Entity.DbSet<TechnicalProgrammingProject.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }

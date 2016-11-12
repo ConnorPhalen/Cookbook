@@ -1,0 +1,24 @@
+﻿@model IEnumerable<TechnicalProgrammingProject.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+@if (ViewBag.displayMenu == "SuperAdmin")
+{
+    <h1>You are a Super Admin</h1>
+}
+else if (ViewBag.displayMenu == "Moderator")
+{
+    <h2>You are a Moderator</h2>
+}
+else if (ViewBag.displayMenu == "User")
+{
+    <h2>You are a Standard User</h2>
+}
+else if (ViewBag.displayMenu == "Not Logged In")
+{
+    <h2>You are not Logged in. </h2>
+}  
