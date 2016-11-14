@@ -3,6 +3,7 @@ using TechnicalProgrammingProject.Models;
 namespace TechnicalProgrammingProject.Migrations
 {
     using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Collections.Generic;
     using System.Data.Entity.Migrations;
@@ -14,10 +15,32 @@ namespace TechnicalProgrammingProject.Migrations
         {
             AutomaticMigrationsEnabled = true;
             ContextKey = "TechnicalProgrammingProject.Models.ApplicationDbContext";
+
         }
 
         protected override void Seed(ApplicationDbContext context)
         {
+            // ---- New Code to Create Roles ----
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+
+            // first we create SuperAdmin role   
+            var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+            role.Name = "SuperAdmin";
+            roleManager.Create(role);
+
+            // first we create SuperAdmin role   
+            var role1 = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+            role1.Name = "Moderator";
+            roleManager.Create(role1);
+
+            // first we create SuperAdmin role   
+            var role2 = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+            role2.Name = "User";
+            roleManager.Create(role2);
+
+            // ---- End New Code to Create Roles ----
+
+            /*
             var passwordHasher = new PasswordHasher();
             string password = passwordHasher.HashPassword("Cooking1!");
             context.Users.AddOrUpdate(u => u.UserName,
@@ -28,6 +51,57 @@ namespace TechnicalProgrammingProject.Migrations
                     PasswordHash = password,
                     SecurityStamp = Guid.NewGuid().ToString()
                 });
+            */
+            
+            // ---- New Code to Create Users ----
+
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+            var user = new ApplicationUser();
+            user.UserName = "HulkHogan";
+            user.Email = "HulkHogan@WWF.com";
+
+            string userPWD = "HulkHogan@42";
+
+            var chkUser = UserManager.Create(user, userPWD);
+
+            //Add default User to Role SuperAdmin   
+            if (chkUser.Succeeded)
+            {
+                var result = UserManager.AddToRole(user.Id, "SuperAdmin");
+            }
+
+            //Here we create a Moderator user who will moderate the website 
+            var user1 = new ApplicationUser();
+            user1.UserName = "BobRoss";
+            user1.Email = "bob@ross.com";
+
+            string userPWD1 = "Cooking1!";
+
+            var chkUser1 = UserManager.Create(user1, userPWD1);
+
+            //Add default User to Role Moderator   
+            if (chkUser1.Succeeded)
+            {
+                var result1 = UserManager.AddToRole(user1.Id, "Moderator");
+            }
+
+            //Here we create a User who will uplaod some recipes
+            var user2 = new ApplicationUser();
+            user2.UserName = "Weeb";
+            user2.Email = "Weeb@anime.com";
+
+            string userPWD2 = "ilovebodypillows@42";
+
+            var chkUser2 = UserManager.Create(user2, userPWD2);
+
+            //Add default User to Role User   
+            if (chkUser2.Succeeded)
+            {
+                var result2 = UserManager.AddToRole(user2.Id, "User");
+            }
+
+            // ---- End New Code to Create Users ---- //
 
             context.SaveChanges();
 
@@ -41,7 +115,7 @@ namespace TechnicalProgrammingProject.Migrations
                 {
                     ID = 1,
                     Name = "Bacon",
-                    Description = "Savoury Grease and Meat make the perfecxt combo.",
+                    Description = "Savoury Grease and Meat make the perfect combo.",
                     CookTime = 4,
                     Servings = 1,
                     Directions = "Step 1.) Get Bacon \n Step 2.) Cook Bacon \n Step 3.) Eat Bacon",
@@ -100,27 +174,50 @@ namespace TechnicalProgrammingProject.Migrations
 
             List<Ingredient> ingredients = new List<Ingredient>()
             {
-                new Ingredient { ID = 1, Name = "Chicken", Quantity = 6, Unit = "Oz" },
-                new Ingredient { ID = 2, Name = "Beef", Quantity = 4, Unit = "Lbs" }
+                new Ingredient { ID = 1, Name = "Bacon", Quantity = 20, Unit = "Grams" },
+                new Ingredient { ID = 2, Name = "Soft Taco Shell", Quantity = 2, Unit = "" },
+                new Ingredient { ID = 3, Name = "Chicken", Quantity = 6, Unit = "KiloGrams" },
+                new Ingredient { ID = 4, Name = "Beef", Quantity = 4, Unit = "KiloGrams" },
+                new Ingredient { ID = 5, Name = "Belgian Waffle", Quantity = 1, Unit = "Grams" },
+                new Ingredient { ID = 6, Name = "Strawberries", Quantity = 6, Unit = "Grams" },
+                new Ingredient { ID = 7, Name = "Salad", Quantity = 1, Unit = "KiloGrams" }
             };
 
             ingredients.ForEach(i => context.Ingredients.AddOrUpdate(ig => ig.ID, i));
-
+            
             context.SaveChanges();
 
             context.Users.ToList().ForEach(u => context.Recipes.ToList().ForEach(r => r.ApplicationUser = u));
 
             var recipe1 = context.Recipes.Find(1);
             var recipe2 = context.Recipes.Find(2);
+            var recipe3 = context.Recipes.Find(3);
+            var recipe4 = context.Recipes.Find(4);
+            var recipe5 = context.Recipes.Find(5);
 
             var ingredient1 = context.Ingredients.Find(1);
             var ingredient2 = context.Ingredients.Find(2);
+            var ingredient3 = context.Ingredients.Find(3);
+            var ingredient4 = context.Ingredients.Find(4);
+            var ingredient5 = context.Ingredients.Find(5);
+            var ingredient6 = context.Ingredients.Find(6);
+            var ingredient7 = context.Ingredients.Find(7);
 
             recipe1.Ingredients.Add(ingredient1);
             recipe2.Ingredients.Add(ingredient2);
+            recipe2.Ingredients.Add(ingredient3);
+            recipe2.Ingredients.Add(ingredient4);
+            recipe3.Ingredients.Add(ingredient5);
+            recipe3.Ingredients.Add(ingredient6);
+            recipe4.Ingredients.Add(ingredient3);
+            recipe4.Ingredients.Add(ingredient7);
+            recipe5.Ingredients.Add(ingredient4);
 
             context.Cookbooks.ToList().ForEach(c => c.Recipes.Add(recipe1));
             context.Cookbooks.ToList().ForEach(c => c.Recipes.Add(recipe2));
+            context.Cookbooks.ToList().ForEach(c => c.Recipes.Add(recipe3));
+            context.Cookbooks.ToList().ForEach(c => c.Recipes.Add(recipe4));
+            context.Cookbooks.ToList().ForEach(c => c.Recipes.Add(recipe5));
 
             context.SaveChanges();
         }
