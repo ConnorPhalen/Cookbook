@@ -222,6 +222,8 @@
     <Content Include="Views\Cookbooks\Empty.cshtml" />
     <Content Include="Views\Recipes\Success.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Ingredient.cshtml" />
+    <Content Include="Views\Recipes\AddIngredient.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -242,6 +244,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RecipesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
