@@ -5,6 +5,25 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TechnicalProgrammingProject.Models
 {
+    public class ProfileViewModel
+    {
+        public string DisplayName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Biography { get; set; }
+        public DataType DateOfBirth { get; set; }
+    }
+
+    public class EditProfileViewModel
+    {
+        public string DisplayName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Biography { get; set; }
+        public DataType DateOfBirth { get; set; }
+    }
     public class IndexViewModel
     {
         public bool HasPassword { get; set; }
