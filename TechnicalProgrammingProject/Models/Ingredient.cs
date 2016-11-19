@@ -13,6 +13,7 @@ namespace TechnicalProgrammingProject.Models
         public string Name { get; set; }
         public int Quantity { get; set; }
         public string Unit { get; set; }
+        public string Index { get; set; }
         //return recipes
         public virtual ICollection<Recipe> Recipes { get; set; }
     }

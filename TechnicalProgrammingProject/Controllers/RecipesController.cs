@@ -157,6 +157,15 @@ namespace TechnicalProgrammingProject.Controllers
             return RedirectToAction("Index");
         }
 
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+        public ActionResult AddIngredient()
+        {
+            var recipe = new Recipe();
+            recipe.Ingredients.Add(new Ingredient());
+
+            return PartialView(recipe);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
