@@ -45,9 +45,45 @@ namespace TechnicalProgrammingProject.Controllers
             return View();
         }
         
-        // Could refine these so it is one function that returns an int relating to the role. Would reduce code.
-        // Or could keep to use an indivudual functions on other pages for specific validation.
-        // | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | |
+        public ActionResult GetRoleLinks()
+        {
+            if(isSuperAdmin() || isModerator())
+            {
+                // Return the admin specific links
+                return PartialView("_AdminNavPartial");
+            }
+            else
+            {
+                // return any user specific links... though there may not be any
+                return PartialView("_UserNavPartial");
+            }
+        }
+
+        [Authorize(Roles = "SuperAdmin,Moderator")]
+        public ActionResult Manage()
+        {
+            var pendingRecipes =
+                        from recipes in db.Recipes
+                        where recipes.Status != "approved"
+                        select recipes;
+
+            return View(pendingRecipes);
+
+            /* Can get rid of this snce the Authorize attribute does the check for us.
+            if (isSuperAdmin() || isModerator())
+            {
+                var pendingRecipes = 
+                        from recipes in db.Recipes
+                        where recipes.Status != "approved"
+                        select recipes;
+
+                return View(pendingRecipes);
+            }
+
+            return RedirectToAction("Index", "Home");
+            */
+        }
+        
         public bool isUser()
         {
             if (User.Identity.IsAuthenticated)

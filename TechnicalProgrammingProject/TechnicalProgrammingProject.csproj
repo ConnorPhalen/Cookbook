@@ -226,6 +226,9 @@
     <Content Include="Views\Home\_CarouselPartial.cshtml" />
     <Content Include="Views\Recipes\Success.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Users\Manage.cshtml" />
+    <Content Include="Views\Shared\_AdminNavPartial.cshtml" />
+    <Content Include="Views\Shared\_UserNavPartial.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Ingredient.cshtml" />
     <Content Include="Views\Recipes\AddIngredient.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
