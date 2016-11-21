@@ -12,9 +12,23 @@ namespace TechnicalProgrammingProject.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Home
-        public ActionResult Index()
+        public ActionResult Index(string searchTerm = "") 
         {
-            return View(db.Recipes.ToList());
+            IEnumerable<Recipe> searchResult = db.Recipes.Where(r => searchTerm == ""
+                                                                || r.Name.Contains(searchTerm)
+                                                                || r.Tags.Any(t => t.Name == searchTerm));
+
+            if (searchResult == null) 
+            {
+                // There are no results.
+                ViewBag.Message = "No Recipes matched those search terms.";
+                return View();
+            }
+            else
+            {
+                ViewBag.Message = "Returned " + searchResult.Count().ToString() + " results.";
+                return View(searchResult);
+            }
         }
     }
 }
