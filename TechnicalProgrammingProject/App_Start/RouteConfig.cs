@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Microsoft.AspNet.Identity;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -12,6 +9,19 @@ namespace TechnicalProgrammingProject
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+
+            routes.MapRoute(
+                name: "ProfileEdit",
+                url: "Profile/Edit",
+                defaults: new { controller = "Profile", action = "Edit" }
+            );
+
+            routes.MapRoute(
+                name: "Profile",
+                url: "Profile/{id}",
+                defaults: new { controller = "Profile", action = "Index"}
+            );
 
             routes.MapRoute(
                 name: "Default",
