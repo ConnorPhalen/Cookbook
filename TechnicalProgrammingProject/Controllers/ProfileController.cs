@@ -11,7 +11,7 @@ namespace TechnicalProgrammingProject.Controllers
     [Authorize]
     public class ProfileController : Controller
     {
-        ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         private ApplicationUserManager _userManager;
         public ApplicationUserManager UserManager

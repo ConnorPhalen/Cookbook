@@ -235,6 +235,7 @@
     <Content Include="Views\Profile\CurrentProfile.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
+    <Content Include="Views\Recipes\Uploads.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -287,8 +288,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\asset\js\" />
     <Folder Include="bin\" />
+    <Folder Include="Content\asset\js\" />
     <Folder Include="Views\Manage\" />
     <Folder Include="Views\Uploads\" />
   </ItemGroup>

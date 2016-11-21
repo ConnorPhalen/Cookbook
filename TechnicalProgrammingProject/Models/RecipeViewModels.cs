@@ -31,4 +31,9 @@ namespace TechnicalProgrammingProject.Models
         public string Directions { get; set; }
         public virtual ICollection<Ingredient> Ingredients { get; set; }
     }
+
+    public class UploadsViewModel
+    {
+        public virtual ICollection<Recipe> Recipes { get; set; }
+    }
 }
