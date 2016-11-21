@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -12,7 +13,10 @@ namespace TechnicalProgrammingProject.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Biography { get; set; }
-        public DataType DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+        public byte[] ProfilePicture { get; set; }
+        public int? Age { get; set; }
+        public string Gender { get; set; }
     }
 
     public class EditProfileViewModel
@@ -22,7 +26,10 @@ namespace TechnicalProgrammingProject.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Biography { get; set; }
-        public DataType DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+        public byte[] ProfilePicture { get; set; }
+        public int? Age { get; set; }
+        public string Gender { get; set; }
     }
     public class IndexViewModel
     {
