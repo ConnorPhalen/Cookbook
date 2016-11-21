@@ -34,6 +34,7 @@ namespace TechnicalProgrammingProject.Models
 
     public class UploadsViewModel
     {
+        public string UploaderName { get; set; }
         public virtual ICollection<Recipe> Recipes { get; set; }
     }
 }

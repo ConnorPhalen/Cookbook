@@ -86,29 +86,46 @@ namespace TechnicalProgrammingProject.Controllers
             return View(recipeViewModel);
         }
 
+        /// <summary>
+        /// View uploads of logged in user or another user.
+        /// </summary>
+        /// <param name="id">User's id</param>
+        /// <returns></returns>
         // GET: Recipes/Uploads/{id}
         public ActionResult Uploads(string id)
         {
+            //Recipe/Uploads - set to current logged in user
             if (id == null)
             {
                 id = User.Identity.GetUserId();
             }
+            //get user
+            var user = db.Users.Find(id);
+
+            //if user not found
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
             //find uploads for the specific user
             var recipes = db.Recipes.Where(r => r.ApplicationUser.Id == id);
+
+            //create model to send to view
             var model = new UploadsViewModel
             {
+                UploaderName = user.DisplayName,
                 Recipes = recipes.ToList()
             };
-            return View(model);
+            
+            //return public upload view
+            if (id != User.Identity.GetUserId())
+            {
+                return View(model);
+            }
+            //return logged in user's upload view
+            return View("CurrentUploads", model);
         }
-
-        // POST: Recipes/Uploads
-        [HttpPost]
-        public ActionResult Uploads(UploadsViewModel model)
-        {
-            return View();
-        }
-
 
         // GET: Recipes/Edit/5
         public ActionResult Edit(int? id)
