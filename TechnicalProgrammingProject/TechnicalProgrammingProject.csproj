@@ -222,6 +222,9 @@
     <Content Include="Views\Cookbooks\Empty.cshtml" />
     <Content Include="Views\Recipes\Success.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Users\Manage.cshtml" />
+    <Content Include="Views\Shared\_AdminNavPartial.cshtml" />
+    <Content Include="Views\Shared\_UserNavPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

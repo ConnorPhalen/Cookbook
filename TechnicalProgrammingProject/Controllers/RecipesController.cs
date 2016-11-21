@@ -23,24 +23,6 @@ namespace TechnicalProgrammingProject.Controllers
         // GET: Recipes/Details/5
         public ActionResult Details(int? id)
         {
-            // Display the values for the specific recipe
-            /*
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            //Display the values for the specific recipe
-            Recipe recipe = db.Recipes.Find(id);
-
-            if (recipe == null)
-            {
-                return HttpNotFound();
-            }
-            var recipes = db.Recipes.Include(r => r.Ingredients);
-
-            return View(recipe);
-            */
-            
             var recipes = db.Recipes.Include(r => r.Ingredients);
             Recipe recipe;
 
@@ -56,7 +38,7 @@ namespace TechnicalProgrammingProject.Controllers
                     Console.WriteLine("BAD");
                 }
             }
-            Console.WriteLine("There are no Recipes");
+            Console.WriteLine("No Recipe with that ID.");
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
         }
