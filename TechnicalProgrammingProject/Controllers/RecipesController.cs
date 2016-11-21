@@ -86,6 +86,30 @@ namespace TechnicalProgrammingProject.Controllers
             return View(recipeViewModel);
         }
 
+        // GET: Recipes/Uploads/{id}
+        public ActionResult Uploads(string id)
+        {
+            if (id == null)
+            {
+                id = User.Identity.GetUserId();
+            }
+            //find uploads for the specific user
+            var recipes = db.Recipes.Where(r => r.ApplicationUser.Id == id);
+            var model = new UploadsViewModel
+            {
+                Recipes = recipes.ToList()
+            };
+            return View(model);
+        }
+
+        // POST: Recipes/Uploads
+        [HttpPost]
+        public ActionResult Uploads(UploadsViewModel model)
+        {
+            return View();
+        }
+
+
         // GET: Recipes/Edit/5
         public ActionResult Edit(int? id)
         {
