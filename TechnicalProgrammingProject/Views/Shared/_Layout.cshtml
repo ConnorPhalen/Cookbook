@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/content/Site.css")
+    @Styles.Render("~/Content/asset/css/login")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -26,20 +27,24 @@
                     <li>@Html.ActionLink("Cookbook", "Index", "Cookbooks")</li>
                 </ul>
                 <ul class="nav navbar-nav pull-right">
-                    @Html.Partial("_LoginPartial")
+                    @Html.Partial("_LoginPartial", new TechnicalProgrammingProject.Models.LoginViewModel{ })
                 </ul>
+                
             </div>
         </div>
     </div>
 
     <div class="container body-content">
-        @RenderBody()
+       
+            @Html.Partial("_LeftSideBar")
+            @RenderBody()
+               
         <hr />
     </div>
 
     <footer>
         <div class="container">
-            <div class="row">
+            <div class="footers">
                 <div class="col-sm-2">
                     <h6>&copy; @DateTime.Now.Year BCIT</h6>
                     <p>COMP4752 Tech-Pro Project</p>
@@ -79,6 +84,7 @@
     </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/login")
     @RenderSection("scripts", required: false)
 </body>
 </html>

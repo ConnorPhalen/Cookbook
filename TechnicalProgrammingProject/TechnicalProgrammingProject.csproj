@@ -156,6 +156,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\asset\css\leftsidebar.css" />
+    <Content Include="Content\asset\css\login.css" />
+    <Content Include="Content\asset\js\login.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -220,6 +223,8 @@
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Views\Cookbooks\Empty.cshtml" />
+    <Content Include="Views\Shared\_LoginOverLay.cshtml" />
+    <Content Include="Views\Shared\_LeftSideBar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

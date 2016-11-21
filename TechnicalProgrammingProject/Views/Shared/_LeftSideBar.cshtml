@@ -1,0 +1,91 @@
+﻿@Styles.Render("~/Content/asset/css/leftsidebar")
+@if (Request.IsAuthenticated)
+{
+    <div class="area"></div><nav class="main-menu">
+        <ul>
+            <li>
+                <a href="@Url.Action("Index", "Home")">
+                    <i class="fa fa-home fa-2x"></i>
+                    <span class="nav-text">
+                        Home
+                    </span>
+                </a>
+            </li>
+            <li class="has-subnav">
+                <a href="@Url.Action("Index","CookBooks")">
+                    <i class="fa fa-book fa-2x"></i>
+                    <span class="nav-text">
+                        CookBook
+                    </span>
+                </a>
+            </li>
+            <li class="has-subnav">
+                <a href="@Url.Action("Index","Ingredients")">
+                    <i class="fa fa-list fa-2x"></i>
+                    <span class="nav-text">
+                        Ingredients
+                    </span>
+                </a>
+            </li>
+            <li class="has-subnav">       
+                <a href="~/Views/Home/Index.cshtml">
+                    <i class="fa fa-fire fa-2x"></i>
+                    <span class="nav-text">
+                        Recipes
+                    </span>
+                </a>    
+            </li>
+            <li>
+                <i class="fa fa-power-off fa-2x"></i>
+                <span class="nav-text">
+                    <a href="javascript:document.getElementById('logoutForm').submit()">Log Out</a>
+                </span>
+            </li>
+        </ul>    
+    </nav>
+}
+else
+{
+    <div class="area"></div><nav class="main-menu">
+        <ul>
+            <li>
+                <a href="@Url.Action("Index", "Home")">
+                    <i class="fa fa-home fa-2x"></i>
+                    <span class="nav-text">
+                        Home
+                    </span>
+                </a>
+            </li>
+            <li class="has-subnav">
+                <a href="@Url.Action("Index","CookBooks")">
+                    <i class="fa fa-book fa-2x"></i>
+                    <span class="nav-text">
+                        CookBook
+                    </span>
+                </a>
+            </li>
+            <li class="has-subnav">
+                <a href="@Url.Action("Index","Ingredients")">
+                    <i class="fa fa-list fa-2x"></i>
+                    <span class="nav-text">
+                        Ingredients
+                    </span>
+                </a>
+            </li>
+            <li class="has-subnav">
+                <a href="~/Views/Home/Index.cshtml">
+                    <i class="fa fa-fire fa-2x"></i>
+                    <span class="nav-text">
+                        Recipes
+                    </span>
+                </a>
+            </li>
+            <li>
+                <i class="fa fa-power-off fa-2x"></i>
+                <span class="nav-text">
+                    @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+                </span>
+            </li>
+        </ul>
+    </nav>
+}
