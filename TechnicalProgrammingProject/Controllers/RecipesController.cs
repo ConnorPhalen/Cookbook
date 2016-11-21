@@ -14,6 +14,10 @@ namespace TechnicalProgrammingProject.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        /// <summary>
+        /// Browse the recipe catalogue.
+        /// </summary>
+        /// <returns></returns>
         // GET: Recipes
         public ActionResult Index()
         {
@@ -137,6 +141,15 @@ namespace TechnicalProgrammingProject.Controllers
             db.Recipes.Remove(recipe);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+        public ActionResult AddIngredient()
+        {
+            var recipe = new Recipe();
+            recipe.Ingredients.Add(new Ingredient());
+
+            return PartialView(recipe);
         }
 
         protected override void Dispose(bool disposing)

@@ -225,6 +225,12 @@
     <Content Include="Views\Users\Manage.cshtml" />
     <Content Include="Views\Shared\_AdminNavPartial.cshtml" />
     <Content Include="Views\Shared\_UserNavPartial.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Ingredient.cshtml" />
+    <Content Include="Views\Recipes\AddIngredient.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Profile\CurrentProfile.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Profile\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -243,8 +249,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IngredientsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\RecipesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -277,6 +285,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="bin\" />
     <Folder Include="Views\Manage\" />
+    <Folder Include="Views\Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201611060920234_Initial.resx">
