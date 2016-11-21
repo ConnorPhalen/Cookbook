@@ -237,6 +237,9 @@
     <Content Include="Views\Profile\CurrentProfile.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
+    <Content Include="Views\Recipes\Uploads.cshtml" />
+    <Content Include="Views\Recipes\CurrentUploads.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

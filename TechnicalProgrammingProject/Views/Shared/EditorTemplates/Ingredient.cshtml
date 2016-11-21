@@ -1,6 +1,6 @@
 ﻿@model TechnicalProgrammingProject.Models.Ingredient
 
-<div class="form-group">
+<div class="ingredient form-group">
     @Html.LabelFor(i => i.Name)
     <div class="col-md-3">
         @Html.TextBoxFor(i => i.Name, new { @class = "form-control" })
@@ -16,4 +16,5 @@
         @Html.TextBoxFor(i => i.Unit, new { @class = "form-control" })
         @Html.ValidationMessageFor(i => i.Unit)
     </div>
+    <button type="button" class="delete-ingredient">Remove Ingredient</button>
 </div>

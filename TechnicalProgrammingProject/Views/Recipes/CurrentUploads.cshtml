@@ -1,0 +1,19 @@
+﻿@model TechnicalProgrammingProject.Models.UploadsViewModel
+
+@{
+    ViewBag.Title = "Uploads";
+}
+
+<h2>Uploader Name</h2>
+
+<div>
+    <h4>UploadsViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        @foreach (var userRecipe in Model.Recipes)
+        {
+            @Html.Partial("_RecipeCard", userRecipe);
+        }
+    </dl>
+    @Html.ActionLink("Upload a Recipe", "Create")
+</div>

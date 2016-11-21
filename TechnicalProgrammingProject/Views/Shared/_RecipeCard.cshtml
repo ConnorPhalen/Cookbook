@@ -3,7 +3,7 @@
 @Styles.Render("~/Content/asset/css/recipeCard.css")
 
 <div class="recipeCard">
-    <a href=@Url.Action("Details/" + Model.ID.ToString(), "Recipes")>
+    <a href=@Url.Action("Details", "Recipes", new { id = Model.ID })>
         <img class="recipeImage" src=@Html.DisplayFor(modelItemm => Model.ImageURL)>
     </a>
     <div class="content">
