@@ -24,10 +24,9 @@ namespace TechnicalProgrammingProject.Controllers
         public ActionResult Index()
         {
             var userId = User.Identity.GetUserId();
+            var recipes = db.Recipes.Where(r => r.Cookbooks.Any(c => c.ApplicationUserID == userId));
 
-            var recipes = db.Recipes.Where(r => r.ApplicationUser.Id == userId).Include(r => r.Ingredients);
-            
-            if(recipes.ToList().Count == 0)
+            if (recipes.ToList().Count == 0)
             {
                 return View("Empty");
             }
