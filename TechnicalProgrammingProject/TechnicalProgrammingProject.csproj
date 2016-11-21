@@ -156,7 +156,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\asset\css\profile.css" />
     <Content Include="Content\asset\css\recipeCard.css" />
+    <Content Include="Content\asset\images\avatar.jpg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -287,8 +289,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\asset\js\" />
     <Folder Include="bin\" />
+    <Folder Include="Content\asset\js\" />
     <Folder Include="Views\Manage\" />
     <Folder Include="Views\Uploads\" />
   </ItemGroup>
