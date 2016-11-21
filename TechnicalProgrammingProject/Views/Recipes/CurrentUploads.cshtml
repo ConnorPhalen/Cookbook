@@ -9,11 +9,11 @@
 <div>
     <h4>UploadsViewModel</h4>
     <hr />
-    <div class="row">
+    <dl class="dl-horizontal">
         @foreach (var userRecipe in Model.Recipes)
-            {
+        {
             @Html.Partial("_RecipeCard", userRecipe);
-            }
-    </div>
+        }
+    </dl>
     @Html.ActionLink("Upload a Recipe", "Create")
 </div>

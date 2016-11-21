@@ -18,9 +18,7 @@
             <div class="col-md-4 avatar">
                 <img src="~/Content/asset/images/avatar.jpg" alt="Profile image" class="img-responsive img-thumbnail" />
             </div>
-            <div id="status">
-                @ViewBag.StatusMessage
-            </div>
+            @ViewBag.StatusMessage
             <div class="col-md-8 infoContainer">
                 <div class="form-horizontal">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
