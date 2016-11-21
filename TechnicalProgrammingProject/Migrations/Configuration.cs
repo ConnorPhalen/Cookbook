@@ -141,7 +141,7 @@ namespace TechnicalProgrammingProject.Migrations
                     CookTime = 0,
                     Servings = 1,
                     Directions = "Just go to Belgium and buy it. You cannot make it as good as they can.",
-                    ImageURL = "http://cdn1.tmbi.com/TOH/Images/Photos/37/300x300/exps4869_RDS2928497A10_11_1b_WEB.jpg",
+                    ImageURL = "http://www.krusteaz.com/sites/krusteaz.com/files/styles/product_hero/public/images/products/heroes/krusteaz-belgian-waffles.png?itok=WeTofqEi",
                     Rating = 69
                 },
                    new Recipe
