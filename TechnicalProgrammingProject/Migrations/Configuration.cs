@@ -187,6 +187,22 @@ namespace TechnicalProgrammingProject.Migrations
             
             context.SaveChanges();
 
+            List<Tag> tags = new List<Tag>()
+            {
+                new Tag { ID = 1, Name = "Beef" },
+                new Tag { ID = 2, Name = "Chicken" },
+                new Tag { ID = 3, Name = "Healthy" },
+                new Tag { ID = 4, Name = "Delicious" },
+                new Tag { ID = 5, Name = "Fruity" },
+                new Tag { ID = 6, Name = "Artery Clogging" },
+                new Tag { ID = 7, Name = "Easy" },
+                new Tag { ID = 8, Name = "Wanna Play Gwent?" }
+            };
+
+            tags.ForEach(t => context.Tags.AddOrUpdate(ta => ta.ID, t));
+
+            context.SaveChanges();
+
             context.Users.ToList().ForEach(u => context.Recipes.ToList().ForEach(r => r.ApplicationUser = u));
 
             var recipe1 = context.Recipes.Find(1);
@@ -203,6 +219,15 @@ namespace TechnicalProgrammingProject.Migrations
             var ingredient6 = context.Ingredients.Find(6);
             var ingredient7 = context.Ingredients.Find(7);
 
+            var tag1 = context.Tags.Find(1);
+            var tag2 = context.Tags.Find(2);
+            var tag3 = context.Tags.Find(3);
+            var tag4 = context.Tags.Find(4);
+            var tag5 = context.Tags.Find(5);
+            var tag6 = context.Tags.Find(6);
+            var tag7 = context.Tags.Find(7);
+            var tag8 = context.Tags.Find(8);
+
             recipe1.Ingredients.Add(ingredient1);
             recipe2.Ingredients.Add(ingredient2);
             recipe2.Ingredients.Add(ingredient3);
@@ -212,6 +237,17 @@ namespace TechnicalProgrammingProject.Migrations
             recipe4.Ingredients.Add(ingredient3);
             recipe4.Ingredients.Add(ingredient7);
             recipe5.Ingredients.Add(ingredient4);
+
+            recipe1.Tags.Add(tag4);
+            recipe1.Tags.Add(tag6);
+            recipe2.Tags.Add(tag7);
+            recipe3.Tags.Add(tag5);
+            recipe3.Tags.Add(tag4);
+            recipe4.Tags.Add(tag2);
+            recipe4.Tags.Add(tag3);
+            recipe5.Tags.Add(tag1);
+            recipe5.Tags.Add(tag8);
+            recipe4.Tags.Add(tag8);
 
             context.Cookbooks.ToList().ForEach(c => c.Recipes.Add(recipe1));
             context.Cookbooks.ToList().ForEach(c => c.Recipes.Add(recipe2));
