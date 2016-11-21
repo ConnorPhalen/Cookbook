@@ -5,16 +5,13 @@
 }
 
 <h2 id="homepage-page-title"> Welcome to Judge Rabberschnottle's Cookbook of Akwardness</h2>
-<div class="container">
-    <div>
-        @Html.Partial("_CarouselPartial")
-    </div>
-    <!-- For each recipe in the model, display the recipes summary with a partial view -->
-
-    <div class="row">
-        @foreach (var recipe in Model)
-        {
-            @Html.Partial("_RecipeCard", recipe)
-        }
-    </div>
+<div>
+    @Html.Partial("_CarouselPartial")
+</div>
+<!-- For each recipe in the model, display the recipes summary with a partial view -->
+<div>
+    @foreach (var recipe in Model)
+    {
+        @Html.Partial("_RecipeCard", recipe)
+    }
 </div>
