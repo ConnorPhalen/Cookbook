@@ -14,6 +14,10 @@ namespace TechnicalProgrammingProject.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        /// <summary>
+        /// Browse the recipe catalogue.
+        /// </summary>
+        /// <returns></returns>
         // GET: Recipes
         public ActionResult Index()
         {
