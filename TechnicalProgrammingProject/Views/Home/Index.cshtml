@@ -13,8 +13,13 @@
 
 <p>@ViewBag.Message</p>
 
+<div>
+    @Html.Partial("_CarouselPartial")
+</div>
 <!-- For each recipe in the model, display the recipes summary with a partial view -->
-@foreach (var recipe in Model)
-{
-    @Html.Partial("_RecipeCard", recipe)
-}
+<div>
+    @foreach (var recipe in Model)
+    {
+        @Html.Partial("_RecipeCard", recipe)
+    }
+</div>

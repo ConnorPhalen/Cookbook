@@ -82,10 +82,21 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script>
         $(document).ready(function () {
-            $('#add-ingredient').on('click', function () {
-                jQuery.get('/Recipes/AddIngredient').done(function (html) {
-                    $('#ingredients').append(html);
-                });
+            $('#add-ingredient').click(function () {
+                $.ajax({
+                    url: '@Url.Action("AddIngredient")',
+                    cache: false,
+                    method: 'GET',
+                    success: function (html) {
+                        $('#ingredients').append(html);
+                    }
+                })
+            });
+
+            $('#ingredients').on('click', 'button.delete-ingredient', function () {
+                var ingredientToRemove = $(this).closest('div.ingredient');
+                ingredientToRemove.prev('input[type=hidden]').remove();
+                ingredientToRemove.remove();
             });
         });
     </script>

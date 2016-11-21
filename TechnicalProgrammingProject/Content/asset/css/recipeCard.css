@@ -1,19 +1,16 @@
-﻿body {
-    height: 100%;
-}
-
-#recipesummary-image {
-    
-    width: 400px;
-    height: 300px;
-    position:center;
+﻿.content{
     padding: 20px 20px;
 }
 
-.recipesummary{
-    margin: 50px;
-    float:left;
+.recipeImage {
+    width: 100%;
+    height: 300px;
+}
+
+.recipeCard{
     width: 400px;
+    margin: 50px;
     text-align:center;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    float:left;
 }

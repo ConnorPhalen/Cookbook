@@ -1,6 +1,17 @@
-﻿body {
+﻿html,
+body { 
+    height: 100%; 
+}
+
+body {
     padding-top: 50px;
     background-color: #EEEEEE;
+    width: 100%;
+    display: table;
+}
+
+hr {
+    border-color:#1A2930;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -26,10 +37,11 @@ textarea {
 .navbar-inverse { background-color: #1A2930; }
 
 footer{
-    background: #1A2930;
     color: #eee;
     font-size: 11px;
     padding: 20px;
+    display: table-row;
+    height: 220px;
 }
 
 ul.unstyled{
