@@ -240,6 +240,7 @@
     <Content Include="Views\Recipes\Uploads.cshtml" />
     <Content Include="Views\Recipes\CurrentUploads.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Recipes\Search.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -295,7 +296,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="bin\" />
     <Folder Include="Content\asset\js\" />
-    <Folder Include="Views\Manage\" />
     <Folder Include="Views\Uploads\" />
   </ItemGroup>
   <ItemGroup>

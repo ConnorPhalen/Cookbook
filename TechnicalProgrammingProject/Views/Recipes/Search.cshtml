@@ -1,23 +1,18 @@
 ﻿@model IEnumerable<TechnicalProgrammingProject.Models.Recipe>
 
 @{
-    ViewBag.Title = "Homepage";
+    ViewBag.Title = "Search";
 }
 
 <h2 id="homepage-page-title"> Welcome to The Grill, Private! Get Ready to Flambé!</h2>
 
-@using (Html.BeginForm("Search", "Recipes", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
+<form method="get">
     <input type="search" name="searchTerm" />
     <input type="submit" value="Search By Name, Tag, or Ingredient" />
-}
+</form>
 
 <p>@ViewBag.Message</p>
 
-<div>
-    @Html.Partial("_CarouselPartial")
-</div>
 <!-- For each recipe in the model, display the recipes summary with a partial view -->
 <div>
     @foreach (var recipe in Model)
