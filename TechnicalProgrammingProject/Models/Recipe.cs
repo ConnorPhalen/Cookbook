@@ -8,6 +8,7 @@ namespace TechnicalProgrammingProject.Models
         public Recipe()
         {
             Ingredients = new HashSet<Ingredient>();
+            Tags        = new HashSet<Tag>();
         }
         //PK
         public int ID { get; set; }
@@ -26,5 +27,7 @@ namespace TechnicalProgrammingProject.Models
         public virtual ICollection<Cookbook> Cookbooks { get; set; }
         //return ingredients
         public virtual ICollection<Ingredient> Ingredients { get; set; }
+        //return tags
+        public virtual ICollection<Tag> Tags { get; set; }
     }
 }

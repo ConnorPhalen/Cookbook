@@ -1,0 +1,32 @@
+﻿.infoContainer {
+    margin-top: 20px;
+}
+
+.avatar > img {
+    margin:20px 90px;
+}
+
+.link {
+    margin-left: 90px;
+}
+
+.info {
+   margin-top:20px;
+}
+
+.info > .table th{
+    border-top: none;
+}
+
+.left-inner-addon {
+    position: relative;
+}
+.left-inner-addon input {
+    padding-left: 35px;    
+}
+.left-inner-addon span {
+    position: absolute;
+    padding: 10px 12px;
+    pointer-events: none;
+}
+

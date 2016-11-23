@@ -12,9 +12,10 @@ namespace TechnicalProgrammingProject.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Home
-        public ActionResult Index()
+        public ActionResult Index() 
         {
             return View(db.Recipes.ToList());
         }
+
     }
 }

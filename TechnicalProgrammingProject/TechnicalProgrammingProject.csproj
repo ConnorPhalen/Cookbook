@@ -161,6 +161,7 @@
     <Content Include="Content\asset\js\leftsidebar.js" />
     <Content Include="Content\asset\js\login.js" />
     <Content Include="Content\asset\css\recipeCard.css" />
+    <Content Include="Content\asset\images\avatar.jpg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -240,6 +241,7 @@
     <Content Include="Views\Recipes\Uploads.cshtml" />
     <Content Include="Views\Recipes\CurrentUploads.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Recipes\Search.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -277,6 +279,7 @@
     <Compile Include="Models\Cookbook.cs" />
     <Compile Include="Models\Ingredient.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\Recipe.cs" />
     <Compile Include="Models\RecipeViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
