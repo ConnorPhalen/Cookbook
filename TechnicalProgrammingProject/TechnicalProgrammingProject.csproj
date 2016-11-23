@@ -158,6 +158,10 @@
   <ItemGroup>
     <Content Include="Content\asset\css\createRecipe.css" />
     <Content Include="Content\asset\css\profile.css" />
+    <Content Include="Content\asset\css\leftsidebar.css" />
+    <Content Include="Content\asset\css\login.css" />
+    <Content Include="Content\asset\js\leftsidebar.js" />
+    <Content Include="Content\asset\js\login.js" />
     <Content Include="Content\asset\css\recipeCard.css" />
     <Content Include="Content\asset\images\avatar.jpg" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -176,17 +180,15 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="Properties\PublishProfiles\TPLab0320161009092843 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Scripts\jquery-1.10.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.1.1.js" />
-    <Content Include="Scripts\jquery-3.1.1.min.js" />
-    <Content Include="Scripts\jquery-3.1.1.slim.js" />
-    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -223,9 +225,9 @@
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
     <Content Include="Views\Shared\_RecipeCard.cshtml" />
-    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Views\Cookbooks\Empty.cshtml" />
+    <Content Include="Views\Shared\_LoginOverLay.cshtml" />
+    <Content Include="Views\Shared\_LeftSideBar.cshtml" />
     <Content Include="Views\Home\_CarouselPartial.cshtml" />
     <Content Include="Views\Recipes\Success.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
@@ -241,6 +243,7 @@
     <Content Include="Views\Recipes\Uploads.cshtml" />
     <Content Include="Views\Recipes\CurrentUploads.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Recipes\Search.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

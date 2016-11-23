@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -45,6 +46,27 @@ namespace TechnicalProgrammingProject.Controllers
             Console.WriteLine("No Recipe with that ID.");
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
+        }
+        
+        public ActionResult Search(string searchTerm = "")
+        {
+            IEnumerable<Recipe> searchResult = db.Recipes.Where(r => searchTerm == ""
+                                                    || r.Name.Contains(searchTerm)
+                                                    || r.Tags.Any(t => t.Name == searchTerm)
+                                                    || r.Ingredients.Any(i => i.Name == searchTerm))
+                                                    .OrderBy(r => r.Name);
+
+            if (searchResult == null)
+            {
+                // There are no results.
+                ViewBag.Message = "No Recipes matched those search terms.";
+                return View();
+            }
+            else
+            {
+                ViewBag.Message = "Returned " + searchResult.Count().ToString() + " results.";
+                return View(searchResult);
+            }
         }
 
         // GET: Recipes/Create

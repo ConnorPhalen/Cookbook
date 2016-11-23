@@ -6,10 +6,12 @@
 
 <h2 id="homepage-page-title"> Welcome to The Grill, Private! Get Ready to Flambé!</h2>
 
-<form method="get">
+@using (Html.BeginForm("Search", "Recipes", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
     <input type="search" name="searchTerm" />
-    <input type="submit" value="Search By Tag" />
-</form>
+    <input type="submit" value="Search By Name, Tag, or Ingredient" />
+}
 
 <p>@ViewBag.Message</p>
 <div class="container">

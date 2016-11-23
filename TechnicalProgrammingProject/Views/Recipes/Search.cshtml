@@ -1,0 +1,22 @@
+﻿@model IEnumerable<TechnicalProgrammingProject.Models.Recipe>
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2 id="homepage-page-title"> Welcome to The Grill, Private! Get Ready to Flambé!</h2>
+
+<form method="get">
+    <input type="search" name="searchTerm" />
+    <input type="submit" value="Search By Name, Tag, or Ingredient" />
+</form>
+
+<p>@ViewBag.Message</p>
+
+<!-- For each recipe in the model, display the recipes summary with a partial view -->
+<div>
+    @foreach (var recipe in Model)
+    {
+        @Html.Partial("_RecipeCard", recipe)
+    }
+</div>
