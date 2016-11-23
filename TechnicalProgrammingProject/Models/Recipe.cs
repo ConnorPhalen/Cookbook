@@ -18,6 +18,8 @@ namespace TechnicalProgrammingProject.Models
         public string ImageURL { get; set; }
         public string Directions { get; set; }
         public int Rating { get; set; }
+        public System.DateTime? DateUploaded { get; set; }
+        public string Status { get; set; }
         //return user
         public virtual ApplicationUser ApplicationUser { get; set; }
         //return cookbooks

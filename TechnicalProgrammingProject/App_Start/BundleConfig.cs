@@ -25,6 +25,8 @@ namespace TechnicalProgrammingProject
                       "~/Content/asset/css/login.css"));
             bundles.Add(new ScriptBundle("~/bundles/login").Include(
                      "~/Content/asset/js/login.js"));
+            bundles.Add(new ScriptBundle("~/bundles/sidebar").Include(
+                     "~/Content/asset/js/leftsidebar.js"));
 
             bundles.Add(new StyleBundle("~/Content/asset/css/leftsidebar").Include(
                       "~/Content/asset/css/leftsidebar.css"));

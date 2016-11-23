@@ -1,19 +1,13 @@
 ﻿@model TechnicalProgrammingProject.Models.Recipe
 
-@Styles.Render("~/content")
-@Styles.Render("~/content/asset/css/recipeCard.css")
+@Styles.Render("~/Content/asset/css/recipeCard.css")
 
-<div class="recipesummary">
-    <h3 id="Name">
-        @Html.DisplayFor(modelItem => Model.Name)
-    </h3>
-    <a href=@Url.Action("Details/" + Model.ID.ToString(), "Recipes")>
-        <img id="recipesummary-image" src=@Html.DisplayFor(modelItemm => Model.ImageURL)>
+<div class="recipeCard">
+    <a href=@Url.Action("Details", "Recipes", new { id = Model.ID })>
+        <img class="recipeImage" src=@Html.DisplayFor(modelItemm => Model.ImageURL)>
     </a>
-    <div id="Description">
-        @Html.DisplayFor(modelItem => Model.Description)
-    </div>
-    <div id="Rating">
+    <div class="content">
+        <h3>@Html.DisplayFor(modelItem => Model.Name)</h3>
         Rating: @Html.DisplayFor(modelItem => Model.Rating)/10!
     </div>
 </div>

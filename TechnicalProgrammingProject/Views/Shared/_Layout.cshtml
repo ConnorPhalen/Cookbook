@@ -25,11 +25,14 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Ingredients", "Index", "Ingredients")</li>
                     <li>@Html.ActionLink("Cookbook", "Index", "Cookbooks")</li>
+                    <li>@Html.ActionLink("User Checker", "Index", "Users")</li>
+                    <!-- Renders the SuperAdmin and Moderator only links -->
+                    @{ Html.RenderAction("GetRoleLinks", "Users"); }
                 </ul>
                 <ul class="nav navbar-nav pull-right">
                     @Html.Partial("_LoginPartial", new TechnicalProgrammingProject.Models.LoginViewModel{ })
                 </ul>
-                
+              
             </div>
         </div>
     </div>
@@ -41,8 +44,7 @@
                
         <hr />
     </div>
-
-    <footer>
+    <footer class="navbar navbar-inverse">
         <div class="container">
             <div class="footers">
                 <div class="col-sm-2">
@@ -52,12 +54,12 @@
                 <div class="col-sm-4">
                     <h4>About us</h4>
                     <p>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-                    to make a type specimen book. It has survived not only five centuries, but also the leap into electronic 
-                    standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
-                    typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-                    sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like 
-                    Aldus PageMaker including versions of Lorem Ipsum.
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                        to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+                        standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+                        typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+                        sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
+                        Aldus PageMaker including versions of Lorem Ipsum.
                     </p>
                 </div><!-- end col-sm-4 -->
                 <div class="col-sm-2">
@@ -85,6 +87,8 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/login")
+    @Scripts.Render("~/bundles/sidebar")    
     @RenderSection("scripts", required: false)
+
 </body>
 </html>

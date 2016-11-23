@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -14,6 +14,10 @@ namespace TechnicalProgrammingProject.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        /// <summary>
+        /// Browse the recipe catalogue.
+        /// </summary>
+        /// <returns></returns>
         // GET: Recipes
         public ActionResult Index()
         {
@@ -23,24 +27,6 @@ namespace TechnicalProgrammingProject.Controllers
         // GET: Recipes/Details/5
         public ActionResult Details(int? id)
         {
-            // Display the values for the specific recipe
-            /*
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            //Display the values for the specific recipe
-            Recipe recipe = db.Recipes.Find(id);
-
-            if (recipe == null)
-            {
-                return HttpNotFound();
-            }
-            var recipes = db.Recipes.Include(r => r.Ingredients);
-
-            return View(recipe);
-            */
-            
             var recipes = db.Recipes.Include(r => r.Ingredients);
             Recipe recipe;
 
@@ -56,12 +42,13 @@ namespace TechnicalProgrammingProject.Controllers
                     Console.WriteLine("BAD");
                 }
             }
-            Console.WriteLine("There are no Recipes");
+            Console.WriteLine("No Recipe with that ID.");
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
         }
 
         // GET: Recipes/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -70,18 +57,74 @@ namespace TechnicalProgrammingProject.Controllers
         // POST: Recipes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RecipeID,UserID,Name,Description,CookTime,Servings,ImageURL,Directions,Rating")] Recipe recipe)
+        public ActionResult Create(CreateRecipeViewModel recipeViewModel)
         {
             if (ModelState.IsValid)
             {
+                var user = db.Users.Find(User.Identity.GetUserId());
+
+                Recipe recipe = new Recipe();
+                recipe.Name = recipeViewModel.Name;
+                recipe.Description = recipeViewModel.Description;
+                recipe.CookTime = recipeViewModel.CookTime;
+                recipe.DateUploaded = DateTime.Now;
+                recipe.Servings = recipeViewModel.Servings;
+                recipe.Status = "Pending";
+                recipe.ImageURL = recipeViewModel.ImageURL;
+                recipe.Ingredients = recipeViewModel.Ingredients;
+                recipe.ApplicationUser = user;
+                recipe.Directions = recipeViewModel.Directions;
                 db.Recipes.Add(recipe);
+
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                return View("Success");
+            }
+            return View(recipeViewModel);
+        }
+
+        /// <summary>
+        /// View uploads of logged in user or another user.
+        /// </summary>
+        /// <param name="id">User's id</param>
+        /// <returns></returns>
+        // GET: Recipes/Uploads/{id}
+        public ActionResult Uploads(string id)
+        {
+            //Recipe/Uploads - set to current logged in user
+            if (id == null)
+            {
+                id = User.Identity.GetUserId();
+            }
+            //get user
+            var user = db.Users.Find(id);
+
+            //if user not found
+            if (user == null)
+            {
+                return HttpNotFound();
             }
 
-            return View(recipe);
+            //find uploads for the specific user
+            var recipes = db.Recipes.Where(r => r.ApplicationUser.Id == id);
+
+            //create model to send to view
+            var model = new UploadsViewModel
+            {
+                UploaderName = user.DisplayName,
+                Recipes = recipes.ToList()
+            };
+            
+            //return public upload view
+            if (id != User.Identity.GetUserId())
+            {
+                return View(model);
+            }
+            //return logged in user's upload view
+            return View("CurrentUploads", model);
         }
 
         // GET: Recipes/Edit/5
@@ -139,6 +182,15 @@ namespace TechnicalProgrammingProject.Controllers
             db.Recipes.Remove(recipe);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+        public ActionResult AddIngredient()
+        {
+            var recipe = new Recipe();
+            recipe.Ingredients.Add(new Ingredient());
+
+            return PartialView(recipe);
         }
 
         protected override void Dispose(bool disposing)

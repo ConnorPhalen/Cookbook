@@ -11,43 +11,26 @@ using TechnicalProgrammingProject.Models;
 
 namespace TechnicalProgrammingProject.Controllers
 {
+    [Authorize]
     public class CookbooksController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        
-
+        /// <summary>
+        /// Views the logged in users cookbook or another users cookbook.
+        /// </summary>
+        /// <returns></returns>
         // GET: Cookbooks
-        [Authorize]
         public ActionResult Index()
         {
-            /* Curretly, this would just get all the users uplaoded recipes, not their favourited ones. 
-               We need a new column or two in the database for user favourites, but it shouldn't be hard.
-             */
-            string userID = User.Identity.GetUserId();
+            var userId = User.Identity.GetUserId();
+            var recipes = db.Recipes.Where(r => r.Cookbooks.Any(c => c.ApplicationUserID == userId));
 
-            //if(userID == null)
-            //{
-            //    userID = "bc3bcd26-67a6-4e25-8d73-f8a437faf335"; // !!!!! CHANGE LATER FOR DEMO !!!!!
-            //}
-
-            var recipes = db.Recipes.ToList();
-            var recipeList = new List<Recipe>();
-
-            foreach (Recipe r in recipes)
-            {
-                if (r.ApplicationUser.Id.Equals(userID))
-                {
-                    recipeList.Add(r);
-                }
-            }
-            
-            if(recipeList.Count == 0)
+            if (recipes.ToList().Count == 0)
             {
                 return View("Empty");
-                // return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return View(recipeList);
+            return View(recipes.ToList());
         }
 
         // GET: Cookbooks/Details/5
