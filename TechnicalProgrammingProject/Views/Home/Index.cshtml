@@ -7,19 +7,20 @@
 <h2 id="homepage-page-title"> Welcome to The Grill, Private! Get Ready to Flambé!</h2>
 
 <form method="get">
-    <input type="search" name="searchTerm"/>
-    <input type="submit" value="Search By Tag"/>
+    <input type="search" name="searchTerm" />
+    <input type="submit" value="Search By Tag" />
 </form>
 
 <p>@ViewBag.Message</p>
-
-<div>
-    @Html.Partial("_CarouselPartial")
-</div>
-<!-- For each recipe in the model, display the recipes summary with a partial view -->
-<div>
-    @foreach (var recipe in Model)
-    {
-        @Html.Partial("_RecipeCard", recipe)
-    }
+<div class="container">
+    <div>
+        @Html.Partial("_CarouselPartial")
+    </div>
+    <!-- For each recipe in the model, display the recipes summary with a partial view -->
+    <div class="row">
+        @foreach (var recipe in Model)
+        {
+            @Html.Partial("_RecipeCard", recipe)
+        }
+    </div>
 </div>
