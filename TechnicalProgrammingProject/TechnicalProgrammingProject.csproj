@@ -156,6 +156,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\asset\css\createRecipe.css" />
+    <Content Include="Content\asset\css\profile.css" />
     <Content Include="Content\asset\css\leftsidebar.css" />
     <Content Include="Content\asset\css\login.css" />
     <Content Include="Content\asset\js\leftsidebar.js" />
@@ -296,6 +298,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="bin\" />
+    <Folder Include="Content\asset\js\" />
     <Folder Include="Views\Uploads\" />
   </ItemGroup>
   <ItemGroup>

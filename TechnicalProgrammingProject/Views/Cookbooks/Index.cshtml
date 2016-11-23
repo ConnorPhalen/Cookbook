@@ -6,7 +6,9 @@
 
 <h2> Your Cookbook Recipes</h2>
 
-@foreach (var userRecipe in Model)
-{
-    @Html.Partial("_RecipeCard", userRecipe);
-}
+<div class="row">
+    @foreach (var userRecipe in Model)
+    {
+        @Html.Partial("_RecipeCard", userRecipe);
+    }
+</div>
