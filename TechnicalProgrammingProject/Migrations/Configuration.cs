@@ -184,7 +184,7 @@ namespace TechnicalProgrammingProject.Migrations
             };
 
             ingredients.ForEach(i => context.Ingredients.AddOrUpdate(ig => ig.ID, i));
-            
+
             context.SaveChanges();
 
             List<Tag> tags = new List<Tag>()

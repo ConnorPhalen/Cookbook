@@ -1,0 +1,22 @@
+﻿@model IEnumerable<TechnicalProgrammingProject.Models.Recipe>
+
+@{
+    ViewBag.Title = "Approve Recipes";
+}
+
+<h2> YEAH! </h2>
+@foreach (var recipe in Model)
+{
+    @Html.Partial("_ManageRecipePartial", recipe)
+
+    <br />
+}
+
+<!--
+model TechnicalProgrammingProject.Models.ManageRecipeViewModel
+{
+    ViewBag.Title = "Approve Recipes";
+}
+
+<h2>Manage</h2>
+-->

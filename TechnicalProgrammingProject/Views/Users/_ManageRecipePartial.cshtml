@@ -1,0 +1,17 @@
+﻿@model TechnicalProgrammingProject.Models.Recipe
+
+<div class="Manage-Recipe-Main">
+    @using (Html.BeginForm("UpdateRecipeStatus", "Users", new { recipeID = Model.ID }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        <p>Recipe Name: <a href="@Url.Action("Details", "Recipes", new { id = Model.ID })">@Html.DisplayFor(model => Model.Name)</a></p> 
+        <p>Current Status: @Html.DisplayFor(model => Model.Status)</p>
+
+        <div class="Manage-Recipe-RadioDiv">
+            <input class="Manage-Recipe-RadioInput" type="radio" value="pending" name="status" /> Pending <br />
+            <input class="Manage-Recipe-RadioInput" type="radio" value="denied" name="status" /> Denied <br />
+            <input class="Manage-Recipe-RadioInput" type="radio" value="approved" name="status" /> Approved <br />
+        </div>
+
+        <input class="Manage-Recipe-Submit" type="submit" value="Update" />
+    }
+</div>

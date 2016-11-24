@@ -228,7 +228,6 @@
     <Content Include="Views\Home\_CarouselPartial.cshtml" />
     <Content Include="Views\Recipes\Success.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
-    <Content Include="Views\Users\Manage.cshtml" />
     <Content Include="Views\Shared\_AdminNavPartial.cshtml" />
     <Content Include="Views\Shared\_UserNavPartial.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Ingredient.cshtml" />
@@ -241,6 +240,8 @@
     <Content Include="Views\Recipes\CurrentUploads.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Recipes\Search.cshtml" />
+    <Content Include="Views\Users\_ManageRecipePartial.cshtml" />
+    <Content Include="Views\Users\ApproveRecipe.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -277,6 +278,7 @@
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Cookbook.cs" />
     <Compile Include="Models\Ingredient.cs" />
+    <Compile Include="Models\ManageRecipeViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\Recipe.cs" />
