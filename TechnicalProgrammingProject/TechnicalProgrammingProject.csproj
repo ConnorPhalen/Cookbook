@@ -198,7 +198,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Recipes\Create.cshtml" />
-    <Content Include="Views\Recipes\Delete.cshtml" />
     <Content Include="Views\Recipes\Details.cshtml" />
     <Content Include="Views\Recipes\Edit.cshtml" />
     <Content Include="Views\Recipes\Index.cshtml" />
@@ -244,6 +243,8 @@
     <Content Include="Views\Recipes\CurrentUploads.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Recipes\Search.cshtml" />
+    <Content Include="Views\Recipes\Delete.cshtml" />
+    <Content Include="Views\Recipes\RecipeNotFound.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -298,8 +299,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="bin\" />
-    <Folder Include="Content\asset\js\" />
-    <Folder Include="Views\Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201611060920234_Initial.resx">
