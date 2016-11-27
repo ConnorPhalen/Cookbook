@@ -28,15 +28,15 @@ namespace TechnicalProgrammingProject.Controllers
         // GET: Recipes/Details/5
         public ActionResult Details(int? id)
         {
-            var recipes = db.Recipes.Include(r => r.Ingredients);
-            Recipe recipe;
+            var recipe = db.Recipes.Include(r => r.Ingredients);
+            Recipe recipeToDisplay;
 
-            foreach (Recipe r in recipes)
+            foreach (Recipe r in recipe)
             {
                 if (r.ID == id)
                 {
-                    recipe = r;
-                    return View(recipe);
+                    recipeToDisplay = r;
+                    return View(recipeToDisplay);
                 }
                 else
                 {
@@ -68,7 +68,7 @@ namespace TechnicalProgrammingProject.Controllers
                 return View(searchResult);
             }
         }
-
+       
         // GET: Recipes/Create
         [Authorize]
         public ActionResult Create()

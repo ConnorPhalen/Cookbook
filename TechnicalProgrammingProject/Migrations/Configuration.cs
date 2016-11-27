@@ -60,6 +60,7 @@ namespace TechnicalProgrammingProject.Migrations
             var user = new ApplicationUser();
             user.UserName = "HulkHogan";
             user.Email = "HulkHogan@WWF.com";
+            user.DisplayName = "Hulkamania";
 
             string userPWD = "HulkHogan@42";
 
@@ -75,6 +76,7 @@ namespace TechnicalProgrammingProject.Migrations
             var user1 = new ApplicationUser();
             user1.UserName = "BobRoss";
             user1.Email = "bob@ross.com";
+            user1.DisplayName = "The Joy of Painting";
 
             string userPWD1 = "Cooking1!";
 
@@ -90,6 +92,7 @@ namespace TechnicalProgrammingProject.Migrations
             var user2 = new ApplicationUser();
             user2.UserName = "Weeb";
             user2.Email = "Weeb@anime.com";
+            user2.DisplayName = "So Kawaii!";
 
             string userPWD2 = "ilovebodypillows@42";
 

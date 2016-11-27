@@ -1,10 +1,23 @@
-﻿@model TechnicalProgrammingProject.Models.Recipe
+﻿@model TechnicalProgrammingProject.Models.ManageRecipeViewModel
 
 <div class="Manage-Recipe-Main">
-    @using (Html.BeginForm("UpdateRecipeStatus", "Users", new { recipeID = Model.ID }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    @using (Html.BeginForm("UpdateRecipeStatus", "Users", new { recipeID = Model.RecipeID }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
-        <p>Recipe Name: <a href="@Url.Action("Details", "Recipes", new { id = Model.ID })">@Html.DisplayFor(model => Model.Name)</a></p> 
+        <p>Recipe Name: <a href="@Url.Action("Details", "Recipes", new { id = Model.RecipeID })">@Html.DisplayFor(model => Model.RecipeName)</a></p> 
+
+        <p>Uploaded By: @Html.ActionLink(Model.UploadedUserName + ",", "Index", "Profile", new { id = Model.UploadedUserID }, null)</p>
+
         <p>Current Status: @Html.DisplayFor(model => Model.Status)</p>
+
+        <p> Date Uploaded: @Html.DisplayFor(model => Model.DateUploaded)</p>
+
+        <p> Tags: 
+            @foreach(var tag in Model.Tags)
+            {
+                @Html.DisplayFor(modelItem => tag.Name);
+                @Html.Label(",  ");
+            }
+        </p>
 
         <div class="Manage-Recipe-RadioDiv">
             <input class="Manage-Recipe-RadioInput" type="radio" value="pending" name="status" /> Pending <br />

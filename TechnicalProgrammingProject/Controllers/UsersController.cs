@@ -63,11 +63,19 @@ namespace TechnicalProgrammingProject.Controllers
         [Authorize(Roles = "SuperAdmin,Moderator")]
         public ActionResult ApproveRecipe()
         {
+            // Grab all recipes that need approval, make them into a bunch of ManageRecipeViewModel
             var pendingRecipes =
                         from recipes in db.Recipes
                         where recipes.Status != "approved"
-                        select recipes;
-
+                        // join u in db.Users on recipes.ApplicationUser.Id equals u.Id
+                        select new ManageRecipeViewModel { RecipeName = recipes.Name,
+                                                            RecipeID = recipes.ID,
+                                                            DateUploaded = recipes.DateUploaded,
+                                                            Status = recipes.Status,
+                                                            UploadedUserName = recipes.ApplicationUser.DisplayName,
+                                                            UploadedUserID = recipes.ApplicationUser.Id,
+                                                            Tags = recipes.Tags
+                        };
             return View(pendingRecipes);
         }
 
@@ -85,7 +93,7 @@ namespace TechnicalProgrammingProject.Controllers
 
         [HttpPost]
         [Authorize(Roles = "SuperAdmin,Moderator")]
-        public bool UpdateRecipeStatus(string recipeID, string status)
+        public ActionResult UpdateRecipeStatus(string recipeID, string status)
         {
             int recID = int.Parse(recipeID);
 
@@ -96,11 +104,17 @@ namespace TechnicalProgrammingProject.Controllers
                                    where r.ID == recID
                                    select r).Single();
 
+                if(recCheck == null)
+                {
+                    // Recipe ID was bad, so the request failed
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
                 recCheck.Status = status;
                 context.SaveChanges();
 
                 // Now to return the past URL so they stay on the same page. 
-                return true;
+                return RedirectToAction("ApproveRecipe");
             }
         }
 

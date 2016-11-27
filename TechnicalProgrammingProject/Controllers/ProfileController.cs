@@ -58,7 +58,9 @@ namespace TechnicalProgrammingProject.Controllers
             //direct to public profile view
             if (id != User.Identity.GetUserId())
             {
-                return View(model);
+                return View(model); // Make a public viewModel for a profile. !!!!!!!!!!!!!!!!!!!!!!
+
+                // return View("CurrentProfile", model);
             }
 
             //direct to personal profile view
