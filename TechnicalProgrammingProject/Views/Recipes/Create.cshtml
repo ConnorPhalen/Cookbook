@@ -4,6 +4,7 @@
     ViewBag.Title = "Upload Recipe";
 }
 
+
 <h2>Upload New Recipe</h2>
 
 @using (Html.BeginForm())
@@ -24,7 +25,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" }, @cols = "50", @rows = "6" })
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -56,15 +57,23 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Directions, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Directions, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.Directions, new { htmlAttributes = new { @class = "form-control" }, @cols = "50", @rows = "6" })
                 @Html.ValidationMessageFor(model => model.Directions, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div id="ingredients">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ingredients, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div id="ingredients">
+                </div>
+            </div>
+            <div class="col-md-10 add">
+                <button type="button" id="add-ingredient" class="btn btn-default">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
+            </div>
         </div>
-
-        <input type="button" id="add-ingredient" value="Add" />
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -97,6 +106,10 @@
                 var ingredientToRemove = $(this).closest('div.ingredient');
                 ingredientToRemove.prev('input[type=hidden]').remove();
                 ingredientToRemove.remove();
+            });
+
+            $('#add-ingredient').click(function () {
+                $('.add').addClass("col-md-offset-2 ");
             });
         });
     </script>
