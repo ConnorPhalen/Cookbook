@@ -67,7 +67,7 @@ namespace TechnicalProgrammingProject.Controllers
                 return View(searchResult);
             }
         }
-
+       
         // GET: Recipes/Create
         public ActionResult Create()
         {
