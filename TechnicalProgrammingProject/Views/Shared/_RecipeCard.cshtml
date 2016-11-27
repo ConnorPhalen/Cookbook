@@ -2,12 +2,14 @@
 
 @Styles.Render("~/Content/asset/css/recipeCard.css")
 
-<div class="recipeCard">
-    <a href=@Url.Action("Details", "Recipes", new { id = Model.ID })>
-        <img class="recipeImage" src=@Html.DisplayFor(modelItemm => Model.ImageURL)>
-    </a>
-    <div class="content">
-        <h3>@Html.DisplayFor(modelItem => Model.Name)</h3>
-        Rating: @Html.DisplayFor(modelItem => Model.Rating)/10!
+<div class="col-md-4">
+    <div class="recipeCard">
+        <a href=@Url.Action("Details", "Recipes", new { id = Model.ID })>
+            <img class="recipeImage" src=@Html.DisplayFor(modelItemm => Model.ImageURL)>
+        </a>
+        <div class="content">
+            <h3>@Html.DisplayFor(modelItem => Model.Name)</h3>
+            Rating: @Html.DisplayFor(modelItem => Model.Rating)/10!
+        </div>
     </div>
 </div>
