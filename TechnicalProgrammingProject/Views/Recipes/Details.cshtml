@@ -10,6 +10,7 @@
     @using (Html.BeginForm("DeleteUpload", "Recipes", new { id = Model.ID }, FormMethod.Post, null))
     {
         @Html.AntiForgeryToken()
+        @Html.Hidden("returnUrl", (object) ViewBag.ReturnUrl)
         <input type="submit" value="Delete" class="btn btn-default" />
     }
 
