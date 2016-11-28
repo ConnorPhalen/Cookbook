@@ -8,7 +8,6 @@
 
 @using (Html.BeginForm("Search", "Recipes", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
 {
-    @Html.AntiForgeryToken()
     <input type="search" name="searchTerm" />
     <input type="submit" value="Search By Name, Tag, or Ingredient" />
 }

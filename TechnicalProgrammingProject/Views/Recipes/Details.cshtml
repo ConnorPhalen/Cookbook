@@ -7,6 +7,7 @@
     <h4 id="recipe-name">
         @Html.DisplayFor(model => model.Name)
     </h4>
+    @Html.ActionLink("Delete", "DeleteSingle", new { id = Model.ID })
 
     <div class="recipe-details">
         <p>
@@ -31,9 +32,17 @@
             Rating : @Html.DisplayFor(model => model.Rating)/10!
         </p>
 
+        <p>
+            Tags:
+            @foreach (var tag in Model.Tags)
+            {
+                @Html.DisplayFor(modelItem => tag.Name);
+                @Html.Label(",");
+            }
+        </p>
+
         @if (Model.Ingredients == null)
         {
-            Console.WriteLine("This Recipe Ain't Got No God Damned Ingredients, Sir!");
             <p id="recipe-noingredients">
                 No Ingredients are available for this recipe.
             </p>
@@ -45,12 +54,10 @@
                 <div class="recipe-ingredient">
                     <p>
                         @Html.DisplayFor(modelItemm => ingredient.Name)
-                        <br />
                         <div id="recipe-ingredient-details">
-                            @Html.DisplayFor(modelItemm => ingredient.Quantity) :
+                            @Html.DisplayFor(modelItemm => ingredient.Quantity) 
                             @Html.DisplayFor(modelItemm => ingredient.Unit)
                         </div>
-                        <br />
                         <br />
                     </p>
                 </div>

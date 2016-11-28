@@ -34,7 +34,30 @@ namespace TechnicalProgrammingProject.Models
 
     public class UploadsViewModel
     {
+        public UploadsViewModel()
+        {
+            Recipes = new HashSet<Recipe>();
+        }
         public string UploaderName { get; set; }
         public virtual ICollection<Recipe> Recipes { get; set; }
+    }
+
+    public class UploadedRecipe
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string Image { get; set; }
+        public DateTime? DateUploaded { get; set; }
+        public int Rating { get; set; }
+        public string Status { get; set; }
+        public bool isDelete { get; set; }
+    }
+    public class DeleteRecipeViewModel
+    {
+        public DeleteRecipeViewModel()
+        {
+            UploadedRecipes = new List<UploadedRecipe>();
+        }
+        public virtual List<UploadedRecipe> UploadedRecipes { get; set; }
     }
 }

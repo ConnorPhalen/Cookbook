@@ -1,16 +1,15 @@
 ﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using TechnicalProgrammingProject.Models;
 
 namespace TechnicalProgrammingProject.Controllers
 {
+    [Authorize]
     public class RecipesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -25,29 +24,29 @@ namespace TechnicalProgrammingProject.Controllers
             return View(db.Recipes.ToList());
         }
 
+        /// <summary>
+        /// View a recipe's details.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET: Recipes/Details/5
         public ActionResult Details(int? id)
         {
-            var recipes = db.Recipes.Include(r => r.Ingredients);
-            Recipe recipe;
-
-            foreach (Recipe r in recipes)
+            if (id == null)
             {
-                if (r.ID == id)
-                {
-                    recipe = r;
-                    return View(recipe);
-                }
-                else
-                {
-                    Console.WriteLine("BAD");
-                }
+                return HttpNotFound();
             }
-            Console.WriteLine("No Recipe with that ID.");
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
+            try
+            {
+                var recipes = db.Recipes.Where(r => r.ID == id).Include(r => r.Ingredients).Single();
+                return View(recipes);
+            }
+            catch (InvalidOperationException)
+            {
+                return View("RecipeNotFound");
+            }
         }
-        
+
         public ActionResult Search(string searchTerm = "")
         {
             IEnumerable<Recipe> searchResult = db.Recipes.Where(r => searchTerm == ""
@@ -68,9 +67,8 @@ namespace TechnicalProgrammingProject.Controllers
                 return View(searchResult);
             }
         }
-
+       
         // GET: Recipes/Create
-        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -79,7 +77,6 @@ namespace TechnicalProgrammingProject.Controllers
         // POST: Recipes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateRecipeViewModel recipeViewModel)
@@ -139,7 +136,7 @@ namespace TechnicalProgrammingProject.Controllers
                 UploaderName = user.DisplayName,
                 Recipes = recipes.ToList()
             };
-            
+
             //return public upload view
             if (id != User.Identity.GetUserId())
             {
@@ -180,32 +177,55 @@ namespace TechnicalProgrammingProject.Controllers
             return View(recipe);
         }
 
+        /// <summary>
+        /// View uploaded recipes to delete.
+        /// </summary>
+        /// <returns></returns>
         // GET: Recipes/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete()
         {
-            if (id == null)
+            //name, image, dateuploaded, rating, status
+            var userID = User.Identity.GetUserId();
+            var recipes = db.Recipes.Where(r => r.ApplicationUser.Id == userID)
+                                    .Select(r => new UploadedRecipe
+                                    {
+                                        ID = r.ID,
+                                        Name = r.Name,
+                                        Image = r.ImageURL,
+                                        DateUploaded = r.DateUploaded,
+                                        Rating = r.Rating,
+                                        Status = r.Status,
+                                        isDelete = false
+                                    });
+            var model = new DeleteRecipeViewModel
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Recipe recipe = db.Recipes.Find(id);
-            if (recipe == null)
-            {
-                return HttpNotFound();
-            }
-            return View(recipe);
+                UploadedRecipes = recipes.ToList()
+            };
+
+            return View(model);
         }
 
-        // POST: Recipes/Delete/5
-        [HttpPost, ActionName("Delete")]
+        // POST: Recipes/Delete
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Delete(DeleteRecipeViewModel model)
         {
-            Recipe recipe = db.Recipes.Find(id);
-            db.Recipes.Remove(recipe);
+            var ids = model.UploadedRecipes.Where(u => u.isDelete == true).Select(u => u.ID);
+
+            var recipes = db.Recipes.Where(r => ids.Any(u => u == r.ID));
+            db.Recipes.RemoveRange(recipes.ToList());
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            return RedirectToAction("Delete");
         }
 
+        [HttpPost]
+        [ChildActionOnly]
+        public ActionResult DeleteSingle(int id)
+        {
+
+            return RedirectToAction(Request.UrlReferrer.ToString());
+        }
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult AddIngredient()
         {
