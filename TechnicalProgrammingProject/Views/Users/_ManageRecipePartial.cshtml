@@ -5,7 +5,7 @@
     {
         <p>Recipe Name: <a href="@Url.Action("Details", "Recipes", new { id = Model.RecipeID })">@Html.DisplayFor(model => Model.RecipeName)</a></p> 
 
-        <p>Uploaded By: @Html.ActionLink(Model.UploadedUserName + ",", "Index", "Profile", new { id = Model.UploadedUserID }, null)</p>
+        <p>Uploaded By: @Html.ActionLink(Model.UploadedUserName, "Index", "Profile", new { id = Model.UploadedUserID }, null)</p>
 
         <p>Current Status: @Html.DisplayFor(model => Model.Status)</p>
 

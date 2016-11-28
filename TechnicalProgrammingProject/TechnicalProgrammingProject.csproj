@@ -284,6 +284,7 @@
     <Compile Include="Models\Ingredient.cs" />
     <Compile Include="Models\ManageRecipeViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ManageUserViewModel.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\Recipe.cs" />
     <Compile Include="Models\RecipeViewModels.cs" />

@@ -9,6 +9,8 @@
     </h4>
     @Html.ActionLink("Delete", "DeleteSingle", new { id = Model.ID })
 
+    <p>Uploaded By: @Html.ActionLink(Model.ApplicationUser.DisplayName, "Index", "Profile", new { id = Model.ApplicationUser.Id }, null)</p>
+
     <div class="recipe-details">
         <p>
             @Html.DisplayFor(model => model.Description)
