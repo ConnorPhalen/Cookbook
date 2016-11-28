@@ -27,10 +27,14 @@ namespace TechnicalProgrammingProject
                      "~/Content/asset/js/login.js"));
             bundles.Add(new ScriptBundle("~/bundles/sidebar").Include(
                      "~/Content/asset/js/leftsidebar.js"));
+            bundles.Add(new ScriptBundle("~/bundles/ingredient").Include(
+                     "~/Content/asset/js/createIngredients.js"));
 
             bundles.Add(new StyleBundle("~/Content/asset/css/leftsidebar").Include(
                       "~/Content/asset/css/leftsidebar.css"));
-           
+            bundles.Add(new StyleBundle("~/Content/asset/css/uploadRecipe").Include(
+                      "~/Content/asset/css/uploadRecipe.css"));
+
         }
     }
 }
