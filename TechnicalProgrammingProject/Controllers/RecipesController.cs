@@ -220,11 +220,12 @@ namespace TechnicalProgrammingProject.Controllers
         }
 
         [HttpPost]
-        [ChildActionOnly]
-        public ActionResult DeleteSingle(int id)
+        public ActionResult DeleteUpload(int id)
         {
-
-            return RedirectToAction(Request.UrlReferrer.ToString());
+            var recipe = db.Recipes.Find(id);
+            db.Recipes.Remove(recipe);
+            db.SaveChanges();
+            return RedirectToAction("Uploads");
         }
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult AddIngredient()
