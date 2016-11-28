@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -60,30 +61,63 @@ namespace TechnicalProgrammingProject.Controllers
         }
 
         [Authorize(Roles = "SuperAdmin,Moderator")]
-        public ActionResult Manage()
+        public ActionResult ApproveRecipe()
         {
+            // Grab all recipes that need approval, make them into a bunch of ManageRecipeViewModel
             var pendingRecipes =
                         from recipes in db.Recipes
                         where recipes.Status != "approved"
-                        select recipes;
-
+                        // join u in db.Users on recipes.ApplicationUser.Id equals u.Id
+                        select new ManageRecipeViewModel { RecipeName = recipes.Name,
+                                                            RecipeID = recipes.ID,
+                                                            DateUploaded = recipes.DateUploaded,
+                                                            Status = recipes.Status,
+                                                            UploadedUserName = recipes.ApplicationUser.DisplayName,
+                                                            UploadedUserID = recipes.ApplicationUser.Id,
+                                                            Tags = recipes.Tags
+                        };
             return View(pendingRecipes);
+        }
 
-            /* Can get rid of this snce the Authorize attribute does the check for us.
-            if (isSuperAdmin() || isModerator())
-            {
-                var pendingRecipes = 
+        /*
+        [Authorize(Roles = "SuperAdmin,Moderator")]
+        public ActionResult DisplayAllRecipes()
+        {
+            var allRecipes =
                         from recipes in db.Recipes
-                        where recipes.Status != "approved"
                         select recipes;
 
-                return View(pendingRecipes);
-            }
-
-            return RedirectToAction("Index", "Home");
-            */
+            return View(allRecipes);
         }
-        
+        */
+
+        [HttpPost]
+        [Authorize(Roles = "SuperAdmin,Moderator")]
+        public ActionResult UpdateRecipeStatus(string recipeID, string status)
+        {
+            int recID = int.Parse(recipeID);
+
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                // Brings back a recipe with the correct ID
+                Recipe recCheck = (from r in context.Recipes
+                                   where r.ID == recID
+                                   select r).Single();
+
+                if(recCheck == null)
+                {
+                    // Recipe ID was bad, so the request failed
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                recCheck.Status = status;
+                context.SaveChanges();
+
+                // Now to return the past URL so they stay on the same page. 
+                return RedirectToAction("ApproveRecipe");
+            }
+        }
+
         public bool isUser()
         {
             if (User.Identity.IsAuthenticated)

@@ -7,6 +7,7 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/content/Site.css")
     @Styles.Render("~/Content/asset/css/login")
+    @Styles.Render("~/Content/asset/css/uploadRecipe.css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -30,64 +31,57 @@
                     @{ Html.RenderAction("GetRoleLinks", "Users"); }
                 </ul>
                 <ul class="nav navbar-nav pull-right">
-                    @Html.Partial("_LoginPartial", new TechnicalProgrammingProject.Models.LoginViewModel{ })
+                    @Html.Partial("_LoginPartial", new TechnicalProgrammingProject.Models.LoginViewModel { })
                 </ul>
-              
+
             </div>
         </div>
     </div>
 
     <div class="container body-content">
-       
-            @Html.Partial("_LeftSideBar")
-            @RenderBody()
-               
-        <hr />
+        @Html.Partial("_LeftSideBar")
+        @RenderBody()
     </div>
     <footer class="navbar navbar-inverse">
         <div class="container">
             <div class="footers">
-                <div class="col-sm-2">
-                    <h6>&copy; @DateTime.Now.Year BCIT</h6>
-                    <p>COMP4752 Tech-Pro Project</p>
-                </div><!-- end col-sm-2 -->
-                <div class="col-sm-4">
-                    <h4>About us</h4>
-                    <p>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-                        to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
-                        standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
-                        typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-                        sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
-                        Aldus PageMaker including versions of Lorem Ipsum.
-                    </p>
-                </div><!-- end col-sm-4 -->
-                <div class="col-sm-2">
-                    <h6>Navigation</h6>
-                    <ul class="unstyled">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Users", "Index", "Users")</li>
-                        <li>@Html.ActionLink("Recipes", "Index", "Recipes")</li>
-                        <li>@Html.ActionLink("Ingredients", "Index", "Ingredients")</li>
-                        <li>@Html.ActionLink("Cookbook", "Index", "Cookbooks")</li>
-                    </ul>
-                </div><!-- end col-sm-2 -->
-                <div class="col-sm-2">
-                    <h6>Follow Us</h6>
-                    <ul class="unstyled">
-                        <li><a href="#">Facebook</a></li>
-                        <li><a href="#">Twitter</a></li>
-                        <li><a href="#">Instagram</a></li>
-                    </ul>
-                </div><!-- end col-sm-2 -->
-            </div><!-- end row -->
+                <div class="row">
+                    <div class="col-sm-2">
+                        <h6>&copy; @DateTime.Now.Year BCIT</h6>
+                        <p>COMP4752 Tech-Pro Project</p>
+                    </div><!-- end col-sm-2 -->
+                    <div class="col-sm-4">
+                        <h4>About us</h4>
+                        <p>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                            to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+                            standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+                            typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+                            sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
+                            Aldus PageMaker including versions of Lorem Ipsum.
+                        </p>
+                    </div><!-- end col-sm-4 -->
+                    <div class="col-sm-2">
+                        <h6>Navigation</h6>
+                        <ul class="unstyled">
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Users", "Index", "Users")</li>
+                            <li>@Html.ActionLink("Recipes", "Index", "Recipes")</li>
+                            <li>@Html.ActionLink("Ingredients", "Index", "Ingredients")</li>
+                            <li>@Html.ActionLink("Cookbook", "Index", "Cookbooks")</li>
+                        </ul>
+                    </div><!-- end col-sm-2 -->
+                </div><!-- end row -->
+            </div><!-- end footer -->
         </div><!-- end container -->
 
     </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/login")
-    @Scripts.Render("~/bundles/sidebar")    
+    @Scripts.Render("~/bundles/sidebar")
+    @Scripts.Render("~/bundles/sidebar")
+    
     @RenderSection("scripts", required: false)
 
 </body>
