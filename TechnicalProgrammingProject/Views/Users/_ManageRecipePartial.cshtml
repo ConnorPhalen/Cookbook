@@ -7,15 +7,15 @@
 
         <p>Uploaded By: @Html.ActionLink(Model.UploadedUserName, "Index", "Profile", new { id = Model.UploadedUserID }, null)</p>
 
-        <p>Current Status: @Html.DisplayFor(model => Model.Status)</p>
+        <p>Current Status: <b> @Html.DisplayFor(model => Model.Status) </b></p>
 
         <p> Date Uploaded: @Html.DisplayFor(model => Model.DateUploaded)</p>
 
         <p> Tags: 
-            @foreach(var tag in Model.Tags)
+            @foreach (var tag in Model.Tags)
             {
+                @Html.Label("-");
                 @Html.DisplayFor(modelItem => tag.Name);
-                @Html.Label(",  ");
             }
         </p>
 

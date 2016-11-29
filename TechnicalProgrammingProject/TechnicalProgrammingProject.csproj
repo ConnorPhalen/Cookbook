@@ -247,6 +247,10 @@
     <Content Include="Views\Users\ApproveRecipe.cshtml" />
     <Content Include="Views\Recipes\Delete.cshtml" />
     <Content Include="Views\Recipes\RecipeNotFound.cshtml" />
+    <Content Include="Views\Users\DisplayApprovedRecipes.cshtml" />
+    <Content Include="Views\Users\ManageUsers.cshtml" />
+    <Content Include="Views\Users\_ManageUserPartial.cshtml" />
+    <Content Include="Views\Shared\_ModeratorNavPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

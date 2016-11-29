@@ -26,7 +26,6 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Ingredients", "Index", "Ingredients")</li>
                     <li>@Html.ActionLink("Cookbook", "Index", "Cookbooks")</li>
-                    <li>@Html.ActionLink("User Checker", "Index", "Users")</li>
                     <!-- Renders the SuperAdmin and Moderator only links -->
                     @{ Html.RenderAction("GetRoleLinks", "Users"); }
                 </ul>

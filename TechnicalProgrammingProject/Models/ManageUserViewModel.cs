@@ -7,12 +7,13 @@ namespace TechnicalProgrammingProject.Models
 {
     public class ManageUserViewModel
     {
-        public int UserID { get; set; }
         public string UserDisplayName { get; set; }
-        public string UserRole { get; set; }
-        // public DateTime DateJoined { get; set; }
-        // public int NumOfRecipes { get; set; }
+        public string UserID { get; set; }
+        public IList<string> UserRoles { get; set; }
+        public string UserName { get; set; }
+        public DateTime? DateJoined { get; set; }
+        public int NumofRecipes { get; set; }
 
-        public string newStatus { get; set; }
+        public string newRole { get; set; }
     }
 }

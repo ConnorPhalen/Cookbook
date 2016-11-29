@@ -1,0 +1,16 @@
+﻿@model IEnumerable<TechnicalProgrammingProject.Models.ManageUserViewModel>
+
+@{
+    ViewBag.Title = "Manage Users";
+}
+
+<h2> All Users In the System </h2>
+
+<h3><i>@ViewBag.message</i></h3>
+
+@foreach (var user in Model)
+{
+    @Html.Partial("_ManageUserPartial", user)
+
+    <br />
+}
