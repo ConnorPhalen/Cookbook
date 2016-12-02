@@ -36,6 +36,7 @@ namespace TechnicalProgrammingProject.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ReturnUrl = Request.UrlReferrer;
             try
             {
                 var recipes = db.Recipes.Where(r => r.ID == id).Include(r => r.Ingredients).Single();
@@ -220,11 +221,12 @@ namespace TechnicalProgrammingProject.Controllers
         }
 
         [HttpPost]
-        [ChildActionOnly]
-        public ActionResult DeleteSingle(int id)
+        public ActionResult DeleteUpload(int id, string returnUrl)
         {
-
-            return RedirectToAction(Request.UrlReferrer.ToString());
+            var recipe = db.Recipes.Where(r => r.ID == id).Include(r => r.Ingredients).Single();
+            db.Recipes.Remove(recipe);
+            db.SaveChanges();
+            return Redirect(returnUrl);
         }
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult AddIngredient()
