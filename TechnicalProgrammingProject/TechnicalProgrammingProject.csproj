@@ -160,6 +160,7 @@
     <Content Include="Content\asset\css\profile.css" />
     <Content Include="Content\asset\css\leftsidebar.css" />
     <Content Include="Content\asset\css\login.css" />
+    <Content Include="Content\asset\css\recipesApprove.css" />
     <Content Include="Content\asset\js\createIngredients.js" />
     <Content Include="Content\asset\js\leftsidebar.js" />
     <Content Include="Content\asset\js\login.js" />
