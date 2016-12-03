@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using System.Web.Security;
 using TechnicalProgrammingProject.Models;
 
 namespace TechnicalProgrammingProject.Controllers
@@ -43,10 +44,15 @@ namespace TechnicalProgrammingProject.Controllers
         
         public ActionResult GetRoleLinks()
         {
-            if(isSuperAdmin() || isModerator())
+            if(isSuperAdmin())
             {
                 // Return the admin specific links
                 return PartialView("_AdminNavPartial");
+            }
+            else if(isModerator())
+            {
+                // Return the moderrator specific links
+                return PartialView("_ModeratorNavPartial");
             }
             else
             {
@@ -73,18 +79,26 @@ namespace TechnicalProgrammingProject.Controllers
                         };
             return View(pendingRecipes);
         }
-
-        /*
+        
         [Authorize(Roles = "SuperAdmin,Moderator")]
-        public ActionResult DisplayAllRecipes()
+        public ActionResult DisplayApprovedRecipes()
         {
-            var allRecipes =
+            // Grab all recipes that need approval, make them into a bunch of ManageRecipeViewModel
+            var pendingRecipes =
                         from recipes in db.Recipes
-                        select recipes;
-
-            return View(allRecipes);
+                        where recipes.Status == "approved"
+                        select new ManageRecipeViewModel
+                        {
+                            RecipeName = recipes.Name,
+                            RecipeID = recipes.ID,
+                            DateUploaded = recipes.DateUploaded,
+                            Status = recipes.Status,
+                            UploadedUserName = recipes.ApplicationUser.DisplayName,
+                            UploadedUserID = recipes.ApplicationUser.Id,
+                            Tags = recipes.Tags
+                        };
+            return View(pendingRecipes);
         }
-        */
 
         [HttpPost]
         [Authorize(Roles = "SuperAdmin,Moderator")]
@@ -110,6 +124,57 @@ namespace TechnicalProgrammingProject.Controllers
 
                 // Now to return the past URL so they stay on the same page. 
                 return RedirectToAction("ApproveRecipe");
+            }
+        }
+
+        [Authorize(Roles = "SuperAdmin")]
+        public ActionResult ManageUsers()
+        {
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+
+            var userList = db.Users.Select(u => new { u.UserName, u.Id, u.DisplayName }).ToList().Where(ul => ul.Id != User.Identity.GetUserId())
+                             .Select(e => new ManageUserViewModel()
+                             {
+                                 UserDisplayName = e.DisplayName,
+                                 UserID = e.Id,
+                                 UserName = e.UserName,
+                                 UserRoles = userManager.GetRoles(e.Id)
+                             });
+
+            return View(userList);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "SuperAdmin")]
+        public ActionResult UpdateUserStatus(string userID, string role)
+        {
+            using (var userMan = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+            {
+                // Remove the Users current Role
+                string[] userRoles = userMan.GetRoles(userID).ToArray();
+                var removeResult =  userMan.RemoveFromRoles(userID, userRoles);
+
+                if(removeResult.Succeeded)
+                {
+                    // Change user to the selected Role
+                    var addResult = userMan.AddToRole(userID, role);
+
+                    if(!addResult.Succeeded)
+                    {
+                        Console.WriteLine("Failed To Change user Role.");
+                        return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Failed To Remove user Role.");
+                    return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+                }
+
+                ViewBag.message = userMan.FindById(userID).DisplayName + "'s Role successfully changed to" + role;
+                
+                // Now to return the past URL so they stay on the same page. 
+                return RedirectToAction("ManageUsers");
             }
         }
 

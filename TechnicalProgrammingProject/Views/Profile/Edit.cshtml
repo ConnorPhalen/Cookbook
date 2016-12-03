@@ -77,15 +77,15 @@
                     <div class="form-group left-inner-addon">
                         @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            <span class="glyphicon glyphicon-gift" aria-hidden="true"></span>
-                            @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control" } })
+                            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                            @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control datefield" } })
                             @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group left-inner-addon">
                         @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-gift" aria-hidden="true"></span>
                             @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
                         </div>
@@ -110,3 +110,4 @@
         </div>
     }
 </div>
+
