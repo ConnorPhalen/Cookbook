@@ -5,7 +5,7 @@
 <div class="col-md-4">
     <div class="recipeCard">
         <a href=@Url.Action("Details", "Recipes", new { id = Model.ID })>
-            <img class="recipeImage" src=@Html.DisplayFor(modelItemm => Model.ImageURL)>
+            @Html.Image(Model.ImageURL)
         </a>
         <div class="content">
             <h3>@Html.DisplayFor(modelItem => Model.Name)</h3>
