@@ -1,6 +1,6 @@
 ﻿@model TechnicalProgrammingProject.Models.Recipe
 
-@Styles.Render("~/Content/asset/css/recipeCard.css")
+@Styles.Render("~/Content/asset/css/recipeCard")
 
 <div class="col-md-4">
     <div class="recipeCard">
@@ -11,5 +11,8 @@
             <h3>@Html.DisplayFor(modelItem => Model.Name)</h3>
             Rating: @Html.DisplayFor(modelItem => Model.Rating)/10!
         </div>
+        <input class="btn btn-primary" type="button" value="Details"/>
+        <input class="btn btn-primary" type="button" value="Add to CookBook" />
+        <input class="btn btn-primary" type="button" value="Delete" />
     </div>
 </div>

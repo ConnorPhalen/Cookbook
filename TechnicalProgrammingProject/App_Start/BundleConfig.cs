@@ -49,7 +49,10 @@ namespace TechnicalProgrammingProject
                       "~/Content/asset/css/leftsidebar.css"));
 
             bundles.Add(new StyleBundle("~/Content/asset/css/uploadRecipe").Include(
-                      "~/Content/asset/css/uploadRecipe.css"));
+                      "~/Content/asset/css/uploadRecipe.css",
+                      "~/Content/asset/css/recipeCard.css"));
+            bundles.Add(new StyleBundle("~/Content/asset/css/recipeCard").Include(
+                     "~/Content/asset/css/recipeCard.css"));
             bundles.Add(new StyleBundle("~/bundles/recipesapprove").Include(
                    "~/Content/asset/css/recipesApprove.css"));
 
