@@ -14,7 +14,7 @@ namespace TechnicalProgrammingProject.Controllers
         // GET: Home
         public ActionResult Index() 
         {
-            return View(db.Recipes.ToList());
+            return View(db.Recipes.Where(r => r.Status == "approved").ToList());
         }
 
     }
