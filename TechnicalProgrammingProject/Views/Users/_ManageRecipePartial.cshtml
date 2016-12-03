@@ -1,15 +1,44 @@
 ﻿@model TechnicalProgrammingProject.Models.ManageRecipeViewModel
-
+@Styles.Render("~/bundles/recipesapprove")
 <div class="Manage-Recipe-Main">
     @using (Html.BeginForm("UpdateRecipeStatus", "Users", new { recipeID = Model.RecipeID }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
-        <p>Recipe Name: <a href="@Url.Action("Details", "Recipes", new { id = Model.RecipeID })">@Html.DisplayFor(model => Model.RecipeName)</a></p> 
+        
+            <ul class="info">
+                <li>Recipe Name: <a href="@Url.Action("Details", "Recipes", new { id = Model.RecipeID })">@Html.DisplayFor(model => Model.RecipeName)</a></li>
+
+                <br/><li>Uploaded By: @Html.ActionLink(Model.UploadedUserName + ",", "Index", "Profile", new { id = Model.UploadedUserID }, null)</li>
+
+
 
         <p>Uploaded By: @Html.ActionLink(Model.UploadedUserName, "Index", "Profile", new { id = Model.UploadedUserID }, null)</p>
 
         <p>Current Status: <b> @Html.DisplayFor(model => Model.Status) </b></p>
 
-        <p> Date Uploaded: @Html.DisplayFor(model => Model.DateUploaded)</p>
+                <br /><li>
+                    Tags:
+                    @foreach (var tag in Model.Tags)
+                {
+                        @Html.DisplayFor(modelItem => tag.Name);
+                        @Html.Label(",  ");
+                }
+                </li>
+            </ul>
+            <div class="contents">
+                <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-primary active">
+                    <input class="Manage-Recipe-RadioInput" type="radio" value="pending" name="status" checked/> Pending <br />
+                </label>
+                <label class="btn btn-primary">
+                    <input class="Manage-Recipe-RadioInput" type="radio" value="denied" name="status" /> Denied <br />
+                </label>
+                <label class="btn btn-primary">
+                    <input class="Manage-Recipe-RadioInput" type="radio" value="approved" name="status" /> Approved <br />
+                </label>    
+                    </div>
+                <br/><input class="btn btn-success" type="submit" value="Update" />           
+            </div>
+
 
         <p> Tags: 
             @foreach (var tag in Model.Tags)
@@ -19,12 +48,7 @@
             }
         </p>
 
-        <div class="Manage-Recipe-RadioDiv">
-            <input class="Manage-Recipe-RadioInput" type="radio" value="pending" name="status" /> Pending <br />
-            <input class="Manage-Recipe-RadioInput" type="radio" value="denied" name="status" /> Denied <br />
-            <input class="Manage-Recipe-RadioInput" type="radio" value="approved" name="status" /> Approved <br />
-        </div>
+       
 
-        <input class="Manage-Recipe-Submit" type="submit" value="Update" />
     }
 </div>

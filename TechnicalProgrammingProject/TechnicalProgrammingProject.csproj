@@ -160,6 +160,7 @@
     <Content Include="Content\asset\css\profile.css" />
     <Content Include="Content\asset\css\leftsidebar.css" />
     <Content Include="Content\asset\css\login.css" />
+    <Content Include="Content\asset\css\recipesApprove.css" />
     <Content Include="Content\asset\js\createIngredients.js" />
     <Content Include="Content\asset\js\datePickerReady.js" />
     <Content Include="Content\asset\js\leftsidebar.js" />
@@ -223,6 +224,9 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="Properties\PublishProfiles\COMP4952Lab320161011110342 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\JabberBCIT20161011120620 - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\JabberBCIT20161011120620 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\TPLab0320161009092843 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />

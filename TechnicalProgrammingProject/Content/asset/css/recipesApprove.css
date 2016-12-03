@@ -1,0 +1,39 @@
+﻿.contents{
+    display:block;
+    width:50%;
+    overflow:hidden;
+    margin-bottom:10px;
+}
+.info{
+    width: 50%;
+    float:left;
+    overflow:hidden;
+    margin-top:10px;
+}
+li {
+    display: inline-block;   
+}
+.Manage-Recipe-Main{
+    height:120px;
+    margin-left: 120px;
+     margin-right: 180px;
+    border-bottom: 2px solid gray;
+    border-top: 2px solid gray;
+    border-radius: 15px 15px;   
+}
+.radio-inline{
+    margin-left: 20px;   
+    left:40px;
+}
+.btn{
+    position: relative;
+    left:60px;
+    margin-top: 5px;
+    margin-bottom:5px;
+    width:268px;
+}
+.btn-primary{
+    width: 90px;
+}
+
+

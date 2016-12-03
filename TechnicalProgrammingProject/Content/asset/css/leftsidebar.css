@@ -26,7 +26,7 @@ nav.main-menu.expanded {
   bottom: 0;
   left: 0;
   width: 60px;
-  height: 50%;
+  height: 25%;
   overflow: hidden;
   -webkit-transition: width .05s linear;
   transition: width .05s linear;
@@ -67,7 +67,7 @@ nav.main-menu.expanded {
   position: relative;
   display: table-cell;
   vertical-align: middle;
-  color:black;
+  color: gray;
   font-weight:bold;
   width: 100px;
   font-family: 'Titillium Web', sans-serif;
@@ -110,8 +110,8 @@ nav.main-menu li.active>a,
 .dropdown-menu>.active>a:focus,
 .no-touch .dashboard-page nav.dashboard-menu ul li:hover a,
 .dashboard-page nav.dashboard-menu ul li.active a {
-  color: #fff;
-  background-color: #5fa2db;
+  color: #000;
+  background-color: #e2e2e2;
 }
 .area {
   float: left;
