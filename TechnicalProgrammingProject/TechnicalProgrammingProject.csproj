@@ -169,6 +169,11 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\bacon.jpg" />
+    <Content Include="Content\Images\beef.jpg" />
+    <Content Include="Content\Images\chicken.jpg" />
+    <Content Include="Content\Images\taco.png" />
+    <Content Include="Content\Images\waffle.jpg" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
@@ -260,6 +265,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Attributes\HttpPostedFileExtensionsAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CookbooksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -271,10 +277,6 @@
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611060920234_Initial.cs" />
-    <Compile Include="Migrations\201611060920234_Initial.Designer.cs">
-      <DependentUpon>201611060920234_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -303,11 +305,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="bin\" />
     <Folder Include="Views\Uploads\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201611060920234_Initial.resx">
-      <DependentUpon>201611060920234_Initial.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
