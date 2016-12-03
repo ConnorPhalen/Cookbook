@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - Cooking!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/content/Site.css")
+    @Styles.Render("~/Content/themes/base/css")
     @Styles.Render("~/Content/asset/css/login")
     @Styles.Render("~/Content/asset/css/uploadRecipe.css")
     @Scripts.Render("~/bundles/modernizr")
@@ -26,7 +27,6 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Ingredients", "Index", "Ingredients")</li>
                     <li>@Html.ActionLink("Cookbook", "Index", "Cookbooks")</li>
-                    <li>@Html.ActionLink("User Checker", "Index", "Users")</li>
                     <!-- Renders the SuperAdmin and Moderator only links -->
                     @{ Html.RenderAction("GetRoleLinks", "Users"); }
                 </ul>
@@ -77,9 +77,11 @@
 
     </footer>
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryUI")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/login")
     @Scripts.Render("~/bundles/sidebar")
+    @Scripts.Render("~/bundles/datepicker")
     
     @RenderSection("scripts", required: false)
 

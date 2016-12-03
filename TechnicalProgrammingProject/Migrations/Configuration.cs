@@ -252,6 +252,9 @@ namespace TechnicalProgrammingProject.Migrations
             recipe5.Tags.Add(tag8);
             recipe4.Tags.Add(tag8);
 
+            recipe1.Status = "approved";
+            recipe2.Status = "approved";
+
             context.Cookbooks.ToList().ForEach(c => c.Recipes.Add(recipe1));
             context.Cookbooks.ToList().ForEach(c => c.Recipes.Add(recipe2));
             context.Cookbooks.ToList().ForEach(c => c.Recipes.Add(recipe3));

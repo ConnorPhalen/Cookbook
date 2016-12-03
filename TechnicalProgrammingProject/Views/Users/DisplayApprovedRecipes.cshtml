@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<TechnicalProgrammingProject.Models.ManageRecipeViewModel>
 
 @{
-    ViewBag.Title = "Manage Pending Recipes";
+    ViewBag.Title = "Approved Recipes";
 }
 
-<h2> Displaying All Pending Recipes </h2>
+<h2> Displaying All Approved Recipes </h2>
 @foreach (var recipe in Model)
 {
     @Html.Partial("_ManageRecipePartial", recipe)

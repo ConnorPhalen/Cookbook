@@ -9,9 +9,11 @@
 
                 <br/><li>Uploaded By: @Html.ActionLink(Model.UploadedUserName + ",", "Index", "Profile", new { id = Model.UploadedUserID }, null)</li>
 
-                <br /><li>Current Status: @Html.DisplayFor(model => Model.Status)</li>
 
-                <br /><li> Date Uploaded: @Html.DisplayFor(model => Model.DateUploaded)</li>
+
+        <p>Uploaded By: @Html.ActionLink(Model.UploadedUserName, "Index", "Profile", new { id = Model.UploadedUserID }, null)</p>
+
+        <p>Current Status: <b> @Html.DisplayFor(model => Model.Status) </b></p>
 
                 <br /><li>
                     Tags:
@@ -37,7 +39,14 @@
                 <br/><input class="btn btn-success" type="submit" value="Update" />           
             </div>
 
-       
+
+        <p> Tags: 
+            @foreach (var tag in Model.Tags)
+            {
+                @Html.Label("-");
+                @Html.DisplayFor(modelItem => tag.Name);
+            }
+        </p>
 
        
 

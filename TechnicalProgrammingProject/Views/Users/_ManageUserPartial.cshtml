@@ -1,0 +1,27 @@
+﻿@model TechnicalProgrammingProject.Models.ManageUserViewModel
+
+<div class="Manage-User-Main">
+
+    @using (Html.BeginForm("UpdateUserStatus", "Users", new { userID = Model.UserID }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        <p>Username: <i> @Html.DisplayFor(model => Model.UserName) </i></p>
+
+        <p>User DisplayName: <a href="@Url.Action("Index", "Profile", new { id = Model.UserID })">@Html.DisplayFor(model => Model.UserDisplayName)</a></p>
+
+        foreach(var role in Model.UserRoles)
+        {
+            <p> Role: <b>@Html.DisplayFor(model => role)</b></p>
+            <br />
+        }
+
+        <p> Date Joined: @Html.DisplayFor(model => Model.DateJoined)</p>
+
+        <div class="Manage-Recipe-RadioDiv">
+            <input class="Manage-Recipe-RadioInput" type="radio" value="User" name="role" /> Standard User <br />
+            <input class="Manage-Recipe-RadioInput" type="radio" value="Moderator" name="role" /> Moderator <br />
+            <input class="Manage-Recipe-RadioInput" type="radio" value="SuperAdmin" name="role" /> Super Admin <br />
+        </div>
+
+        <input class="Manage-Recipe-Submit" type="submit" value="Update" />
+    }
+</div>
