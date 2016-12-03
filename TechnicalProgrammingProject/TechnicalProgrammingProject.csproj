@@ -182,6 +182,9 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="Properties\PublishProfiles\COMP4952Lab320161011110342 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\JabberBCIT20161011120620 - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\JabberBCIT20161011120620 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\TPLab0320161009092843 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
