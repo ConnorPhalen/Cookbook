@@ -27,16 +27,16 @@ namespace TechnicalProgrammingProject.Attributes
 
             //Check file extensions for (".png", ".jpg", ".jpeg", and ".gif")
             string ext = Path.GetExtension(file.FileName);
-            if (string.IsNullOrEmpty(ext) ||
-               !ext.Equals(".png", StringComparison.OrdinalIgnoreCase) ||
-               !ext.Equals(".jpg", StringComparison.OrdinalIgnoreCase) ||
-               !ext.Equals(".gif", StringComparison.OrdinalIgnoreCase) ||
-               !ext.Equals(".jpeg", StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(ext) &&
+               ext.Equals(".png", StringComparison.OrdinalIgnoreCase) ||
+               ext.Equals(".jpg", StringComparison.OrdinalIgnoreCase) ||
+               ext.Equals(".gif", StringComparison.OrdinalIgnoreCase) ||
+               ext.Equals(".jpeg", StringComparison.OrdinalIgnoreCase))
             {
-                return new ValidationResult("Please upload an image with a .png, .jpg, jpeg, or.gif extension.");
+                // Everything OK.
+                return ValidationResult.Success;
             }
-            // Everything OK.
-            return ValidationResult.Success;
+            return new ValidationResult("Please upload an image with a .png, .jpg, jpeg, or.gif extension.");
         }
     }
 }
