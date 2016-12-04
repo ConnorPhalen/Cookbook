@@ -3,14 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using TechnicalProgrammingProject.Models;
 
 namespace TechnicalProgrammingProject.Controllers
 {
-    [Authorize]
     public class RecipesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -69,41 +70,69 @@ namespace TechnicalProgrammingProject.Controllers
                 return View(searchResult);
             }
         }
-       
+
+        /// <summary>
+        /// Returns the upload a recipe page.
+        /// </summary>
+        /// <returns></returns>
         // GET: Recipes/Create
         public ActionResult Create()
         {
             return View();
         }
 
+        /// <summary>
+        /// Uploads a recipe.
+        /// </summary>
+        /// <param name="recipeViewModel"></param>
+        /// <returns></returns>
         // POST: Recipes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateRecipeViewModel recipeViewModel)
         {
+            //passed validation
             if (ModelState.IsValid)
             {
-                var user = db.Users.Find(User.Identity.GetUserId());
-
+                //new recipe to insert
                 Recipe recipe = new Recipe();
+                //if image field is filled
+                if (recipeViewModel.Image != null)
+                {
+                    //get filename
+                    //string pic = Path.GetFileName(recipeViewModel.Image.FileName);
+                    //get path
+                    //string path = Path.Combine(Server.MapPath("~/images/recipe"), pic);
+                    
+                    //recipeViewModel.Image.SaveAs(path);
+
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        //copy to memorystream
+                        recipeViewModel.Image.InputStream.CopyTo(ms);
+                        //store bytes inside recipe
+                        byte[] image = ms.GetBuffer();
+                        recipe.ImageURL = image;
+                    }
+                }
+                //find user of created recipe
+                var user = db.Users.Find(User.Identity.GetUserId());
+                //build rest of recipe
                 recipe.Name = recipeViewModel.Name;
                 recipe.Description = recipeViewModel.Description;
                 recipe.CookTime = recipeViewModel.CookTime;
                 recipe.DateUploaded = DateTime.Now;
                 recipe.Servings = recipeViewModel.Servings;
                 recipe.Status = "Pending";
-                recipe.ImageURL = recipeViewModel.ImageURL;
                 recipe.Ingredients = recipeViewModel.Ingredients;
                 recipe.ApplicationUser = user;
                 recipe.Directions = recipeViewModel.Directions;
                 db.Recipes.Add(recipe);
-
+                //save to db
                 db.SaveChanges();
-
                 return View("Success");
             }
+            //if validation failed, return view with error messages
             return View(recipeViewModel);
         }
 
@@ -148,6 +177,11 @@ namespace TechnicalProgrammingProject.Controllers
             return View("CurrentUploads", model);
         }
 
+        /// <summary>
+        /// TODO: Edit a recipe
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET: Recipes/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -163,9 +197,12 @@ namespace TechnicalProgrammingProject.Controllers
             return View(recipe);
         }
 
+        /// <summary>
+        /// TODO: Edit a recipe
+        /// </summary>
+        /// <param name="recipe"></param>
+        /// <returns></returns>
         // POST: Recipes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "RecipeID,UserID,Name,Description,CookTime,Servings,ImageURL,Directions")] Recipe recipe)
@@ -193,7 +230,7 @@ namespace TechnicalProgrammingProject.Controllers
                                     {
                                         ID = r.ID,
                                         Name = r.Name,
-                                        Image = r.ImageURL,
+                                        //Image = r.ImageURL,
                                         DateUploaded = r.DateUploaded,
                                         Status = r.Status,
                                         isDelete = false
@@ -206,6 +243,11 @@ namespace TechnicalProgrammingProject.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Deletes uploaded recipes.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         // POST: Recipes/Delete
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -220,6 +262,12 @@ namespace TechnicalProgrammingProject.Controllers
             return RedirectToAction("Delete");
         }
 
+        /// <summary>
+        /// Delete uploaded recipe.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult DeleteUpload(int id, string returnUrl)
         {
@@ -228,6 +276,11 @@ namespace TechnicalProgrammingProject.Controllers
             db.SaveChanges();
             return Redirect(returnUrl);
         }
+
+        /// <summary>
+        /// Adds an ingredient to a recipe that is to be created.
+        /// </summary>
+        /// <returns></returns>
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult AddIngredient()
         {
@@ -236,7 +289,7 @@ namespace TechnicalProgrammingProject.Controllers
 
             return PartialView(recipe);
         }
-
+        
         [HttpPost]
         public ActionResult RateRecipe(int? rating, int? recID)
         {
@@ -292,7 +345,11 @@ namespace TechnicalProgrammingProject.Controllers
                 return "No ratings yet!";
             }
         }
-
+        
+        /// <summary>
+        /// Dispose the db context in addition to other objects that need to be disposed.
+        /// </summary>
+        /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)

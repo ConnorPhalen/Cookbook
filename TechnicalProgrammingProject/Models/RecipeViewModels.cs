@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Web;
-using TechnicalProgrammingProject.Models;
+using TechnicalProgrammingProject.Attributes;
 
 namespace TechnicalProgrammingProject.Models
 {
@@ -23,10 +22,15 @@ namespace TechnicalProgrammingProject.Models
 
         [Required]
         [DisplayName("Cook Time")]
+        [Range(0, 2880)]
         public int CookTime { get; set; }
         [Required]
+        [Range(0,100)]
         public int Servings { get; set; }
-        public string ImageURL { get; set; }
+
+        [HttpPostedFileExtensions]
+        [ValidateFileSize(ErrorMessage = "Image must be less than 1MB")]
+        public HttpPostedFileBase Image { get; set; }
         [Required]
         public string Directions { get; set; }
         public virtual ICollection<Ingredient> Ingredients { get; set; }

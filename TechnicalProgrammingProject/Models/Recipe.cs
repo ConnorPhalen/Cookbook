@@ -17,7 +17,7 @@ namespace TechnicalProgrammingProject.Models
         public string Description { get; set; }
         public int CookTime { get; set; }
         public int Servings { get; set; }
-        public string ImageURL { get; set; }
+        public byte[] ImageURL { get; set; }
         public string Directions { get; set; }
         public System.DateTime? DateUploaded { get; set; }
         public string Status { get; set; }
