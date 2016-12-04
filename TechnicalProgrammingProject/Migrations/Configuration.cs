@@ -61,11 +61,23 @@ namespace TechnicalProgrammingProject.Migrations
 
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
+            var directoryName = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
+            var avatarPath = Path.Combine(directoryName, ".." + "~/Content/asset/images/avatar.jpg".TrimStart('~').Replace('/', '\\'));
+            var realAvatarPath = Path.GetFullPath(avatarPath);
+            Image avatarImage = Image.FromFile(realAvatarPath);
+            byte[] avatarByte;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                avatarImage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                avatarByte = ms.ToArray();
+            }
+
             var user = new ApplicationUser();
             user.UserName = "HulkHogan";
             user.Email = "HulkHogan@WWF.com";
             user.DisplayName = "Hulkamania";
 
+            user.ProfileImage = avatarByte;
             string userPWD = "HulkHogan@42";
 
             var chkUser = UserManager.Create(user, userPWD);
@@ -81,6 +93,7 @@ namespace TechnicalProgrammingProject.Migrations
             user1.UserName = "BobRoss";
             user1.Email = "bob@ross.com";
             user1.DisplayName = "The Joy of Painting";
+            user1.ProfileImage = avatarByte;
 
             string userPWD1 = "Cooking1!";
 
@@ -97,6 +110,7 @@ namespace TechnicalProgrammingProject.Migrations
             user2.UserName = "Weeb";
             user2.Email = "Weeb@anime.com";
             user2.DisplayName = "So Kawaii!";
+            user2.ProfileImage = avatarByte;
 
             string userPWD2 = "ilovebodypillows@42";
 
@@ -115,8 +129,6 @@ namespace TechnicalProgrammingProject.Migrations
             context.Users.ToList().ForEach(u => context.Cookbooks.AddOrUpdate(c => c.ApplicationUserID, new Cookbook { ApplicationUser = u }));
 
             context.SaveChanges();
-
-            var directoryName = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
 
             var beefPath = Path.Combine(directoryName, ".." + "~/Content/Images/beef.jpg".TrimStart('~').Replace('/', '\\'));
             var realBeefPath = Path.GetFullPath(beefPath);
