@@ -6,8 +6,6 @@ using System.Data.Entity.Migrations;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Web;
-using System.Web.Hosting;
 using System.Reflection;
 using System;
 
