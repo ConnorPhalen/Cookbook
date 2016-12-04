@@ -11,8 +11,8 @@
     @Styles.Render("~/Content/asset/css/recipeDetails.css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+<body data-spy="scroll" data-target="#myScrollspy">
+    <div class="navbar navbar-inverse navbar-static-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -81,7 +81,6 @@
     @Scripts.Render("~/bundles/login")
     @Scripts.Render("~/bundles/sidebar")
     @Scripts.Render("~/bundles/datepicker")
-    
     @RenderSection("scripts", required: false)
 
 </body>

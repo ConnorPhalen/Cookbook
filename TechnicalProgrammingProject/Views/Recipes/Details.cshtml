@@ -1,74 +1,106 @@
 ﻿@model TechnicalProgrammingProject.Models.Recipe
 
-<div class="recipe-page-body">
-    <h3 id="recipe-page-title"> Recipe Details</h3>
-    <hr />
+<div class="container">
 
-    <h4 id="recipe-name">
-        @Html.DisplayFor(model => model.Name)
-    </h4>
-    @using (Html.BeginForm("DeleteUpload", "Recipes", new { id = Model.ID }, FormMethod.Post, null))
-    {
-        @Html.AntiForgeryToken()
-        @Html.Hidden("returnUrl", (object) ViewBag.ReturnUrl)
-        <input type="submit" value="Delete" class="btn btn-default" />
-    }
-
-    <p>Uploaded By: @Html.ActionLink(Model.ApplicationUser.DisplayName, "Index", "Profile", new { id = Model.ApplicationUser.Id }, null)</p>
-
-    <div class="recipe-details">
-        <p>
-            @Html.DisplayFor(model => model.Description)
-        </p>
-
-        @Html.Image(Model.ImageURL, new { @class = "recipe-image" })
-        on
-        <p>
-            Cook Time : @Html.DisplayFor(model => model.CookTime)
-        </p>
-
-        <p>
-            Number of Servings : @Html.DisplayFor(model => model.Servings)
-        </p>
-
-        <p>
-            @Html.DisplayFor(model => model.Directions)
-        </p>
-
-        <p>
-            Rating : @Html.DisplayFor(model => model.Rating)/10!
-        </p>
-
-        <p>
-            Tags:
-            @foreach (var tag in Model.Tags)
-            {
-                @Html.DisplayFor(modelItem => tag.Name);
-                @Html.Label(",");
-            }
-        </p>
-
-        @if (Model.Ingredients == null)
-        {
-            <p id="recipe-noingredients">
-                No Ingredients are available for this recipe.
-            </p>
-        }
-        else
-        {
-            foreach (var ingredient in Model.Ingredients)
-            {
-                <div class="recipe-ingredient">
-                    <p>
-                        @Html.DisplayFor(modelItemm => ingredient.Name)
-                        <div id="recipe-ingredient-details">
-                            @Html.DisplayFor(modelItemm => ingredient.Quantity) 
-                            @Html.DisplayFor(modelItemm => ingredient.Unit)
-                        </div>
-                        <br />
-                    </p>
-                </div>
-            }
-        }
+    <div class="recipe-page-title">
+        <h1>Recipe Details</h1>
     </div>
+
+    <div class="row">
+        <div id="myScrollspy" class="col-md-3">
+            <ul class="nav nav-tabs nav-stacked" data-spy="affix" data-offset-top="125">
+                <li class="active"><a href="#section-1">Title</a></li>
+                <li><a href="#section-2">Author</a></li>
+                <li><a href="#section-3">Image</a></li>
+                <li><a href="#section-4">Description</a></li>
+                <li><a href="#section-5">Servings</a></li>
+                <li><a href="#section-6">Directions</a></li>
+                <li><a href="#section-7">Rating</a></li>
+                <li><a href="#section-8">Tags</a></li>
+                <li><a href="#section-9">Ingredients</a></li>
+            </ul>
+        </div>
+
+        <div class="col-md-9 section">
+            <h2 id="section-1">Title</h2>
+            <h4>@Html.DisplayFor(model => model.Name)</h4>
+            <hr />
+
+            <h2 id="section-2">Author</h2>
+            <p>Uploaded By: @Html.ActionLink(Model.ApplicationUser.DisplayName, "Index", "Profile", new { id = Model.ApplicationUser.Id }, null)</p>
+            <hr />
+
+            <h2 id="section-3">Image</h2>
+            <br />
+            <div class="food">
+                @Html.Image(Model.ImageURL,new { @class = "foodImage" })
+            </div>
+            <hr />
+
+            <h2 id="section-4">Description</h2>
+            <p>@Html.DisplayFor(model => model.Description)</p>
+            <hr />
+
+            <h2 id="section-5">Servings</h2>
+            <p>Number of Servings : @Html.DisplayFor(model => model.Servings)</p>
+            <hr />
+
+            <h2 id="section-6">Directions</h2>
+            <p>@Html.DisplayFor(model => model.Directions)</p>
+            <hr />
+
+            <h2 id="section-7">Rating</h2>
+            <p>Rating : @Html.DisplayFor(model => model.Rating)/10!</p>
+            <hr />
+
+            <h2 id="section-8">Tags</h2>
+            <p>
+                Tags:
+                @foreach (var tag in Model.Tags)
+                {
+                    @Html.DisplayFor(modelItem => tag.Name);
+                    @Html.Label(",");
+                }
+            </p>
+            <hr />
+
+            <h2 id="section-9">Ingredients</h2>
+            @if (Model.Ingredients == null)
+            {
+                <p id="recipe-noingredients">
+                    No Ingredients are available for this recipe.
+                </p>
+            }
+            else
+            {
+                foreach (var ingredient in Model.Ingredients)
+                {
+                    <div class="recipe-ingredient">
+                        <p>
+                            @Html.DisplayFor(modelItemm => ingredient.Name)
+                            <div id="recipe-ingredient-details">
+                                @Html.DisplayFor(modelItemm => ingredient.Quantity)
+                                @Html.DisplayFor(modelItemm => ingredient.Unit)
+                            </div>
+                            <br />
+                        </p>
+                    </div>
+                }
+            }
+           
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9 col-md-offset-3">
+            @using (Html.BeginForm("DeleteUpload", "Recipes", new { id = Model.ID }, FormMethod.Post, null))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Hidden("returnUrl", (object)ViewBag.ReturnUrl)
+                <input type="submit" value="Delete" class="btn btn-default" />
+            }
+        </div>
+    </div>
+    <br/>
+
 </div>

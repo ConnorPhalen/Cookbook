@@ -29,9 +29,6 @@ namespace TechnicalProgrammingProject
             bundles.Add(new ScriptBundle("~/bundles/sidebar").Include(
                      "~/Content/asset/js/leftsidebar.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/sidebar").Include(
-                     "~/Content/asset/js/leftsidebar.js"));
-
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/bootstrap-datepicker3.css"));
