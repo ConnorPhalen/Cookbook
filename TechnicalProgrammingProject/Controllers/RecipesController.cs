@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -97,14 +98,26 @@ namespace TechnicalProgrammingProject.Controllers
                 //new recipe to insert
                 Recipe recipe = new Recipe();
                 //if image field is filled
-                if (recipeViewModel.Image != null)
+                using (MemoryStream ms = new MemoryStream())
                 {
-                    using (MemoryStream ms = new MemoryStream())
+                    //images has been added
+                    if (recipeViewModel.Image != null)
                     {
                         //copy to memorystream
                         recipeViewModel.Image.InputStream.CopyTo(ms);
                         //store bytes inside recipe
                         byte[] image = ms.GetBuffer();
+                        recipe.ImageURL = image;
+                    }
+                    //image hasn't been added
+                    else
+                    {
+                        //copy to memorystream
+                        var path = HttpContext.Server.MapPath("~/Content/Images/food-icon.png");
+                        Image foodImage = Image.FromFile(path);
+                        foodImage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        //store bytes inside recipe
+                        byte[] image = ms.ToArray();
                         recipe.ImageURL = image;
                     }
                 }
@@ -120,10 +133,20 @@ namespace TechnicalProgrammingProject.Controllers
                 recipe.Ingredients = recipeViewModel.Ingredients;
                 recipe.ApplicationUser = user;
                 recipe.Directions = recipeViewModel.Directions;
-                db.Recipes.Add(recipe);
-                //save to db
-                db.SaveChanges();
-                return View("Success");
+
+                try
+                {
+                    var cookbook = db.Cookbooks.Where(c => c.ApplicationUserID == user.Id).Single();
+                    recipe.Cookbooks.Add(cookbook);
+                    db.Recipes.Add(recipe);
+                    //save to db
+                    db.SaveChanges();
+                    return View("Success");
+                }
+                catch (InvalidOperationException)
+                {
+                    return View(recipeViewModel);
+                }
             }
             //if validation failed, return view with error messages
             return View(recipeViewModel);
@@ -320,11 +343,11 @@ namespace TechnicalProgrammingProject.Controllers
 
             return PartialView(recipe);
         }
-        
+
         [HttpPost]
         public ActionResult RateRecipe(int? rating, int? recID)
         {
-            if(User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated)
             {
                 var userID = User.Identity.GetUserId();
 
@@ -346,7 +369,7 @@ namespace TechnicalProgrammingProject.Controllers
                     {
                         new Rating { UserID = userID, rateNumber = (int)rating }
                     };
-                    
+
                     ratingList.ForEach(rsub => db.Ratings.AddOrUpdate(ra => ra.ID, rsub));
                     db.SaveChanges();
 
@@ -364,7 +387,7 @@ namespace TechnicalProgrammingProject.Controllers
             double avg = 0;
             var ratinglist = db.Ratings.Where(ra => ra.Recipes.Any(r => r.ID == recID));
 
-            if(ratinglist.Count() > 0)
+            if (ratinglist.Count() > 0)
             {
                 // get the average for all the ratings
                 avg = ratinglist.Average(ra => ra.rateNumber);
@@ -376,7 +399,7 @@ namespace TechnicalProgrammingProject.Controllers
                 return "No ratings yet!";
             }
         }
-        
+
         /// <summary>
         /// Dispose the db context in addition to other objects that need to be disposed.
         /// </summary>
