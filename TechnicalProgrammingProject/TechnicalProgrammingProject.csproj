@@ -298,7 +298,6 @@
     </Content>
     <Content Include="Views\Recipes\Create.cshtml" />
     <Content Include="Views\Recipes\Details.cshtml" />
-    <Content Include="Views\Recipes\Edit.cshtml" />
     <Content Include="Views\Recipes\Index.cshtml" />
     <Content Include="Views\Ingredients\Create.cshtml" />
     <Content Include="Views\Ingredients\Delete.cshtml" />
@@ -350,6 +349,7 @@
     <Content Include="Views\Users\_ManageUserPartial.cshtml" />
     <Content Include="Views\Shared\_ModeratorNavPartial.cshtml" />
     <Content Include="Views\Cookbooks\Search.cshtml" />
+    <Content Include="Views\Recipes\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -363,7 +363,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Attributes\HttpPostedFileExtensionsAttribute.cs" />
+    <Compile Include="Attributes\ImageAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CookbooksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

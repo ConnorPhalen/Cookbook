@@ -31,8 +31,7 @@ namespace TechnicalProgrammingProject.Models
         public string Biography { get; set; }
         public DateTime? DateOfBirth { get; set; }
 
-        [HttpPostedFileExtensions]
-        [ValidateFileSize(ErrorMessage = "Image must be less than 1MB")]
+        [Image]
         public HttpPostedFileBase ProfilePicture { get; set; }
 
         public byte[] Image { get; set; }
