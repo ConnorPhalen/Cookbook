@@ -182,7 +182,6 @@
     <Content Include="Content\Images\bacon.jpg" />
     <Content Include="Content\Images\beef.jpg" />
     <Content Include="Content\Images\chicken.jpg" />
-    <Content Include="Content\Images\food-icon.png" />
     <Content Include="Content\Images\taco.png" />
     <Content Include="Content\Images\waffle.jpg" />
     <Content Include="Content\Site.css" />
