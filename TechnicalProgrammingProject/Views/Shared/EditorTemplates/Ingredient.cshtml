@@ -6,7 +6,7 @@
         @Html.ValidationMessageFor(i => i.Name)
     </div>
     <div class="col-md-3">
-        @Html.TextBoxFor(i => i.Quantity, new { @class = "form-control", placeholder = "Quantity" })
+        @Html.EditorFor(i => i.Quantity, new { @min = "0", @class = "form-control", placeholder = "Quantity" })
         @Html.ValidationMessageFor(i => i.Quantity)
     </div>
     <div class="col-md-3">
