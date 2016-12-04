@@ -8,7 +8,8 @@ namespace TechnicalProgrammingProject.Models
         public Recipe()
         {
             Ingredients = new HashSet<Ingredient>();
-            Tags        = new HashSet<Tag>();
+            Tags = new HashSet<Tag>();
+            Ratings = new HashSet<Rating>();
         }
         //PK
         public int ID { get; set; }
@@ -18,7 +19,6 @@ namespace TechnicalProgrammingProject.Models
         public int Servings { get; set; }
         public string ImageURL { get; set; }
         public string Directions { get; set; }
-        public int Rating { get; set; }
         public System.DateTime? DateUploaded { get; set; }
         public string Status { get; set; }
         //return user
@@ -29,5 +29,7 @@ namespace TechnicalProgrammingProject.Models
         public virtual ICollection<Ingredient> Ingredients { get; set; }
         //return tags
         public virtual ICollection<Tag> Tags { get; set; }
+        //return user ratings
+        public virtual ICollection<Rating> Ratings { get; set;} 
     }
 }

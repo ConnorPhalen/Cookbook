@@ -9,8 +9,7 @@
 <div class="recipe-div-body">
     <img id="recipe-img" src=@Html.DisplayFor(model => model.ImageURL)>
     <p id="recipe-rating">
-        @Html.DisplayFor(model => model.Rating)
-    </p>
+        Rating:  @Html.Action("getRatingAverage", new { recID = Model.ID })</>
     <p id="recipe-description">
         @Html.DisplayFor(model => model.Description)
     </p>
