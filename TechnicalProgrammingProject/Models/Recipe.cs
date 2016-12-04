@@ -10,6 +10,7 @@ namespace TechnicalProgrammingProject.Models
             Ingredients = new HashSet<Ingredient>();
             Tags = new HashSet<Tag>();
             Ratings = new HashSet<Rating>();
+            Cookbooks = new HashSet<Cookbook>();
         }
         //PK
         public int ID { get; set; }
