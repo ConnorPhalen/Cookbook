@@ -98,13 +98,6 @@ namespace TechnicalProgrammingProject.Controllers
                 //if image field is filled
                 if (recipeViewModel.Image != null)
                 {
-                    //get filename
-                    //string pic = Path.GetFileName(recipeViewModel.Image.FileName);
-                    //get path
-                    //string path = Path.Combine(Server.MapPath("~/images/recipe"), pic);
-                    
-                    //recipeViewModel.Image.SaveAs(path);
-
                     using (MemoryStream ms = new MemoryStream())
                     {
                         //copy to memorystream
@@ -177,7 +170,7 @@ namespace TechnicalProgrammingProject.Controllers
         }
 
         /// <summary>
-        /// TODO: Edit a recipe
+        /// Display Edit recipe view with initial recipe details.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -193,7 +186,22 @@ namespace TechnicalProgrammingProject.Controllers
             {
                 return HttpNotFound();
             }
-            return View(recipe);
+            EditRecipeViewModel model = new EditRecipeViewModel();
+
+            if (recipe.ImageURL != null)
+            {
+                model.Image = recipe.ImageURL;
+            }
+            model.ID = recipe.ID;
+            model.Name = recipe.Name;
+            model.Description = recipe.Description;
+            model.CookTime = recipe.CookTime;
+            model.Directions = recipe.Directions;
+            model.Servings = recipe.Servings;
+            model.Ingredients = recipe.Ingredients;
+            model.Tags = recipe.Tags;
+
+            return View(model);
         }
 
         /// <summary>
@@ -204,15 +212,39 @@ namespace TechnicalProgrammingProject.Controllers
         // POST: Recipes/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RecipeID,UserID,Name,Description,CookTime,Servings,ImageURL,Directions,Rating")] Recipe recipe)
+        public ActionResult Edit(EditRecipeViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                db.Entry(recipe).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return View(model);
             }
-            return View(recipe);
+
+            Recipe recipe = db.Recipes.Find(model.ID);
+
+            if (recipe == null)
+            {
+                return View(model);
+            }
+
+            if (model.RecipePicture != null)
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    //copy to memorystream
+                    model.RecipePicture.InputStream.CopyTo(ms);
+                    //store bytes inside recipe
+                    byte[] image = ms.GetBuffer();
+                    recipe.ImageURL = image;
+                }
+            }
+            //if (ModelState.IsValid)
+            //{
+            //    if (model.)
+            //    db.Entry(recipe).State = EntityState.Modified;
+            //    db.SaveChanges();
+            //    return RedirectToAction("Index");
+            //}
+            return View(model);
         }
 
         /// <summary>
