@@ -1,16 +1,15 @@
 ﻿@model List<TechnicalProgrammingProject.Models.Recipe>
 
 @{
-    ViewBag.Title = "Cookbook";
+    ViewBag.Title = "Cookbook Search";
 }
 
 <h2> Your Cookbook Recipes</h2>
 
-@using (Html.BeginForm("Search", "Cookbooks", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
-{
+<form method="get">
     <input type="search" name="searchTerm" />
-    <input type="submit" value="Search By Name, Tag, or Ingredient" />
-}
+    <input type="submit" value="Search Your Cookbook By Name, Tag, or Ingredient" />
+</form>
 
 <p>@ViewBag.Message</p>
 

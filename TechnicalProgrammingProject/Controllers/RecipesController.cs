@@ -51,12 +51,13 @@ namespace TechnicalProgrammingProject.Controllers
             }
         }
 
+        [HttpGet]
         public ActionResult Search(string searchTerm = "")
         {
-            IEnumerable<Recipe> searchResult = db.Recipes.Where(r => searchTerm == ""
-                                                    || r.Name.Contains(searchTerm)
+            IEnumerable<Recipe> searchResult = db.Recipes.Where(r => r.Status == "approved"
+                                                    && ( r.Name.Contains(searchTerm)
                                                     || r.Tags.Any(t => t.Name == searchTerm)
-                                                    || r.Ingredients.Any(i => i.Name == searchTerm))
+                                                    || r.Ingredients.Any(i => i.Name == searchTerm)))
                                                     .OrderBy(r => r.Name);
 
             if (searchResult == null)
