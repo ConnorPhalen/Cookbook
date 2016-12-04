@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -74,19 +75,22 @@ namespace TechnicalProgrammingProject.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
 
+            EditProfileViewModel model = new EditProfileViewModel();
             var user = db.Users.Find(User.Identity.GetUserId());
-            var model = new EditProfileViewModel
+
+            if (user.ProfileImage != null)
             {
-                DisplayName = user.DisplayName,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Biography = user.Biography,
-                Age = user.Age,
-                DateOfBirth = user.Birthday,
-                Email = user.Email,
-                Gender = user.Gender,
-                ProfilePicture = user.ProfileImage
-            };
+                model.Image = user.ProfileImage;
+            }
+            model.DisplayName = user.DisplayName;
+            model.FirstName = user.FirstName;
+            model.LastName = user.LastName;
+            model.Biography = user.Biography;
+            model.Age = user.Age;
+            model.DateOfBirth = user.Birthday;
+            model.Email = user.Email;
+            model.Gender = user.Gender;
+
             return View(model);
         }
 
@@ -100,6 +104,18 @@ namespace TechnicalProgrammingProject.Controllers
 
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
 
+            if (model.ProfilePicture != null)
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    //copy to memorystream
+                    model.ProfilePicture.InputStream.CopyTo(ms);
+                    //store bytes inside recipe
+                    byte[] image = ms.GetBuffer();
+                    user.ProfileImage = image;
+                }
+            }
+
             user.DisplayName = model.DisplayName;
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
@@ -108,7 +124,6 @@ namespace TechnicalProgrammingProject.Controllers
             user.Birthday = model.DateOfBirth;
             user.Email = model.Email;
             user.Gender = model.Gender;
-            user.ProfileImage = model.ProfilePicture;
 
             var result = await UserManager.UpdateAsync(user);
 
