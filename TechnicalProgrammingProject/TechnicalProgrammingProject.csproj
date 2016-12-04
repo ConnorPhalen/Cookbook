@@ -349,6 +349,7 @@
     <Content Include="Views\Users\ManageUsers.cshtml" />
     <Content Include="Views\Users\_ManageUserPartial.cshtml" />
     <Content Include="Views\Shared\_ModeratorNavPartial.cshtml" />
+    <Content Include="Views\Cookbooks\Search.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

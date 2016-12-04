@@ -128,6 +128,31 @@ namespace TechnicalProgrammingProject.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult Search(string searchTerm = "")
+        {
+            var userID = User.Identity.GetUserId();
+
+            var searchResult = db.Cookbooks.Where(c => c.ApplicationUser.Id == userID)
+                                                        .Where(c => c.Recipes.Any(r => searchTerm == ""
+                                                        || r.Name.Contains(searchTerm)
+                                                        || r.Tags.Any(t => t.Name == searchTerm)
+                                                        || r.Ingredients.Any(i => i.Name == searchTerm)));
+
+            if (searchResult == null)
+            {
+                // There are no results.
+                ViewBag.Message = "No Recipes matched those search terms.";
+                return View();
+            }
+            else
+            {
+                ViewBag.Message = "Returned " + searchResult.Count().ToString() + " results.";
+                return View(searchResult);
+            }
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
