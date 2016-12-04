@@ -190,8 +190,7 @@ namespace TechnicalProgrammingProject.Migrations
                     CookTime = 4,
                     Servings = 1,
                     Directions = "Step 1.) Get Bacon \n Step 2.) Cook Bacon \n Step 3.) Eat Bacon",
-                    ImageURL = baconByte,
-                    Rating = 11
+                    ImageURL = baconByte
                 },
                  new Recipe
                 {
@@ -202,7 +201,6 @@ namespace TechnicalProgrammingProject.Migrations
                     Servings = 4,
                     Directions = "Taco Time!",
                     ImageURL = tacoByte,
-                    Rating = 10
                 },
                   new Recipe
                 {
@@ -212,8 +210,7 @@ namespace TechnicalProgrammingProject.Migrations
                     CookTime = 0,
                     Servings = 1,
                     Directions = "Just go to Belgium and buy it. You cannot make it as good as they can.",
-                    ImageURL = waffleByte,
-                    Rating = 69
+                    ImageURL = waffleByte
                 },
                    new Recipe
                 {
@@ -223,8 +220,7 @@ namespace TechnicalProgrammingProject.Migrations
                     CookTime = 5,
                     Servings = 6,
                     Directions = "Mix chicken with lettuce",
-                    ImageURL = chickenByte,
-                    Rating = 9
+                    ImageURL = chickenByte
                 },
                 new Recipe
                 {
@@ -234,8 +230,7 @@ namespace TechnicalProgrammingProject.Migrations
                     CookTime = 20,
                     Servings = 8,
                     Directions = "Sautee beef",
-                    ImageURL = beefByte,
-                    Rating = 8
+                    ImageURL = beefByte
                 }
             };
 

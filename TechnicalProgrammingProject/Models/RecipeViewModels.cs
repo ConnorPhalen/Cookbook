@@ -52,7 +52,6 @@ namespace TechnicalProgrammingProject.Models
         public string Name { get; set; }
         public string Image { get; set; }
         public DateTime? DateUploaded { get; set; }
-        public int Rating { get; set; }
         public string Status { get; set; }
         public bool isDelete { get; set; }
     }

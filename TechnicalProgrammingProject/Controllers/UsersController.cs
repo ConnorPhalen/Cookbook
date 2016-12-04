@@ -120,11 +120,24 @@ namespace TechnicalProgrammingProject.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                recCheck.Status = status;
-                context.SaveChanges();
+                // if the user is amanging an already approved recipe...
+                if(recCheck.Status == "approved")
+                {
+                    recCheck.Status = status;
+                    context.SaveChanges();
 
-                // Now to return the past URL so they stay on the same page. 
-                return RedirectToAction("ApproveRecipe");
+                    // Now to return the past URL so they stay on the same page. 
+                    return RedirectToAction("DisplayApprovedRecipes");
+                }
+                else // this is a pending/banned recipe
+                {
+                    recCheck.Status = status;
+                    context.SaveChanges();
+
+                    // Now to return the past URL so they stay on the same page. 
+                    return RedirectToAction("ApproveRecipe");
+
+                }
             }
         }
 

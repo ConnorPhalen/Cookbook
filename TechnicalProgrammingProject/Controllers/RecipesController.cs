@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -204,7 +205,7 @@ namespace TechnicalProgrammingProject.Controllers
         // POST: Recipes/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RecipeID,UserID,Name,Description,CookTime,Servings,ImageURL,Directions,Rating")] Recipe recipe)
+        public ActionResult Edit([Bind(Include = "RecipeID,UserID,Name,Description,CookTime,Servings,ImageURL,Directions")] Recipe recipe)
         {
             if (ModelState.IsValid)
             {
@@ -222,6 +223,7 @@ namespace TechnicalProgrammingProject.Controllers
         // GET: Recipes/Delete/5
         public ActionResult Delete()
         {
+            //name, image, dateuploaded, status
             var userID = User.Identity.GetUserId();
             var recipes = db.Recipes.Where(r => r.ApplicationUser.Id == userID)
                                     .Select(r => new UploadedRecipe
@@ -230,7 +232,6 @@ namespace TechnicalProgrammingProject.Controllers
                                         Name = r.Name,
                                         //Image = r.ImageURL,
                                         DateUploaded = r.DateUploaded,
-                                        Rating = r.Rating,
                                         Status = r.Status,
                                         isDelete = false
                                     });
@@ -288,7 +289,63 @@ namespace TechnicalProgrammingProject.Controllers
 
             return PartialView(recipe);
         }
+        
+        [HttpPost]
+        public ActionResult RateRecipe(int? rating, int? recID)
+        {
+            if(User.Identity.IsAuthenticated)
+            {
+                var userID = User.Identity.GetUserId();
 
+                // check to see if user has already rated the recipe
+                var recipeChck = db.Recipes.Where(r => r.ID == recID).Where(r => r.Ratings.Any(ra => ra.UserID == userID));
+                // rateCheck = rateCheck.Where(r => r.Ratings.All(ra => ra.UserID == userID));
+
+                // The user has previously rated
+                if (recipeChck.Count() > 0)
+                {
+                    // Get the single rating out of the recipe
+                    Rating rat = recipeChck.Select(r => r.Ratings).Select(ra => ra).Single().First();
+
+                    rat.rateNumber = (int)rating;
+                }
+                else // The user has not rated
+                {
+                    List<Rating> ratingList = new List<Rating>()
+                    {
+                        new Rating { UserID = userID, rateNumber = (int)rating }
+                    };
+                    
+                    ratingList.ForEach(rsub => db.Ratings.AddOrUpdate(ra => ra.ID, rsub));
+                    db.SaveChanges();
+
+                    Recipe curRec = db.Recipes.Find(recID);
+
+                    curRec.Ratings.Add(ratingList[0]);
+                }
+            }
+            db.SaveChanges();
+            return RedirectToAction("Details", "Recipes", new { id = recID });
+        }
+
+        public string getRatingAverage(int? recID)
+        {
+            double avg = 0;
+            var ratinglist = db.Ratings.Where(ra => ra.Recipes.Any(r => r.ID == recID));
+
+            if(ratinglist.Count() > 0)
+            {
+                // get the average for all the ratings
+                avg = ratinglist.Average(ra => ra.rateNumber);
+                return avg.ToString() + "/5!";
+            }
+            else
+            {
+                // No results, so no ratings for the recipe
+                return "No ratings yet!";
+            }
+        }
+        
         /// <summary>
         /// Dispose the db context in addition to other objects that need to be disposed.
         /// </summary>
