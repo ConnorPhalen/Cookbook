@@ -1,14 +1,18 @@
 using TechnicalProgrammingProject.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
+using System.Data.Entity.Migrations;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Web;
+using System.Web.Hosting;
+using System.Reflection;
+using System;
 
 namespace TechnicalProgrammingProject.Migrations
 {
-    using Microsoft.AspNet.Identity;
-    using Microsoft.AspNet.Identity.EntityFramework;
-    using System;
-    using System.Collections.Generic;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
-
     internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
@@ -52,7 +56,7 @@ namespace TechnicalProgrammingProject.Migrations
                     SecurityStamp = Guid.NewGuid().ToString()
                 });
             */
-            
+
             // ---- New Code to Create Users ----
 
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
@@ -112,6 +116,58 @@ namespace TechnicalProgrammingProject.Migrations
 
             context.SaveChanges();
 
+            var directoryName = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
+
+            var beefPath = Path.Combine(directoryName, ".." + "~/Content/Images/beef.jpg".TrimStart('~').Replace('/', '\\'));
+            var realBeefPath = Path.GetFullPath(beefPath);
+            Image beefImage = Image.FromFile(realBeefPath);
+            byte[] beefByte;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                beefImage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                beefByte = ms.ToArray();
+            }
+
+            var wafflePath = Path.Combine(directoryName, ".." + "~/Content/Images/waffle.jpg".TrimStart('~').Replace('/', '\\'));
+            var realWafflePath = Path.GetFullPath(wafflePath);
+            Image waffleImage = Image.FromFile(realWafflePath);
+            byte[] waffleByte;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                waffleImage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                waffleByte = ms.ToArray();
+            }
+
+            var chickenPath = Path.Combine(directoryName, ".." + "~/Content/Images/chicken.jpg".TrimStart('~').Replace('/', '\\'));
+            var realChickenPath = Path.GetFullPath(chickenPath);
+            Image chickenImage = Image.FromFile(realChickenPath);
+            byte[] chickenByte;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                chickenImage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                chickenByte = ms.ToArray();
+            }
+
+            var tacoPath = Path.Combine(directoryName, ".." + "~/Content/Images/taco.png".TrimStart('~').Replace('/', '\\'));
+            var realTacoPath = Path.GetFullPath(tacoPath);
+            Image tacoImage = Image.FromFile(realTacoPath);
+            byte[] tacoByte;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                tacoImage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                tacoByte = ms.ToArray();
+            }
+
+            var baconPath = Path.Combine(directoryName, ".." + "~/Content/Images/bacon.jpg".TrimStart('~').Replace('/', '\\'));
+            var realBaconPath = Path.GetFullPath(baconPath);
+            Image baconImage = Image.FromFile(realBaconPath);
+            byte[] baconByte;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                baconImage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                baconByte = ms.ToArray();
+            }
+
             List<Recipe> recipes = new List<Recipe>()
             {
                 new Recipe
@@ -122,7 +178,7 @@ namespace TechnicalProgrammingProject.Migrations
                     CookTime = 4,
                     Servings = 1,
                     Directions = "Step 1.) Get Bacon \n Step 2.) Cook Bacon \n Step 3.) Eat Bacon",
-                    ImageURL = "http://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/quizzes/bacon_sizzling_facts_rmq/650x350_bacon_sizzling_facts_rmq.jpg",
+                    ImageURL = baconByte,
                     Rating = 11
                 },
                  new Recipe
@@ -133,7 +189,7 @@ namespace TechnicalProgrammingProject.Migrations
                     CookTime = 12,
                     Servings = 4,
                     Directions = "Taco Time!",
-                    ImageURL = "http://eatneat.com/wp-content/themes/neat/images/tacos.png",
+                    ImageURL = tacoByte,
                     Rating = 10
                 },
                   new Recipe
@@ -144,7 +200,7 @@ namespace TechnicalProgrammingProject.Migrations
                     CookTime = 0,
                     Servings = 1,
                     Directions = "Just go to Belgium and buy it. You cannot make it as good as they can.",
-                    ImageURL = "http://cdn1.tmbi.com/TOH/Images/Photos/37/300x300/exps4869_RDS2928497A10_11_1b_WEB.jpg",
+                    ImageURL = waffleByte,
                     Rating = 69
                 },
                    new Recipe
@@ -155,7 +211,7 @@ namespace TechnicalProgrammingProject.Migrations
                     CookTime = 5,
                     Servings = 6,
                     Directions = "Mix chicken with lettuce",
-                    ImageURL = "http://img.sndimg.com/food/image/upload/q_92,fl_progressive/v1/img/recipes/29/89/77/picO9chgt.jpg",
+                    ImageURL = chickenByte,
                     Rating = 9
                 },
                 new Recipe
@@ -166,7 +222,7 @@ namespace TechnicalProgrammingProject.Migrations
                     CookTime = 20,
                     Servings = 8,
                     Directions = "Sautee beef",
-                    ImageURL = "http://www.gimmesomeoven.com/wp-content/uploads/2014/02/Beef-Stroganoff-1.jpg",
+                    ImageURL = beefByte,
                     Rating = 8
                 }
             };

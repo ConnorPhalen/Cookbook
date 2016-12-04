@@ -21,7 +21,7 @@
             @Html.DisplayFor(model => model.Description)
         </p>
 
-        <img id="recipe-image" src=@Html.DisplayFor(model => model.ImageURL)>
+        @Html.Image(Model.ImageURL, new { @class = "img" })
 
         <p>
             Cook Time : @Html.DisplayFor(model => model.CookTime)

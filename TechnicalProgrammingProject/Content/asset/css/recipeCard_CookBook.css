@@ -1,0 +1,38 @@
+﻿.content{    
+    padding: 20px 20px;
+}
+#cardbodies {
+    width:370px;
+    height: 100%;
+    border: 0.5px solid;   
+    margin: 10px 10px 10px 10px;
+    border-radius : 30%;
+    background-color: white;
+}
+
+.img {
+    width: 330px;
+    height: 250px;
+    border-radius: 70%;
+}
+
+.recipeCard{
+    margin: 20px auto;
+    text-align:center;   
+    border:0;
+    padding:0;
+    -moz-transition: all 1s;
+    -webkit-transition: all 1s;
+    -o-transition: all 1s;
+}
+
+
+#cardbody :hover .img{
+     animation: shadowThrob 0.9s infinite;
+    animation-direction: alternate;
+    -webkit-animation: shadowThrob 0.9s ease-out infinite;
+    -webkit-animation-direction: alternate;     
+}
+.btn {
+    margin-bottom: 30px;
+}

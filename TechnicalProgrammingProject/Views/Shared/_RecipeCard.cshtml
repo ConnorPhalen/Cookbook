@@ -1,18 +1,35 @@
 ﻿@model TechnicalProgrammingProject.Models.Recipe
 
-@Styles.Render("~/Content/asset/css/recipeCard")
-
-<div class="col-md-4">
+@if (Request.IsAuthenticated)
+{
+<div class="col-md-4 hvr-curl-bottom-right" id="cardbody">
     <div class="recipeCard">
         <a href=@Url.Action("Details", "Recipes", new { id = Model.ID })>
-            <img class="recipeImage" src=@Html.DisplayFor(modelItemm => Model.ImageURL)>
+                @Html.Image(Model.ImageURL, new { @class = "img  hvr-float-shadow" })
         </a>
         <div class="content">
             <h3>@Html.DisplayFor(modelItem => Model.Name)</h3>
             Rating: @Html.DisplayFor(modelItem => Model.Rating)/10!
         </div>
-        <input class="btn btn-primary" type="button" value="Details"/>
-        <input class="btn btn-primary" type="button" value="Add to CookBook" />
-        <input class="btn btn-primary" type="button" value="Delete" />
+        
+         <input class="btn btn-primary hvr-grow-shadow" type="button" value="Add to CookBook" />  
+         <input class="btn btn-primary hvr-grow-shadow" type="button" value="delete" />    
     </div>
 </div>
+}
+else
+{
+    <div class="col-md-4 hvr-curl-bottom-right" id="cardbody">
+        <div class="recipeCard">
+            <a href=@Url.Action("Details", "Recipes", new { id = Model.ID })>
+                @Html.Image(Model.ImageURL, new { @class = "img  hvr-float-shadow" })
+            </a>
+            <div class="content">
+                <h3>@Html.DisplayFor(modelItem => Model.Name)</h3>
+                Rating: @Html.DisplayFor(modelItem => Model.Rating)/10!
+            </div>
+
+            
+        </div>
+    </div>
+}
