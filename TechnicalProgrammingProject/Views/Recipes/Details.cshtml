@@ -7,12 +7,6 @@
     <h4 id="recipe-name">
         @Html.DisplayFor(model => model.Name)
     </h4>
-    @using (Html.BeginForm("DeleteUpload", "Recipes", new { id = Model.ID }, FormMethod.Post, null))
-    {
-        @Html.AntiForgeryToken()
-        @Html.Hidden("returnUrl", (object) ViewBag.ReturnUrl)
-        <input type="submit" value="Delete" class="btn btn-default" />
-    }
 
     <p>Uploaded By: @Html.ActionLink(Model.ApplicationUser.DisplayName, "Index", "Profile", new { id = Model.ApplicationUser.Id }, null)</p>
 
@@ -35,9 +29,9 @@
         <p>
             @Html.DisplayFor(model => model.Directions)
         </p>
-        
+
         <div>
-            <p>Rating:  @Html.Action("getRatingAverage", new {recID = Model.ID })</p>
+            <p>Rating:  @Html.Action("getRatingAverage", new { recID = Model.ID })</p>
             @using (Html.BeginForm("RateRecipe", "Recipes", new { recID = Model.ID }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
@@ -47,7 +41,7 @@
                 <input type="submit" value="4" name="rating" />
                 <input type="submit" value="5" name="rating" />
             }
-         </div>
+        </div>
 
         <p>
             Tags:
@@ -72,7 +66,7 @@
                     <p>
                         @Html.DisplayFor(modelItemm => ingredient.Name)
                         <div id="recipe-ingredient-details">
-                            @Html.DisplayFor(modelItemm => ingredient.Quantity) 
+                            @Html.DisplayFor(modelItemm => ingredient.Quantity)
                             @Html.DisplayFor(modelItemm => ingredient.Unit)
                         </div>
                         <br />
@@ -80,8 +74,5 @@
                 </div>
             }
         }
-    </div>
-    <div>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.ID })
     </div>
 </div>
