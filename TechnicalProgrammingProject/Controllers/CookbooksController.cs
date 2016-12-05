@@ -188,7 +188,7 @@ namespace TechnicalProgrammingProject.Controllers
 
             Recipe result = db.Recipes.Where(r => r.ID == recID).Select(r => r).Single();
 
-            Cookbook userCookbook = db.Cookbooks.Where(c => c.ApplicationUser.ID == userID).Select(c => c).Single();
+            Cookbook userCookbook = db.Cookbooks.Where(c => c.ApplicationUser.Id == userID).Select(c => c).Single();
             
             // if the user wants to add the recipe to their cookbook...
             if (option.Equals("add"))

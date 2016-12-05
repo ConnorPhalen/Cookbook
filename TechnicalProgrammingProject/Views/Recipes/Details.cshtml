@@ -1,87 +1,128 @@
 ﻿@model TechnicalProgrammingProject.Models.Recipe
 
-<div class="recipe-page-body">
-    <h3 id="recipe-page-title"> Recipe Details</h3>
-    <hr />
+<div class="container">
 
-    <h4 id="recipe-name">
-        @Html.DisplayFor(model => model.Name)
-    </h4>
+    <div class="recipe-page-title">
+        <h1>Recipe Details</h1>
+    </div>
 
-    <p>Uploaded By: @Html.ActionLink(Model.ApplicationUser.DisplayName, "Index", "Profile", new { id = Model.ApplicationUser.Id }, null)</p>
+    <div class="row">
+        <div id="myScrollspy" class="col-md-3">
+            <ul class="nav nav-tabs nav-stacked" data-spy="affix" data-offset-top="125">
+                <li class="active"><a href="#section-1">Title</a></li>
+                <li><a href="#section-2">Author</a></li>
+                <li><a href="#section-3">Image</a></li>
+                <li><a href="#section-4">Description</a></li>
+                <li><a href="#section-5">Servings</a></li>
+                <li><a href="#section-6">Directions</a></li>
+                <li><a href="#section-7">Rating</a></li>
+                <li><a href="#section-8">Tags</a></li>
+                <li><a href="#section-9">Ingredients</a></li>
+            </ul>
+        </div>
 
-    <div class="recipe-details">
+        <div class="col-md-9 section">
+            <h2 id="section-1">Title</h2>
+            <h4>@Html.DisplayFor(model => model.Name)</h4>
+            <hr />
+
         <p>
-            @Html.DisplayFor(model => model.Description)
-        </p>
 
-        @Html.Image(Model.ImageURL, new { @class = "recipe-image" })
-
-        <p>
-            @using (Html.BeginForm("modifyCookbookRecipe", "Cookbooks", new { recID = Model.ID }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            @*@using (Html.BeginForm("modifyCookbookRecipe", "Cookbooks", new { recID = Model.ID }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.Action("cookbookCheck", "Cookbooks", new { recID = Model.ID })
-            }
+            }*@
 
-            @*<button value="Yeah" onclick="@Html.Action("addToCookbook", "Cookbooks", new { recID = Model.ID})"> Add</button>*@
         </p>
 
-        <p>
+        @*<p>
             Cook Time : @Html.DisplayFor(model => model.CookTime)
-        </p>
+        </p>*@
+            <h2 id="section-2">Author</h2>
+            <p>Uploaded By: @Html.ActionLink(Model.ApplicationUser.DisplayName, "Index", "Profile", new { id = Model.ApplicationUser.Id }, null)</p>
+            <hr />
 
-        <p>
-            Number of Servings : @Html.DisplayFor(model => model.Servings)
-        </p>
+            <h2 id="section-3">Image</h2>
+            <br />
+            <div class="food">
+                @Html.Image(Model.ImageURL,new { @class = "foodImage" })
+            </div>
+            <hr />
 
-        <p>
-            @Html.DisplayFor(model => model.Directions)
-        </p>
-        
-        <div>
+            <h2 id="section-4">Description</h2>
+            <p>@Html.DisplayFor(model => model.Description)</p>
+            <hr />
+
+            <h2 id="section-5">Servings</h2>
+            <p>Number of Servings : @Html.DisplayFor(model => model.Servings)</p>
+            <hr />
+
+            <h2 id="section-6">Directions</h2>
+            <p>@Html.DisplayFor(model => model.Directions)</p>
+            <hr />
+
+            <h2 id="section-7">Rating</h2>
             <p>Rating:  @Html.Action("getRatingAverage", new { recID = Model.ID })</p>
             @using (Html.BeginForm("RateRecipe", "Recipes", new { recID = Model.ID }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
+            @Html.AntiForgeryToken()
+            <input type="submit" value="1" name="rating" />
+            <input type="submit" value="2" name="rating" />
+            <input type="submit" value="3" name="rating" />
+            <input type="submit" value="4" name="rating" />
+            <input type="submit" value="5" name="rating" />
+            }
+            <hr />
+
+            <h2 id="section-8">Tags</h2>
+            <p>
+                Tags:
+                @foreach (var tag in Model.Tags)
+                {
+                    @Html.DisplayFor(modelItem => tag.Name);
+                    @Html.Label(",");
+                }
+            </p>
+            <hr />
+
+            <h2 id="section-9">Ingredients</h2>
+            @if (Model.Ingredients == null)
+            {
+                <p id="recipe-noingredients">
+                    No Ingredients are available for this recipe.
+                </p>
+            }
+            else
+            {
+                foreach (var ingredient in Model.Ingredients)
+                {
+                    <div class="recipe-ingredient">
+                        <p>
+                            @Html.DisplayFor(modelItemm => ingredient.Name)
+                            <div id="recipe-ingredient-details">
+                                @Html.DisplayFor(modelItemm => ingredient.Quantity)
+                                @Html.DisplayFor(modelItemm => ingredient.Unit)
+                            </div>
+                            <br />
+                        </p>
+                    </div>
+                }
+            }
+           
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9 col-md-offset-3">
+            @using (Html.BeginForm("DeleteUpload", "Recipes", new { id = Model.ID }, FormMethod.Post, null))
+            {
                 @Html.AntiForgeryToken()
-                <input type="submit" value="1" name="rating" />
-                <input type="submit" value="2" name="rating" />
-                <input type="submit" value="3" name="rating" />
-                <input type="submit" value="4" name="rating" />
-                <input type="submit" value="5" name="rating" />
+                @Html.Hidden("returnUrl", (object)ViewBag.ReturnUrl)
+                <input type="submit" value="Delete" class="btn btn-default" />
             }
         </div>
-
-        <p>
-            Tags:
-            @foreach (var tag in Model.Tags)
-            {
-                @Html.DisplayFor(modelItem => tag.Name);
-                @Html.Label(",");
-            }
-        </p>
-
-        @if (Model.Ingredients == null)
-        {
-            <p id="recipe-noingredients">
-                No Ingredients are available for this recipe.
-            </p>
-        }
-        else
-        {
-            foreach (var ingredient in Model.Ingredients)
-            {
-                <div class="recipe-ingredient">
-                    <p>
-                        @Html.DisplayFor(modelItemm => ingredient.Name)
-                        <div id="recipe-ingredient-details">
-                            @Html.DisplayFor(modelItemm => ingredient.Quantity)
-                            @Html.DisplayFor(modelItemm => ingredient.Unit)
-                        </div>
-                        <br />
-                    </p>
-                </div>
-            }
-        }
     </div>
+    <br/>
+
 </div>
