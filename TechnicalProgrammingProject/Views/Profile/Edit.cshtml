@@ -8,6 +8,10 @@
 
 <h1>Edit Profile</h1>
 
+<div id="status">
+    @ViewBag.StatusMessage
+</div>
+
 @using (Html.BeginForm("Edit", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
@@ -16,95 +20,95 @@
         <hr />
 
         <div class="row">
-            <div class="col-md-4 avatar">
-                @Html.Image(Model.Image, new { @class = "img-responsive img-thumbnail" })
-                @Html.HiddenFor(model => model.Image);
-            </div>
-            <div id="status">
-                @ViewBag.StatusMessage
-            </div>
-            <div class="col-md-8 infoContainer">
-
-                <div class="form-group left-inner-addon">
-                    @Html.LabelFor(model => model.DisplayName, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                        @Html.EditorFor(model => model.DisplayName, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.DisplayName, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.ProfilePicture, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.FileFor(model => model.ProfilePicture)
-                        @Html.ValidationMessageFor(model => model.ProfilePicture, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group left-inner-addon">
-                    @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-                    </div>
+            <div class="col-md-10 col-md-offset-1">
+                <div class="col-md-4 avatar">
+                    @Html.Image(Model.Image, new { @class = "img-responsive img-thumbnail", @id = "Avatar" })
+                    @Html.HiddenFor(model => model.Image);
                 </div>
 
-                <div class="form-group left-inner-addon">
-                    @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                <div class="col-md-8 infoContainer">
+                    <div class="form-group left-inner-addon">
+                        @Html.LabelFor(model => model.DisplayName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                            @Html.EditorFor(model => model.DisplayName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.DisplayName, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ProfilePicture, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.FileFor(model => model.ProfilePicture)
+                            @Html.ValidationMessageFor(model => model.ProfilePicture, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group left-inner-addon">
+                        @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-                <div class="form-group left-inner-addon">
-                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    <div class="form-group left-inner-addon">
+                        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group left-inner-addon">
-                    @Html.LabelFor(model => model.Biography, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
-                        @Html.EditorFor(model => model.Biography, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Biography, "", new { @class = "text-danger" })
+                    <div class="form-group left-inner-addon">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group left-inner-addon">
-                    @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-                        @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control datefield" } })
-                        @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+                    <div class="form-group left-inner-addon">
+                        @Html.LabelFor(model => model.Biography, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                            @Html.TextAreaFor(model => model.Biography, new { htmlAttributes = new { @class = "form-control" }, @cols = "50", @rows = "15" })
+                            @Html.ValidationMessageFor(model => model.Biography, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
-                <div class="form-group left-inner-addon">
-                    @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        <span class="glyphicon glyphicon-gift" aria-hidden="true"></span>
-                        @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @min = "0", @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
-                    </div>
-                </div>
 
-                <div class="form-group left-inner-addon">
-                    @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
-                        @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                    <div class="form-group left-inner-addon">
+                        @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                            @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control datefield" } })
+                            @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
+                    <div class="form-group left-inner-addon">
+                        @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <span class="glyphicon glyphicon-gift" aria-hidden="true"></span>
+                            @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Save" class="btn btn-default" />
+                    <div class="form-group left-inner-addon">
+                        @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
+                            @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Save" class="btn btn-default" />
+                            <button type="button" class="btn btn-default" id="backBtn" >Back</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -112,7 +116,10 @@
     </div>
 }
 
+
+
 @section Scripts
 {
+    @Scripts.Render("~/Content/asset/js/preview.js")
     @Scripts.Render("~/bundles/jqueryval")
 }

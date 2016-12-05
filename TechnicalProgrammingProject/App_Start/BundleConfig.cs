@@ -32,8 +32,7 @@ namespace TechnicalProgrammingProject
             bundles.Add(new ScriptBundle("~/bundles/sidebar").Include(
                      "~/Content/asset/js/leftsidebar.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/sidebar").Include(
-                     "~/Content/asset/js/leftsidebar.js"));
+            
             bundles.Add(new ScriptBundle("~/bundles/top").Include(
                      "~/Content/asset/js/topmsg.js"));
 
