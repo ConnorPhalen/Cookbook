@@ -160,13 +160,16 @@
     <Content Include="Content\asset\css\profile.css" />
     <Content Include="Content\asset\css\leftsidebar.css" />
     <Content Include="Content\asset\css\login.css" />
+    <Content Include="Content\asset\css\recipeCard_CookBook.css" />
     <Content Include="Content\asset\css\recipesApprove.css" />
     <Content Include="Content\asset\js\createIngredients.js" />
     <Content Include="Content\asset\js\datePickerReady.js" />
+    <Content Include="Content\asset\js\recipecard.js" />
     <Content Include="Content\asset\js\leftsidebar.js" />
     <Content Include="Content\asset\js\login.js" />
     <Content Include="Content\asset\css\recipeCard.css" />
     <Content Include="Content\asset\images\avatar.jpg" />
+    <Content Include="Content\asset\js\topmsg.js" />
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap-datepicker.min.css" />
     <Content Include="Content\bootstrap-datepicker.standalone.css" />
@@ -179,6 +182,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\hover-min.css" />
     <Content Include="Content\Images\bacon.jpg" />
     <Content Include="Content\Images\beef.jpg" />
     <Content Include="Content\Images\chicken.jpg" />
@@ -197,6 +201,9 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    
+    <Content Include="ClassDiagram1.cd" />
+    
     <Content Include="Content\bootstrap-datepicker3.standalone.min.css.map" />
     <Content Include="Content\bootstrap-datepicker3.standalone.css.map" />
     <Content Include="Content\bootstrap-datepicker3.min.css.map" />
@@ -349,6 +356,7 @@
     <Content Include="Views\Users\ManageUsers.cshtml" />
     <Content Include="Views\Users\_ManageUserPartial.cshtml" />
     <Content Include="Views\Shared\_ModeratorNavPartial.cshtml" />
+    <Content Include="Views\Shared\_RecipeCard_CookBook.cshtml" />
     <Content Include="Views\Cookbooks\Search.cshtml" />
     <Content Include="Views\Recipes\Edit.cshtml" />
     <None Include="Web.Debug.config">
