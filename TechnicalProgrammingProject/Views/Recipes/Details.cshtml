@@ -15,8 +15,17 @@
             @Html.DisplayFor(model => model.Description)
         </p>
 
-
         @Html.Image(Model.ImageURL, new { @class = "recipe-image" })
+
+        <p>
+            @using (Html.BeginForm("modifyCookbookRecipe", "Cookbooks", new { recID = Model.ID }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Action("cookbookCheck", "Cookbooks", new { recID = Model.ID })
+            }
+
+            @*<button value="Yeah" onclick="@Html.Action("addToCookbook", "Cookbooks", new { recID = Model.ID})"> Add</button>*@
+        </p>
 
         <p>
             Cook Time : @Html.DisplayFor(model => model.CookTime)
@@ -29,7 +38,7 @@
         <p>
             @Html.DisplayFor(model => model.Directions)
         </p>
-
+        
         <div>
             <p>Rating:  @Html.Action("getRatingAverage", new { recID = Model.ID })</p>
             @using (Html.BeginForm("RateRecipe", "Recipes", new { recID = Model.ID }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
