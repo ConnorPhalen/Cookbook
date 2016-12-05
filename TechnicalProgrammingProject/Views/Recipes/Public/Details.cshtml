@@ -32,15 +32,6 @@
 
         <div>
             <p>Rating:  @Html.Action("getRatingAverage", new { recID = Model.ID })</p>
-            @using (Html.BeginForm("RateRecipe", "Recipes", new { recID = Model.ID }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <input type="submit" value="1" name="rating" />
-                <input type="submit" value="2" name="rating" />
-                <input type="submit" value="3" name="rating" />
-                <input type="submit" value="4" name="rating" />
-                <input type="submit" value="5" name="rating" />
-            }
         </div>
 
         <p>

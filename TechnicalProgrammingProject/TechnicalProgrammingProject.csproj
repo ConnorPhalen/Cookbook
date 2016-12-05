@@ -201,9 +201,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    
     <Content Include="ClassDiagram1.cd" />
-    
     <Content Include="Content\bootstrap-datepicker3.standalone.min.css.map" />
     <Content Include="Content\bootstrap-datepicker3.standalone.css.map" />
     <Content Include="Content\bootstrap-datepicker3.min.css.map" />
@@ -307,11 +305,6 @@
     <Content Include="Views\Recipes\Create.cshtml" />
     <Content Include="Views\Recipes\Details.cshtml" />
     <Content Include="Views\Recipes\Index.cshtml" />
-    <Content Include="Views\Ingredients\Create.cshtml" />
-    <Content Include="Views\Ingredients\Delete.cshtml" />
-    <Content Include="Views\Ingredients\Details.cshtml" />
-    <Content Include="Views\Ingredients\Edit.cshtml" />
-    <Content Include="Views\Ingredients\Index.cshtml" />
     <Content Include="Views\Cookbooks\Create.cshtml" />
     <Content Include="Views\Cookbooks\Delete.cshtml" />
     <Content Include="Views\Cookbooks\Details.cshtml" />
@@ -359,6 +352,8 @@
     <Content Include="Views\Shared\_RecipeCard_CookBook.cshtml" />
     <Content Include="Views\Cookbooks\Search.cshtml" />
     <Content Include="Views\Recipes\Edit.cshtml" />
+    <Content Include="Views\Recipes\Public\Details.cshtml" />
+    <Content Include="Views\Recipes\Current\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -377,7 +372,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CookbooksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\IngredientsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\RecipesController.cs" />
