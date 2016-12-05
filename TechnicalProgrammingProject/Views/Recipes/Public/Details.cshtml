@@ -1,0 +1,69 @@
+﻿@model TechnicalProgrammingProject.Models.Recipe
+
+<div class="recipe-page-body">
+    <h3 id="recipe-page-title"> Recipe Details</h3>
+    <hr />
+
+    <h4 id="recipe-name">
+        @Html.DisplayFor(model => model.Name)
+    </h4>
+
+    <p>Uploaded By: @Html.ActionLink(Model.ApplicationUser.DisplayName, "Index", "Profile", new { id = Model.ApplicationUser.Id }, null)</p>
+
+    <div class="recipe-details">
+        <p>
+            @Html.DisplayFor(model => model.Description)
+        </p>
+
+
+        @Html.Image(Model.ImageURL, new { @class = "recipe-image" })
+
+        <p>
+            Cook Time : @Html.DisplayFor(model => model.CookTime)
+        </p>
+
+        <p>
+            Number of Servings : @Html.DisplayFor(model => model.Servings)
+        </p>
+
+        <p>
+            @Html.DisplayFor(model => model.Directions)
+        </p>
+
+        <div>
+            <p>Rating:  @Html.Action("getRatingAverage", new { recID = Model.ID })</p>
+        </div>
+
+        <p>
+            Tags:
+            @foreach (var tag in Model.Tags)
+            {
+                @Html.DisplayFor(modelItem => tag.Name);
+                @Html.Label(",");
+            }
+        </p>
+
+        @if (Model.Ingredients == null)
+        {
+            <p id="recipe-noingredients">
+                No Ingredients are available for this recipe.
+            </p>
+        }
+        else
+        {
+            foreach (var ingredient in Model.Ingredients)
+            {
+                <div class="recipe-ingredient">
+                    <p>
+                        @Html.DisplayFor(modelItemm => ingredient.Name)
+                        <div id="recipe-ingredient-details">
+                            @Html.DisplayFor(modelItemm => ingredient.Quantity)
+                            @Html.DisplayFor(modelItemm => ingredient.Unit)
+                        </div>
+                        <br />
+                    </p>
+                </div>
+            }
+        }
+    </div>
+</div>
