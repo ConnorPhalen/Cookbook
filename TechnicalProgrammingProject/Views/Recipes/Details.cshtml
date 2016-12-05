@@ -21,7 +21,8 @@
             @Html.DisplayFor(model => model.Description)
         </p>
 
-        @Html.Image(Model.ImageURL, new { @class = "img" })
+
+        @Html.Image(Model.ImageURL, new { @class = "recipe-image" })
 
         <p>
             Cook Time : @Html.DisplayFor(model => model.CookTime)
@@ -34,10 +35,19 @@
         <p>
             @Html.DisplayFor(model => model.Directions)
         </p>
-
-        <p>
-            Rating : @Html.DisplayFor(model => model.Rating)/10!
-        </p>
+        
+        <div>
+            <p>Rating:  @Html.Action("getRatingAverage", new {recID = Model.ID })</p>
+            @using (Html.BeginForm("RateRecipe", "Recipes", new { recID = Model.ID }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <input type="submit" value="1" name="rating" />
+                <input type="submit" value="2" name="rating" />
+                <input type="submit" value="3" name="rating" />
+                <input type="submit" value="4" name="rating" />
+                <input type="submit" value="5" name="rating" />
+            }
+         </div>
 
         <p>
             Tags:
@@ -70,5 +80,8 @@
                 </div>
             }
         }
+    </div>
+    <div>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID })
     </div>
 </div>

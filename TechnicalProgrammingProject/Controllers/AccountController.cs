@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using System.Drawing;
+using System.IO;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -48,6 +50,11 @@ namespace TechnicalProgrammingProject.Controllers
             }
         }
 
+        /// <summary>
+        /// Returns Login View.
+        /// </summary>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -57,6 +64,12 @@ namespace TechnicalProgrammingProject.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Logs in a user using their username and password. Redirects the user to the page they were last at.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         //
         // POST: /Account/Login
         [HttpPost]
@@ -85,6 +98,10 @@ namespace TechnicalProgrammingProject.Controllers
             }
         }
 
+        /// <summary>
+        /// Displays registration view.
+        /// </summary>
+        /// <returns></returns>
         //
         // GET: /Account/Register
         [AllowAnonymous]
@@ -93,6 +110,12 @@ namespace TechnicalProgrammingProject.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Validates user registration, adds them to the user role, provides 
+        /// them with a default profile picture, and logs the user in.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         //
         // POST: /Account/Register
         [HttpPost]
@@ -102,15 +125,30 @@ namespace TechnicalProgrammingProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                ApplicationUser user  = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+                byte[] image;
+                //save image to stream
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    //copy to memorystream
+                    var path = HttpContext.Server.MapPath("~/Content/asset/images/avatar.jpg");
+                    Image avatarImage = Image.FromFile(path);
+                    avatarImage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    //store bytes inside recipe
+                    image = ms.ToArray();
+                }
+
+                ApplicationUser user = new ApplicationUser { UserName = model.UserName, Email = model.Email, ProfileImage = image };
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     var roleResult = UserManager.AddToRole(user.Id, "User");
 
-                    if(!roleResult.Succeeded)
+                    if (!roleResult.Succeeded)
                     {
+                        //should never occur?
+                        AddErrors(result);
                         // This user has no role...
+                        return View(model);
                     }
 
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
@@ -132,6 +170,10 @@ namespace TechnicalProgrammingProject.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Logs a user out.
+        /// </summary>
+        /// <returns></returns>
         //
         // POST: /Account/LogOff
         [HttpPost]

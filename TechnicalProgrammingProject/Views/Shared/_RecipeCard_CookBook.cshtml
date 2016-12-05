@@ -9,7 +9,7 @@
         </a>
         <div class="content">
             <h3>@Html.DisplayFor(modelItem => Model.Name)</h3>
-            Rating: @Html.DisplayFor(modelItem => Model.Rating)/10!
+            Rating: @Html.Action("getRatingAverage", "Recipes", new { recID = Model.ID })
         </div>
         <input class="btn btn-success hvr-round-corners" type="button" value="Details" />
         <input class="btn btn-success hvr-round-corners" type="button" value="Delete" />

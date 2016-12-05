@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
+using TechnicalProgrammingProject.Attributes;
 
 namespace TechnicalProgrammingProject.Models
 {
@@ -21,14 +20,24 @@ namespace TechnicalProgrammingProject.Models
 
     public class EditProfileViewModel
     {
+        [StringLength(50)]
         public string DisplayName { get; set; }
+        [StringLength(50)]
         public string FirstName { get; set; }
+        [StringLength(50)]
         public string LastName { get; set; }
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }
+        [StringLength(250)]
         public string Biography { get; set; }
+        [Date]
         public DateTime? DateOfBirth { get; set; }
-        public byte[] ProfilePicture { get; set; }
+        [Image]
+        public HttpPostedFileBase ProfilePicture { get; set; }
+        public byte[] Image { get; set; }
+        [Range(0, 250)]
         public int? Age { get; set; }
+        [StringLength(10)]
         public string Gender { get; set; }
     }
 

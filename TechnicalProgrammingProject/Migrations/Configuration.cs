@@ -6,8 +6,6 @@ using System.Data.Entity.Migrations;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Web;
-using System.Web.Hosting;
 using System.Reflection;
 using System;
 
@@ -28,43 +26,40 @@ namespace TechnicalProgrammingProject.Migrations
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
             // first we create SuperAdmin role   
-            var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+            var role = new IdentityRole();
             role.Name = "SuperAdmin";
             roleManager.Create(role);
 
             // first we create SuperAdmin role   
-            var role1 = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+            var role1 = new IdentityRole();
             role1.Name = "Moderator";
             roleManager.Create(role1);
 
             // first we create SuperAdmin role   
-            var role2 = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+            var role2 = new IdentityRole();
             role2.Name = "User";
             roleManager.Create(role2);
 
-            // ---- End New Code to Create Roles ----
+            var UserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
 
-            /*
-            var passwordHasher = new PasswordHasher();
-            string password = passwordHasher.HashPassword("Cooking1!");
-            context.Users.AddOrUpdate(u => u.UserName,
-                new ApplicationUser
-                {
-                    UserName = "bob@ross.com",
-                    Email = "bob@ross.com",
-                    PasswordHash = password,
-                    SecurityStamp = Guid.NewGuid().ToString()
-                });
-            */
+            var directoryName = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
+            var avatarPath = Path.Combine(directoryName, ".." + "~/Content/asset/images/avatar.jpg".TrimStart('~').Replace('/', '\\'));
+            var realAvatarPath = Path.GetFullPath(avatarPath);
+            Image avatarImage = Image.FromFile(realAvatarPath);
+            byte[] avatarByte;
 
-            // ---- New Code to Create Users ----
-
-            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            using (MemoryStream ms = new MemoryStream())
+            {
+                avatarImage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                avatarByte = ms.ToArray();
+            }
 
             var user = new ApplicationUser();
             user.UserName = "HulkHogan";
             user.Email = "HulkHogan@WWF.com";
             user.DisplayName = "Hulkamania";
+            user.ProfileImage = avatarByte;
+            user.Cookbook = new Cookbook() { ApplicationUser = user };
 
             string userPWD = "HulkHogan@42";
 
@@ -81,6 +76,8 @@ namespace TechnicalProgrammingProject.Migrations
             user1.UserName = "BobRoss";
             user1.Email = "bob@ross.com";
             user1.DisplayName = "The Joy of Painting";
+            user1.ProfileImage = avatarByte;
+            user1.Cookbook = new Cookbook() { ApplicationUser = user1 };
 
             string userPWD1 = "Cooking1!";
 
@@ -97,6 +94,8 @@ namespace TechnicalProgrammingProject.Migrations
             user2.UserName = "Weeb";
             user2.Email = "Weeb@anime.com";
             user2.DisplayName = "So Kawaii!";
+            user2.ProfileImage = avatarByte;
+            user2.Cookbook = new Cookbook() { ApplicationUser = user2 };
 
             string userPWD2 = "ilovebodypillows@42";
 
@@ -110,14 +109,7 @@ namespace TechnicalProgrammingProject.Migrations
 
             // ---- End New Code to Create Users ---- //
 
-            context.SaveChanges();
-
-            context.Users.ToList().ForEach(u => context.Cookbooks.AddOrUpdate(c => c.ApplicationUserID, new Cookbook { ApplicationUser = u }));
-
-            context.SaveChanges();
-
-            var directoryName = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
-
+            // ---- Code to get Images for Recipes --- //
             var beefPath = Path.Combine(directoryName, ".." + "~/Content/Images/beef.jpg".TrimStart('~').Replace('/', '\\'));
             var realBeefPath = Path.GetFullPath(beefPath);
             Image beefImage = Image.FromFile(realBeefPath);
@@ -167,6 +159,7 @@ namespace TechnicalProgrammingProject.Migrations
                 baconImage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
                 baconByte = ms.ToArray();
             }
+            // ---- Code to get Images for Recipes --- //
 
             List<Recipe> recipes = new List<Recipe>()
             {
@@ -178,8 +171,7 @@ namespace TechnicalProgrammingProject.Migrations
                     CookTime = 4,
                     Servings = 1,
                     Directions = "Step 1.) Get Bacon \n Step 2.) Cook Bacon \n Step 3.) Eat Bacon",
-                    ImageURL = baconByte,
-                    Rating = 11
+                    ImageURL = baconByte
                 },
                  new Recipe
                 {
@@ -190,7 +182,6 @@ namespace TechnicalProgrammingProject.Migrations
                     Servings = 4,
                     Directions = "Taco Time!",
                     ImageURL = tacoByte,
-                    Rating = 10
                 },
                   new Recipe
                 {
@@ -200,8 +191,7 @@ namespace TechnicalProgrammingProject.Migrations
                     CookTime = 0,
                     Servings = 1,
                     Directions = "Just go to Belgium and buy it. You cannot make it as good as they can.",
-                    ImageURL = waffleByte,
-                    Rating = 69
+                    ImageURL = waffleByte
                 },
                    new Recipe
                 {
@@ -211,8 +201,7 @@ namespace TechnicalProgrammingProject.Migrations
                     CookTime = 5,
                     Servings = 6,
                     Directions = "Mix chicken with lettuce",
-                    ImageURL = chickenByte,
-                    Rating = 9
+                    ImageURL = chickenByte
                 },
                 new Recipe
                 {
@@ -222,8 +211,7 @@ namespace TechnicalProgrammingProject.Migrations
                     CookTime = 20,
                     Servings = 8,
                     Directions = "Sautee beef",
-                    ImageURL = beefByte,
-                    Rating = 8
+                    ImageURL = beefByte
                 }
             };
 
@@ -234,7 +222,7 @@ namespace TechnicalProgrammingProject.Migrations
             List<Ingredient> ingredients = new List<Ingredient>()
             {
                 new Ingredient { ID = 1, Name = "Bacon", Quantity = 20, Unit = "Grams" },
-                new Ingredient { ID = 2, Name = "Soft Taco Shell", Quantity = 2, Unit = "" },
+                new Ingredient { ID = 2, Name = "Soft Taco Shell", Quantity = 2, Unit = "Grams" },
                 new Ingredient { ID = 3, Name = "Chicken", Quantity = 6, Unit = "KiloGrams" },
                 new Ingredient { ID = 4, Name = "Beef", Quantity = 4, Unit = "KiloGrams" },
                 new Ingredient { ID = 5, Name = "Belgian Waffle", Quantity = 1, Unit = "Grams" },

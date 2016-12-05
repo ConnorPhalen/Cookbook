@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -49,12 +51,13 @@ namespace TechnicalProgrammingProject.Controllers
             }
         }
 
+        [HttpGet]
         public ActionResult Search(string searchTerm = "")
         {
-            IEnumerable<Recipe> searchResult = db.Recipes.Where(r => searchTerm == ""
-                                                    || r.Name.Contains(searchTerm)
+            IEnumerable<Recipe> searchResult = db.Recipes.Where(r => r.Status == "approved"
+                                                    && ( r.Name.Contains(searchTerm)
                                                     || r.Tags.Any(t => t.Name == searchTerm)
-                                                    || r.Ingredients.Any(i => i.Name == searchTerm))
+                                                    || r.Ingredients.Any(i => i.Name == searchTerm)))
                                                     .OrderBy(r => r.Name);
 
             if (searchResult == null)
@@ -96,21 +99,26 @@ namespace TechnicalProgrammingProject.Controllers
                 //new recipe to insert
                 Recipe recipe = new Recipe();
                 //if image field is filled
-                if (recipeViewModel.Image != null)
+                using (MemoryStream ms = new MemoryStream())
                 {
-                    //get filename
-                    //string pic = Path.GetFileName(recipeViewModel.Image.FileName);
-                    //get path
-                    //string path = Path.Combine(Server.MapPath("~/images/recipe"), pic);
-                    
-                    //recipeViewModel.Image.SaveAs(path);
-
-                    using (MemoryStream ms = new MemoryStream())
+                    //images has been added
+                    if (recipeViewModel.Image != null)
                     {
                         //copy to memorystream
                         recipeViewModel.Image.InputStream.CopyTo(ms);
                         //store bytes inside recipe
                         byte[] image = ms.GetBuffer();
+                        recipe.ImageURL = image;
+                    }
+                    //image hasn't been added
+                    else
+                    {
+                        //copy to memorystream
+                        var path = HttpContext.Server.MapPath("~/Content/Images/food-icon.png");
+                        Image foodImage = Image.FromFile(path);
+                        foodImage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        //store bytes inside recipe
+                        byte[] image = ms.ToArray();
                         recipe.ImageURL = image;
                     }
                 }
@@ -126,10 +134,20 @@ namespace TechnicalProgrammingProject.Controllers
                 recipe.Ingredients = recipeViewModel.Ingredients;
                 recipe.ApplicationUser = user;
                 recipe.Directions = recipeViewModel.Directions;
-                db.Recipes.Add(recipe);
-                //save to db
-                db.SaveChanges();
-                return View("Success");
+
+                try
+                {
+                    var cookbook = db.Cookbooks.Where(c => c.ApplicationUserID == user.Id).Single();
+                    recipe.Cookbooks.Add(cookbook);
+                    db.Recipes.Add(recipe);
+                    //save to db
+                    db.SaveChanges();
+                    return View("Success");
+                }
+                catch (InvalidOperationException)
+                {
+                    return View(recipeViewModel);
+                }
             }
             //if validation failed, return view with error messages
             return View(recipeViewModel);
@@ -177,7 +195,7 @@ namespace TechnicalProgrammingProject.Controllers
         }
 
         /// <summary>
-        /// TODO: Edit a recipe
+        /// Display Edit recipe view with initial recipe details.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -193,7 +211,22 @@ namespace TechnicalProgrammingProject.Controllers
             {
                 return HttpNotFound();
             }
-            return View(recipe);
+            EditRecipeViewModel model = new EditRecipeViewModel();
+
+            if (recipe.ImageURL != null)
+            {
+                model.Image = recipe.ImageURL;
+            }
+            model.ID = recipe.ID;
+            model.Name = recipe.Name;
+            model.Description = recipe.Description;
+            model.CookTime = recipe.CookTime;
+            model.Directions = recipe.Directions;
+            model.Servings = recipe.Servings;
+            model.Ingredients = recipe.Ingredients;
+            model.Tags = recipe.Tags;
+
+            return View(model);
         }
 
         /// <summary>
@@ -204,15 +237,39 @@ namespace TechnicalProgrammingProject.Controllers
         // POST: Recipes/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RecipeID,UserID,Name,Description,CookTime,Servings,ImageURL,Directions,Rating")] Recipe recipe)
+        public ActionResult Edit(EditRecipeViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                db.Entry(recipe).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return View(model);
             }
-            return View(recipe);
+
+            Recipe recipe = db.Recipes.Find(model.ID);
+
+            if (recipe == null)
+            {
+                return View(model);
+            }
+
+            if (model.RecipePicture != null)
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    //copy to memorystream
+                    model.RecipePicture.InputStream.CopyTo(ms);
+                    //store bytes inside recipe
+                    byte[] image = ms.GetBuffer();
+                    recipe.ImageURL = image;
+                }
+            }
+            //if (ModelState.IsValid)
+            //{
+            //    if (model.)
+            //    db.Entry(recipe).State = EntityState.Modified;
+            //    db.SaveChanges();
+            //    return RedirectToAction("Index");
+            //}
+            return View(model);
         }
 
         /// <summary>
@@ -230,7 +287,6 @@ namespace TechnicalProgrammingProject.Controllers
                                         Name = r.Name,
                                         //Image = r.ImageURL,
                                         DateUploaded = r.DateUploaded,
-                                        Rating = r.Rating,
                                         Status = r.Status,
                                         isDelete = false
                                     });
@@ -287,6 +343,62 @@ namespace TechnicalProgrammingProject.Controllers
             recipe.Ingredients.Add(new Ingredient());
 
             return PartialView(recipe);
+        }
+
+        [HttpPost]
+        public ActionResult RateRecipe(int? rating, int? recID)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userID = User.Identity.GetUserId();
+
+                // check to see if user has already rated the recipe
+                var recipeChck = db.Recipes.Where(r => r.ID == recID).Where(r => r.Ratings.Any(ra => ra.UserID == userID));
+                // rateCheck = rateCheck.Where(r => r.Ratings.All(ra => ra.UserID == userID));
+
+                // The user has previously rated
+                if (recipeChck.Count() > 0)
+                {
+                    // Get the single rating out of the recipe
+                    Rating rat = recipeChck.Select(r => r.Ratings).Select(ra => ra).Single().First();
+
+                    rat.rateNumber = (int)rating;
+                }
+                else // The user has not rated
+                {
+                    List<Rating> ratingList = new List<Rating>()
+                    {
+                        new Rating { UserID = userID, rateNumber = (int)rating }
+                    };
+
+                    ratingList.ForEach(rsub => db.Ratings.AddOrUpdate(ra => ra.ID, rsub));
+                    db.SaveChanges();
+
+                    Recipe curRec = db.Recipes.Find(recID);
+
+                    curRec.Ratings.Add(ratingList[0]);
+                }
+            }
+            db.SaveChanges();
+            return RedirectToAction("Details", "Recipes", new { id = recID });
+        }
+
+        public string getRatingAverage(int? recID)
+        {
+            double avg = 0;
+            var ratinglist = db.Ratings.Where(ra => ra.Recipes.Any(r => r.ID == recID));
+
+            if (ratinglist.Count() > 0)
+            {
+                // get the average for all the ratings
+                avg = ratinglist.Average(ra => ra.rateNumber);
+                return avg.ToString() + "/5!";
+            }
+            else
+            {
+                // No results, so no ratings for the recipe
+                return "No ratings yet!";
+            }
         }
 
         /// <summary>
