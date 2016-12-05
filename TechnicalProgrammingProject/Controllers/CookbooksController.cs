@@ -133,8 +133,8 @@ namespace TechnicalProgrammingProject.Controllers
         {
             var userID = User.Identity.GetUserId();
 
-            var searchResult = db.Cookbooks.Where(c => c.ApplicationUser.Id == userID)
-                                                        .Where(c => c.Recipes.Any(r => searchTerm == ""
+            var searchResult = db.Recipes.Where(r => r.Cookbooks.Any(c => c.ApplicationUser.Id == userID))
+                                                        .Where((r => searchTerm == ""
                                                         || r.Name.Contains(searchTerm)
                                                         || r.Tags.Any(t => t.Name == searchTerm)
                                                         || r.Ingredients.Any(i => i.Name == searchTerm)));
@@ -148,7 +148,7 @@ namespace TechnicalProgrammingProject.Controllers
             else
             {
                 ViewBag.Message = "Returned " + searchResult.Count().ToString() + " results.";
-                return View(searchResult);
+                return View(searchResult.ToList());
             }
         }
 
