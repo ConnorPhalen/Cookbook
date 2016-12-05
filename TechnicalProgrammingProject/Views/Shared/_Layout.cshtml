@@ -7,9 +7,12 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/content/Site.css")
     @Styles.Render("~/Content/asset/css/login")
+    @Styles.Render("~/Content/asset/css/recipeCard")    
     @Styles.Render("~/Content/asset/css/uploadRecipe.css")
+    @Styles.Render("~/bundels/hover")
     @Styles.Render("~/Content/asset/css/recipeDetails.css")
     @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.0.2/css/hover-min.css" />
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -25,7 +28,6 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Ingredients", "Index", "Ingredients")</li>
                     <li>@Html.ActionLink("Cookbook", "Index", "Cookbooks")</li>
                     <!-- Renders the SuperAdmin and Moderator only links -->
                     @{ Html.RenderAction("GetRoleLinks", "Users"); }
@@ -67,7 +69,6 @@
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
                             <li>@Html.ActionLink("Users", "Index", "Users")</li>
                             <li>@Html.ActionLink("Recipes", "Index", "Recipes")</li>
-                            <li>@Html.ActionLink("Ingredients", "Index", "Ingredients")</li>
                             <li>@Html.ActionLink("Cookbook", "Index", "Cookbooks")</li>
                         </ul>
                     </div><!-- end col-sm-2 -->
@@ -81,7 +82,8 @@
     @Scripts.Render("~/bundles/login")
     @Scripts.Render("~/bundles/sidebar")
     @Scripts.Render("~/bundles/datepicker")
-    
+    @Scripts.Render("~/bundles/recipeC")
+    @Scripts.Render("~/bundles/top")    
     @RenderSection("scripts", required: false)
 
 </body>

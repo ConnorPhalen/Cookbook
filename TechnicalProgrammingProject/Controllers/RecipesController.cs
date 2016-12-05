@@ -42,8 +42,17 @@ namespace TechnicalProgrammingProject.Controllers
             ViewBag.ReturnUrl = Request.UrlReferrer;
             try
             {
-                var recipes = db.Recipes.Where(r => r.ID == id).Include(r => r.Ingredients).Single();
-                return View(recipes);
+                var recipe = db.Recipes.Where(r => r.ID == id).Include(r => r.Ingredients).Single();
+
+                if (!User.Identity.IsAuthenticated)
+                {
+                    return View("~/Views/Recipes/Public/Details.cshtml", recipe);
+                }
+                if (recipe.ApplicationUser.Id == User.Identity.GetUserId())
+                {
+                    return View("~/Views/Recipes/Current/Details.cshtml", recipe);
+                }
+                return View(recipe);
             }
             catch (InvalidOperationException)
             {

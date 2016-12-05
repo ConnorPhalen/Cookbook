@@ -4,19 +4,22 @@
     ViewBag.Title = "Homepage";
 }
 
-<h2 id="homepage-page-title"> Welcome to The Grill, Private! Get Ready to Flambé!</h2>
+<div class="alert success">
+    <span class="closebtn">&times;</span>
+    <strong>Welcome to The Grill!</strong> Private! Get Ready to Flambé!
+</div>
 
-@using (Html.BeginForm("Search", "Recipes", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
-{
-    <input type="search" name="searchTerm" />
-    <input type="submit" value="Search By Name, Tag, or Ingredient" />
-}
 
 <p>@ViewBag.Message</p>
 <div class="container">
+    
     <div>
         @Html.Partial("_CarouselPartial")
     </div>
+    @using (Html.BeginForm("Search", "Recipes", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+    {
+        <input type="search" name="searchTerm" placeholder="Search..." autocomplete="off" />
+    }
     <!-- For each recipe in the model, display the recipes summary with a partial view -->
     <div class="row">
         @foreach (var recipe in Model)
@@ -25,3 +28,6 @@
         }
     </div>
 </div>
+
+
+@Scripts.Render("~/bundles/recipeC")
