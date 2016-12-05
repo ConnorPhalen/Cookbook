@@ -28,7 +28,6 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Ingredients", "Index", "Ingredients")</li>
                     <li>@Html.ActionLink("Cookbook", "Index", "Cookbooks")</li>
                     <!-- Renders the SuperAdmin and Moderator only links -->
                     @{ Html.RenderAction("GetRoleLinks", "Users"); }
@@ -70,7 +69,6 @@
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
                             <li>@Html.ActionLink("Users", "Index", "Users")</li>
                             <li>@Html.ActionLink("Recipes", "Index", "Recipes")</li>
-                            <li>@Html.ActionLink("Ingredients", "Index", "Ingredients")</li>
                             <li>@Html.ActionLink("Cookbook", "Index", "Cookbooks")</li>
                         </ul>
                     </div><!-- end col-sm-2 -->
