@@ -160,13 +160,16 @@
     <Content Include="Content\asset\css\profile.css" />
     <Content Include="Content\asset\css\leftsidebar.css" />
     <Content Include="Content\asset\css\login.css" />
+    <Content Include="Content\asset\css\recipeCard_CookBook.css" />
     <Content Include="Content\asset\css\recipesApprove.css" />
     <Content Include="Content\asset\js\createIngredients.js" />
     <Content Include="Content\asset\js\datePickerReady.js" />
+    <Content Include="Content\asset\js\recipecard.js" />
     <Content Include="Content\asset\js\leftsidebar.js" />
     <Content Include="Content\asset\js\login.js" />
     <Content Include="Content\asset\css\recipeCard.css" />
     <Content Include="Content\asset\images\avatar.jpg" />
+    <Content Include="Content\asset\js\topmsg.js" />
     <Content Include="Content\asset\js\preview.js" />
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap-datepicker.min.css" />
@@ -180,9 +183,11 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\hover-min.css" />
     <Content Include="Content\Images\bacon.jpg" />
     <Content Include="Content\Images\beef.jpg" />
     <Content Include="Content\Images\chicken.jpg" />
+    <Content Include="Content\Images\food-icon.png" />
     <Content Include="Content\Images\taco.png" />
     <Content Include="Content\Images\waffle.jpg" />
     <Content Include="Content\Site.css" />
@@ -197,6 +202,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="ClassDiagram1.cd" />
     <Content Include="Content\bootstrap-datepicker3.standalone.min.css.map" />
     <Content Include="Content\bootstrap-datepicker3.standalone.css.map" />
     <Content Include="Content\bootstrap-datepicker3.min.css.map" />
@@ -299,13 +305,7 @@
     </Content>
     <Content Include="Views\Recipes\Create.cshtml" />
     <Content Include="Views\Recipes\Details.cshtml" />
-    <Content Include="Views\Recipes\Edit.cshtml" />
     <Content Include="Views\Recipes\Index.cshtml" />
-    <Content Include="Views\Ingredients\Create.cshtml" />
-    <Content Include="Views\Ingredients\Delete.cshtml" />
-    <Content Include="Views\Ingredients\Details.cshtml" />
-    <Content Include="Views\Ingredients\Edit.cshtml" />
-    <Content Include="Views\Ingredients\Index.cshtml" />
     <Content Include="Views\Cookbooks\Create.cshtml" />
     <Content Include="Views\Cookbooks\Delete.cshtml" />
     <Content Include="Views\Cookbooks\Details.cshtml" />
@@ -350,6 +350,11 @@
     <Content Include="Views\Users\ManageUsers.cshtml" />
     <Content Include="Views\Users\_ManageUserPartial.cshtml" />
     <Content Include="Views\Shared\_ModeratorNavPartial.cshtml" />
+    <Content Include="Views\Shared\_RecipeCard_CookBook.cshtml" />
+    <Content Include="Views\Cookbooks\Search.cshtml" />
+    <Content Include="Views\Recipes\Edit.cshtml" />
+    <Content Include="Views\Recipes\Public\Details.cshtml" />
+    <Content Include="Views\Recipes\Current\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -363,11 +368,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Attributes\HttpPostedFileExtensionsAttribute.cs" />
+    <Compile Include="Attributes\DateAttribute.cs" />
+    <Compile Include="Attributes\ImageAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CookbooksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\IngredientsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\RecipesController.cs" />
@@ -386,6 +391,7 @@
     <Compile Include="Models\ManageRecipeViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ManageUserViewModel.cs" />
+    <Compile Include="Models\Rating.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\Recipe.cs" />
     <Compile Include="Models\RecipeViewModels.cs" />

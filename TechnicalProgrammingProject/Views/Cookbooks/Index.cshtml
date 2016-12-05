@@ -6,9 +6,17 @@
 
 <h2> Your Cookbook Recipes</h2>
 
+@using (Html.BeginForm("Search", "Cookbooks", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+{
+    <input type="search" name="searchTerm" />
+    <input type="submit" value="Search By Name, Tag, or Ingredient" />
+}
+
+<p>@ViewBag.Message</p>
+
 <div class="row">
     @foreach (var userRecipe in Model)
     {
-        @Html.Partial("_RecipeCard", userRecipe);
+        @Html.Partial("_RecipeCard_CookBook", userRecipe);
     }
 </div>

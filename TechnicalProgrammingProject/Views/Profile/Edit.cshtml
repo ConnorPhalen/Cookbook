@@ -1,7 +1,7 @@
 ﻿@model TechnicalProgrammingProject.Models.EditProfileViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Profile";
 }
 
 @Styles.Render("~/content/asset/css/profile.css")
@@ -23,6 +23,7 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="col-md-4 avatar">
                     @Html.Image(Model.Image, new { @class = "img-responsive img-thumbnail", @id = "Avatar" })
+                    @Html.HiddenFor(model => model.Image);
                 </div>
 
                 <div class="col-md-8 infoContainer">

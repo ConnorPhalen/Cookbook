@@ -95,6 +95,7 @@ namespace TechnicalProgrammingProject.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(EditProfileViewModel model)
         {
             if (!ModelState.IsValid)

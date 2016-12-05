@@ -1,8 +1,8 @@
 ﻿$(document).ready(function () {
     var $container = $('.nav .row');
-
+    
     $('#loginLink').on('mouseover', function () {
-        $container.stop(true).fadeIn(100);
+        $container.stop(true).fadeIn(400);
     }).on('mouseleave', function () {
         $container.stop(true).delay(100).fadeOut(100);
     });

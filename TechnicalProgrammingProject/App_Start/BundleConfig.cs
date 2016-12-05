@@ -23,11 +23,19 @@ namespace TechnicalProgrammingProject
             bundles.Add(new ScriptBundle("~/bundles/datepicker").Include(
                     "~/Content/asset/js/datepickerReady.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/recipeC").Include(
+                   "~/Content/asset/js/recipecard.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/login").Include(
                      "~/Content/asset/js/login.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/sidebar").Include(
                      "~/Content/asset/js/leftsidebar.js"));
+
+            
+            bundles.Add(new ScriptBundle("~/bundles/top").Include(
+                     "~/Content/asset/js/topmsg.js"));
+
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
@@ -41,11 +49,16 @@ namespace TechnicalProgrammingProject
 
             bundles.Add(new StyleBundle("~/Content/asset/css/uploadRecipe").Include(
                       "~/Content/asset/css/uploadRecipe.css"));
+            bundles.Add(new StyleBundle("~/Content/asset/css/recipeCard").Include(
+                     "~/Content/asset/css/recipeCard.css"));
+            bundles.Add(new StyleBundle("~/Content/asset/css/recipeCard_CookBook").Include(
+                    "~/Content/asset/css/recipeCard_CookBook.css"));
             bundles.Add(new StyleBundle("~/bundles/recipesapprove").Include(
                    "~/Content/asset/css/recipesApprove.css"));
+            bundles.Add(new StyleBundle("~/bundles/hover").Include(
+                 "~/Content/asset/css/hover-min.css"));
             bundles.Add(new StyleBundle("~/Content/asset/css/recipedetails").Include(
                    "~/Content/asset/css/recipeDetails.css"));
-
 
         }
     }

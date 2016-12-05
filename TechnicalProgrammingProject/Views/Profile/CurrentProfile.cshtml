@@ -16,7 +16,7 @@
             <div class="rowt ">
                 <div class="col-md-10 col-md-offset-1">
                     <div class="col-md-5 avatar">
-                        <img src="~/Content/asset/images/avatar.jpg" alt="Profile image" class="img-responsive img-thumbnail" />
+                        @Html.Image(Model.ProfilePicture, new{ @class = "img-responsive img-thumbnail" })
                         <div class="row">
                             <br />
                             <div class="col-md-12 link">

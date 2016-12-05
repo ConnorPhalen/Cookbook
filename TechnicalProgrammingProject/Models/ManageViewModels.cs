@@ -26,16 +26,16 @@ namespace TechnicalProgrammingProject.Models
         public string FirstName { get; set; }
         [StringLength(50)]
         public string LastName { get; set; }
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }
         [StringLength(250)]
         public string Biography { get; set; }
+        [Date]
         public DateTime? DateOfBirth { get; set; }
-
-        [HttpPostedFileExtensions]
-        [ValidateFileSize(ErrorMessage = "Image must be less than 1MB")]
+        [Image]
         public HttpPostedFileBase ProfilePicture { get; set; }
-
         public byte[] Image { get; set; }
+        [Range(0, 250)]
         public int? Age { get; set; }
         [StringLength(10)]
         public string Gender { get; set; }
